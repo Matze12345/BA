@@ -2,6 +2,10 @@ import React from "react";
 import { Button, FormGroup, FormControl, ControlLabel, Col, Form, HelpBlock } from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
 import ReactStars from 'react-stars'
+import {connect} from "react-redux"
+import { fetchInit } from "../actions/initAction"
+
+
 
 function FieldGroup({ id, label, inputCol, labelCol, valState, size, ...props }) {
     return (
@@ -17,7 +21,12 @@ function FieldGroup({ id, label, inputCol, labelCol, valState, size, ...props })
     );
 }
 
-
+@connect((store) => {  // Wenn sich irgendwas in diesem Store ändert, was für dieses Komponente relevant ist, wird dies mit
+    // dieser Methode behandelt. Für alle, die mit store connected sind, werden die reducer aufgerufen
+    return {
+        NewInit: store.initRed.initR,
+    };
+})
 
 export default class Home extends React.Component {
 
@@ -35,7 +44,13 @@ export default class Home extends React.Component {
             inputCol: 5,
             editRating: true,
             valueRating: 0,
+            hiddenForm: false,
+            hiddenRating: "true",
         }
+    }
+
+    componentWillMount() {
+        this.props.dispatch(fetchInit("id", ""))
     }
 
     buttonclick(){
@@ -54,25 +69,22 @@ export default class Home extends React.Component {
         } else{
             this.setState({valStatePw: null})
         }
-
+        this.setState({hiddenForm: true, hiddenRating: false})
     }
 
     changeStatus(event) {
         this.setState({ [event.target.name]: event.target.value})
     }
 
-    rating1(event){
-        console.log("rating")
-
-    }
-
     rating = (stars) => {
-        this.setState({editRating: false, valueRating: stars})
+        this.setState({editRating: false, valueRating: stars, hiddenForm: false, hiddenRating: true})
+        fetchInit("id", stars)
     }
 
 
 
   render() {
+      const formValue = this.props.NewInit;
 
       const formInstance = (
           <Form horizontal>
@@ -124,16 +136,19 @@ export default class Home extends React.Component {
     return (
       <div>
         <div class="row">
-            <div >  {formInstance} </div>
-
-            <ReactStars
-                count={5}
-                size={80}
-                color2={'#ffd700'}
-                edit={this.state.editRating}
-                value={this.state.valueRating}
-                onChange={this.rating.bind(this)}
-            />
+            <div hidden={this.state.hiddenForm}>  {formInstance} </div>
+            <div class="center-block" style={{width: "45%"}} >
+                <div hidden={this.state.hiddenRating}>
+                    <ReactStars
+                        count={5}
+                        size={80}
+                        color2={'#ffd700'}
+                        edit={this.state.editRating}
+                        value={this.state.valueRating}
+                        onChange={this.rating.bind(this)}
+                    />
+                </div>
+            </div>
         </div>
 
       </div>
