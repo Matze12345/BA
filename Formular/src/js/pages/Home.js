@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, FormGroup, FormControl, ControlLabel, Col, Form, HelpBlock } from 'react-bootstrap';
 import * as ReactBootstrap from 'react-bootstrap';
+import ReactStars from 'react-stars'
 
 function FieldGroup({ id, label, inputCol, labelCol, valState, size, ...props }) {
     return (
@@ -32,6 +33,8 @@ export default class Home extends React.Component {
             valStatePw: null,
             labelCol: 4,
             inputCol: 5,
+            editRating: true,
+            valueRating: 0,
         }
     }
 
@@ -56,6 +59,15 @@ export default class Home extends React.Component {
 
     changeStatus(event) {
         this.setState({ [event.target.name]: event.target.value})
+    }
+
+    rating1(event){
+        console.log("rating")
+
+    }
+
+    rating = (stars) => {
+        this.setState({editRating: false, valueRating: stars})
     }
 
 
@@ -113,7 +125,17 @@ export default class Home extends React.Component {
       <div>
         <div class="row">
             <div >  {formInstance} </div>
+
+            <ReactStars
+                count={5}
+                size={80}
+                color2={'#ffd700'}
+                edit={this.state.editRating}
+                value={this.state.valueRating}
+                onChange={this.rating.bind(this)}
+            />
         </div>
+
       </div>
     );
   }
