@@ -36,21 +36,21 @@ export default class Home extends React.Component {
             text: "",
             email: "",
             pw: "",
-            size: "small",
+           // size: "small",
             valStateText: null,
             valStateEmail: null,
             valStatePw: null,
-            labelCol: 4,
-            inputCol: 5,
+           // labelCol: 4,
+           // inputCol: 5,
             editRating: true,
             valueRating: 0,
             hiddenForm: false,
-            hiddenRating: "true",
+            hiddenRating: true,
         }
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchInit("id", ""))
+        this.props.dispatch(fetchInit("0", ""))
     }
 
     buttonclick(){
@@ -77,8 +77,9 @@ export default class Home extends React.Component {
     }
 
     rating = (stars) => {
-        this.setState({editRating: false, valueRating: stars, hiddenForm: false, hiddenRating: true})
-        fetchInit("id", stars)
+        this.setState({editRating: false, hiddenForm: false, hiddenRating: true});
+        this.props.dispatch(fetchInit(this.props.NewInit.id, stars));
+        console.log("POST home");
     }
 
 
@@ -94,10 +95,10 @@ export default class Home extends React.Component {
                   type="text"
                   label="Text"
                   placeholder="Enter text"
-                  labelCol={this.state.labelCol}
-                  inputCol={this.state.inputCol}
+                  labelCol={formValue.labelCol}//this.state.labelCol}
+                  inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStateText}
-                  bsSize={this.state.size}
+                  bsSize={formValue.size}//this.state.size}
                   onChange={this.changeStatus.bind(this)}
               />
               <FieldGroup
@@ -106,10 +107,10 @@ export default class Home extends React.Component {
                   type="email"
                   label="Email address"
                   placeholder="Enter email"
-                  labelCol={this.state.labelCol}
-                  inputCol={this.state.inputCol}
+                  labelCol={formValue.labelCol}//this.state.labelCol}
+                  inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStateEmail}
-                  bsSize={this.state.size}
+                  bsSize={formValue.size}//this.state.size}
                   onChange={this.changeStatus.bind(this)}
               />
               <FieldGroup
@@ -117,15 +118,15 @@ export default class Home extends React.Component {
                   name="pw"
                   label="Password"
                   type="password"
-                  labelCol={this.state.labelCol}
-                  inputCol={this.state.inputCol}
+                  labelCol={formValue.labelCol}//this.state.labelCol}
+                  inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStatePw}
-                  bsSize={this.state.size}
+                  bsSize={formValue.size}//this.state.size}
                   onChange={this.changeStatus.bind(this)}
               />
               <FormGroup>
-                  <Col smOffset={this.state.labelCol} sm={2}>
-                      <Button onClick={this.buttonclick.bind(this)} bsSize={this.state.size}>
+                  <Col smOffset={formValue.labelCol} sm={2}>
+                      <Button onClick={this.buttonclick.bind(this)} bsSize={formValue.size}>
                           Weiter
                       </Button>
                   </Col>
@@ -140,6 +141,7 @@ export default class Home extends React.Component {
             <div class="center-block" style={{width: "45%"}} >
                 <div hidden={this.state.hiddenRating}>
                     <ReactStars
+                        name={formValue.id}
                         count={5}
                         size={80}
                         color2={'#ffd700'}
@@ -150,7 +152,6 @@ export default class Home extends React.Component {
                 </div>
             </div>
         </div>
-
       </div>
     );
   }

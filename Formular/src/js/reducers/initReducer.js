@@ -1,6 +1,9 @@
 export default function reducer(state={    // reducer schaut Komponenten an, die mit ihm verbunden sind
                                     initR: {
-
+                                        id: "",
+                                        labelCol: "",
+                                        inputCol: "",
+                                        size: "",
                                     },
                                     fetching: false,
                                     fetched: false,
