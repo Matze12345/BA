@@ -22,7 +22,7 @@ module.exports = {
   output: {
     path: __dirname + "/src/",
     filename: "client.min.js",
-      publicPath: "/javascrpts/",
+     // publicPath: "/javascrpts/",
   },
   plugins: debug ? [] : [
     new webpack.optimize.DedupePlugin(),

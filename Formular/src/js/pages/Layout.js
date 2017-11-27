@@ -13,7 +13,12 @@ export default class Layout extends React.Component {
         return (
             <div>
 
-              <Nav location={location} />
+                <div class="jumbotron">
+                    <div class="container">
+                      <h1>Formular</h1>
+                      <p>Berwerten Sie verschiedene Formulare</p>
+                    </div>
+                </div>
 
               <div class="container" style={containerStyle}>
                 <div class="row">

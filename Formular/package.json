@@ -22,6 +22,7 @@
     "react-router": "^1.0.3",
     "react-star-rating": "^1.4.2",
     "react-stars": "^2.2.5",
+    "react-with-important-style": "^0.2.2",
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.0.0",

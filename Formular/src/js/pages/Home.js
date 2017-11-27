@@ -53,23 +53,29 @@ export default class Home extends React.Component {
         this.props.dispatch(fetchInit("0", ""))
     }
 
-    buttonclick(){
+    nextForm(){
+        var error = false;
         if(this.state.text == "" ){
             this.setState({valStateText: "error"})
+            error = true;
         } else{
             this.setState({valStateText: null})
         }
         if(this.state.email == "" ){
             this.setState({valStateEmail: "error"})
+            error = true;
         } else{
             this.setState({valStateEmail: null})
         }
         if(this.state.pw == "" ){
             this.setState({valStatePw: "error"})
+            error = true;
         } else{
             this.setState({valStatePw: null})
         }
-        this.setState({hiddenForm: true, hiddenRating: false})
+        if(error == false) {
+            this.setState({valStateText: null, valStateEmail: null, valStatePw: null, text: "", email: "", pw: "", hiddenForm: true, hiddenRating: false})
+        }
     }
 
     changeStatus(event) {
@@ -99,6 +105,7 @@ export default class Home extends React.Component {
                   inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStateText}
                   bsSize={formValue.size}//this.state.size}
+                  value={this.state.text}
                   onChange={this.changeStatus.bind(this)}
               />
               <FieldGroup
@@ -111,6 +118,7 @@ export default class Home extends React.Component {
                   inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStateEmail}
                   bsSize={formValue.size}//this.state.size}
+                  value={this.state.email}
                   onChange={this.changeStatus.bind(this)}
               />
               <FieldGroup
@@ -122,11 +130,12 @@ export default class Home extends React.Component {
                   inputCol={formValue.inputCol}//this.state.inputCol}
                   valState = {this.state.valStatePw}
                   bsSize={formValue.size}//this.state.size}
+                  value={this.state.pw}
                   onChange={this.changeStatus.bind(this)}
               />
               <FormGroup>
                   <Col smOffset={formValue.labelCol} sm={2}>
-                      <Button onClick={this.buttonclick.bind(this)} bsSize={formValue.size}>
+                      <Button onClick={this.nextForm.bind(this)} bsSize={formValue.size}>
                           Weiter
                       </Button>
                   </Col>
