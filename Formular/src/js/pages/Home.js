@@ -135,7 +135,7 @@ export default class Home extends React.Component {
               />
               <FormGroup>
                   <Col smOffset={formValue.labelCol} sm={2}>
-                      <Button onClick={this.nextForm.bind(this)} bsSize={formValue.size}>
+                      <Button style={{backgroundColor: formValue.color, borderColor: formValue.color}} onClick={this.nextForm.bind(this)} bsSize={formValue.size}>
                           Weiter
                       </Button>
                   </Col>
@@ -146,19 +146,30 @@ export default class Home extends React.Component {
     return (
       <div>
         <div class="row">
-            <div hidden={this.state.hiddenForm}>  {formInstance} </div>
-            <div class="center-block" style={{width: "45%"}} >
-                <div hidden={this.state.hiddenRating}>
-                    <ReactStars
-                        name={formValue.id}
-                        count={5}
-                        size={80}
-                        color2={'#ffd700'}
-                        edit={this.state.editRating}
-                        value={this.state.valueRating}
-                        onChange={this.rating.bind(this)}
-                    />
+            <div hidden={formValue.hide}>
+                <div hidden={this.state.hiddenForm}>  {formInstance} </div>
+
+                <div style={{display: 'flex', justifyContent: 'center'}}>
+                    <div hidden={this.state.hiddenRating}>
+                        <br/>
+                        <div><h4>Berwerten Sie das Formular mit 1-5 Sternen</h4>
+                        <br/>
+                           <ReactStars
+                            name={formValue.id}
+                            count={5}
+                            size={80}
+                            color2={'#ffd700'}
+                            edit={this.state.editRating}
+                            value={this.state.valueRating}
+                            onChange={this.rating.bind(this)}
+                        />
+                       </div>
                 </div>
+                </div>
+            </div>
+            <br/><br/>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+               <div><h2>{formValue.msg}</h2></div>
             </div>
         </div>
       </div>
