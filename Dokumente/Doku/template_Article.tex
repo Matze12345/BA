@@ -1,0 +1,74 @@
+\documentclass[12pt, twoside, a4paper, DIV12, BCOR16mm]{scrartcl}
+%scrartcl und fancyhdr sind nicht kompatibel
+\makeatletter
+\DeclareOldFontCommand{\rm}{\normalfont\rmfamily}{\mathrm}
+\DeclareOldFontCommand{\sf}{\normalfont\sffamily}{\mathsf}
+\DeclareOldFontCommand{\tt}{\normalfont\ttfamily}{\mathtt}
+\DeclareOldFontCommand{\bf}{\normalfont\bfseries}{\mathbf}
+\DeclareOldFontCommand{\it}{\normalfont\itshape}{\mathit}
+\DeclareOldFontCommand{\sl}{\normalfont\slshape}{\@nomath\sl}
+\DeclareOldFontCommand{\sc}{\normalfont\scshape}{\@nomath\sc}
+\makeatother
+
+%Ländereinstellungen
+\usepackage[english, german]{babel}
+
+%Grafiken, erweiterte Kopf- und Fußzeilen, Seienreferenzvariablen, Listings, erweiterte Symbole,
+%deutsche Literatur Formatierung, zeilen-übergreifende Kommentare, Textmarkierungen
+\usepackage{graphicx, fancyhdr, lastpage, listings, wasysym,
+	bibgerm, comment, changebar, subfigure}
+\usepackage[usenames, dvipsnames]{color} %für mehr Farben
+% weiter evtl. nützliche Packages: ifthen, wasysym, changebar, supertabular
+
+\usepackage[doublespacing]{setspace}
+
+%\usepackage{palatino}% weitere Schriftarten
+
+\usepackage[utf8]{inputenc} % Umlaute richtig verarbeiten  
+\usepackage[T1]{fontenc}      % Feinheiten im Satz von Umlauten
+
+
+
+% Packages, die 'bessere' PDF-Dokumente erzeugen 
+\usepackage{ae} 
+\usepackage[
+pdftitle={Ausarbeitung}
+bookmarks=true,
+bookmarksnumbered=true, % Verwendete Bookmarks anzeigen
+colorlinks,   % Farbige Links
+linkcolor=black,
+urlcolor=blue,
+citecolor=black]{hyperref}
+%\usepackage[dvips]{thumbpdf}
+
+\pagestyle{fancy}
+
+% Legt die Einrücktiefe der ersten Zeile für aller Absätze fest. (0:=Absätze nicht einrücken)
+\setlength{\parindent}{0pt}  
+%\parskip1ex plus0.5ex minus0.5ex   
+
+% Legt die Breite des Randnotizen-Bereichs festlegen (auch über BCORxxx konfigurierbar)
+%\setlength{\marginparwidth}{25mm}
+%\evensidemargin0mm
+%\oddsidemargin8mm
+
+% Definiert die Gesamthöhe des Textrumpfes für alle nachfolgenden Seiten.
+\setlength{\textheight}{225mm}
+\setlength{\headheight}{13mm}
+\setlength{\topskip}{10mm}
+
+% Nummerierungstiefe des Inhaltsverzeichnis 
+\setcounter{tocdepth}{3} % auch {3} ist OK aber bitte nicht mehr
+
+% Kopfzeilenformatierung
+%\fancyhead[RO,LE]{\small \sffamily Inhalt} 
+%\fancyhead[LO,RE]{\small \sffamily Beispiel für ein \LaTeX\ Dokument} 
+
+
+
+\begin{document}
+ \include{Inhalt}
+ 
+ 
+
+\end{document} 
