@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.24)  12 DEC 2017 20:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.11.24)  13 DEC 2017 09:34
 entering extended mode
 **./template_Article.tex
 (template_Article.tex
@@ -784,25 +784,28 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip73
 )
-(template_Article.aux (Inhalt.aux))
+(template_Article.aux (Inhalt.aux
+
+LaTeX Warning: Label `Perzeptron' multiply defined.
+
+))
 \openout1 = `template_Article.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 69.
-LaTeX Font Info:    ... okay on input line 69.
-
-("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 67.
+LaTeX Font Info:    ... okay on input line 67.
+ ("C:\Program Files\MiKTeX 2.9\tex\context\base\supp-pdf.mkii"
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count121
 \scratchdimen=\dimen122
@@ -830,14 +833,14 @@ G,.JBIG2,.JB2,.eps]
 )
 Package lastpage Info: Please have a look at the pageslts package at
 (lastpage)             https://www.ctan.org/pkg/pageslts
-(lastpage)             ! on input line 69.
+(lastpage)             ! on input line 67.
 \c@lstlisting=\count127
 
 
 bibgerm.sty: babel.sty detected
 
 \AtBeginShipoutBox=\box31
-Package hyperref Info: Link coloring ON on input line 69.
+Package hyperref Info: Link coloring ON on input line 67.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 
@@ -846,9 +849,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count128
 )
-LaTeX Info: Redefining \ref on input line 69.
-LaTeX Info: Redefining \pageref on input line 69.
-LaTeX Info: Redefining \nameref on input line 69.
+LaTeX Info: Redefining \ref on input line 67.
+LaTeX Info: Redefining \pageref on input line 67.
+LaTeX Info: Redefining \nameref on input line 67.
 
 (template_Article.out) (template_Article.out)
 \@outlinefile=\write6
@@ -874,50 +877,25 @@ Package babel Info: Redefining german shorthand "|
 (babel)             in language  on input line 2.
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 2.
+<Bilder/perzeptron_and_xor.jpg, id=27, 1668.2325pt x 823.075pt>
+File: Bilder/perzeptron_and_xor.jpg Graphic file (type jpg)
+<use Bilder/perzeptron_and_xor.jpg>
+Package pdftex.def Info: Bilder/perzeptron_and_xor.jpg  used on input line 5. o
+n input line 5.
+Package pdftex.def Info: Requested size: 413.98766pt x 204.24858pt on input lin
+e 5.
+<Bilder/multilayer_perzeptron.jpg, id=28, 890.5772pt x 463.7325pt>
+File: Bilder/multilayer_perzeptron.jpg Graphic file (type jpg)
+<use Bilder/multilayer_perzeptron.jpg>
+Package pdftex.def Info: Bilder/multilayer_perzeptron.jpg  used on input line 1
+5. on input line 15.
+Package pdftex.def Info: Requested size: 413.98766pt x 215.56969pt on input lin
+e 15.
 
-Underfull \vbox (badness 1668) has occurred while \output is active []
+Underfull \hbox (badness 10000) in paragraph at lines 3--19
 
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 6.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 6.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 6.
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 6.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 6.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 6.
- [1{C:/Users/Unbekannt/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map}
+ []
 
-
-]
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 9.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 9.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 9.
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 14.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 14.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 14.
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 14.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 14.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 14.
- [2]
-Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 16.
-Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 16.
-Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 16.
 Package babel Info: Redefining german shorthand "f
 (babel)             in language  on input line 19.
 Package babel Info: Redefining german shorthand "|
@@ -925,97 +903,183 @@ Package babel Info: Redefining german shorthand "|
 Package babel Info: Redefining german shorthand "~
 (babel)             in language  on input line 19.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 22.
+(babel)             in language  on input line 19.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 22.
+(babel)             in language  on input line 19.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 22.
+(babel)             in language  on input line 19.
+[1
 
-Underfull \vbox (badness 2384) has occurred while \output is active []
+
+{C:/Users/Unbekannt/AppData/Local/MiKTeX/2.9/pdftex/config/pdftex.map} <./Bilde
+r/perzeptron_and_xor.jpg>]
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 20.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 20.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 20.
+<Bilder/k_nearest_neighbour.png, id=37, 518.4168pt x 388.8126pt>
+File: Bilder/k_nearest_neighbour.png Graphic file (type png)
+<use Bilder/k_nearest_neighbour.png>
+Package pdftex.def Info: Bilder/k_nearest_neighbour.png  used on input line 26.
+ on input line 26.
+Package pdftex.def Info: Requested size: 413.98766pt x 310.49281pt on input lin
+e 26.
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--33
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 22--33
+
+ []
 
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 24.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 24.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 24.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 24.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 24.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 24.
- [3]
+(babel)             in language  on input line 33.
+[2 <./Bilder/multilayer_perzeptron.jpg>]
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 25.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 25.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 25.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 28.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 28.
+(babel)             in language  on input line 33.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 28.
-)
+(babel)             in language  on input line 33.
+ [3 <./Bilder/k_nearest_neighbour.png>]
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 34.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 34.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 34.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 34.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 34.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 70.
-
+(babel)             in language  on input line 34.
 [4]
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 35.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 35.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 35.
+<Bilder/clustering.png, id=54, 803.0pt x 401.5pt>
+File: Bilder/clustering.png Graphic file (type png)
+<use Bilder/clustering.png>
+Package pdftex.def Info: Bilder/clustering.png  used on input line 38. on input
+ line 38.
+Package pdftex.def Info: Requested size: 413.98766pt x 206.99841pt on input lin
+e 38.
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 42.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 70.
+(babel)             in language  on input line 42.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 70.
- [5] 
+(babel)             in language  on input line 42.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 50.
+ [5 <./Bilder/clustering.png>]
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 50.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 50.
+<Bilder/hierarchisches_clustering.jpg, id=62, 540.0978pt x 341.1144pt>
+File: Bilder/hierarchisches_clustering.jpg Graphic file (type jpg)
+<use Bilder/hierarchisches_clustering.jpg>
+Package pdftex.def Info: Bilder/hierarchisches_clustering.jpg  used on input li
+ne 53. on input line 53.
+Package pdftex.def Info: Requested size: 413.98766pt x 261.46693pt on input lin
+e 53.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 57.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 57.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 57.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 57.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 57.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 57.
+ [6 <./Bilder/hierarchisches_clustering.jpg>])
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 68.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 68.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 68.
+Package babel Info: Redefining german shorthand "f
+(babel)             in language  on input line 68.
+Package babel Info: Redefining german shorthand "|
+(babel)             in language  on input line 68.
+Package babel Info: Redefining german shorthand "~
+(babel)             in language  on input line 68.
+[7] 
 AED: lastpage setting LastPage
 Package babel Info: Redefining german shorthand "f
-(babel)             in language  on input line 74.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining german shorthand "|
-(babel)             in language  on input line 74.
+(babel)             in language  on input line 72.
 Package babel Info: Redefining german shorthand "~
-(babel)             in language  on input line 74.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 74.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 74.
+(babel)             in language  on input line 72.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 72.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 72.
 (template_Article.aux (Inhalt.aux))
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 74.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 74.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 72.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 72.
 Package rerunfilecheck Info: File `template_Article.out' has not changed.
-(rerunfilecheck)             Checksum: 56EFE96CD1DFC821F35CC32C8307C87A;578.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 74.
+(rerunfilecheck)             Checksum: 9AC41AFCD9798A9D8C85C66DF530CA5B;350.
+
+
+LaTeX Warning: There were multiply-defined labels.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 72.
  ) 
 Here is how much of TeX's memory you used:
- 10592 strings out of 493312
- 162703 string characters out of 3138886
- 346714 words of memory out of 3000000
- 13969 multiletter control sequences out of 15000+200000
- 17679 words of font info for 36 fonts, out of 3000000 for 9000
+ 10629 strings out of 493312
+ 163565 string characters out of 3138886
+ 348083 words of memory out of 3000000
+ 13994 multiletter control sequences out of 15000+200000
+ 15965 words of font info for 34 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,11n,56p,8842b,487s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Pro
-gram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsl12.pfb><C:/Program Fil
+ 42i,7n,56p,8842b,346s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Fil
 es/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmssbx10.pfb>
-Output written on template_Article.pdf (5 pages, 64342 bytes).
+Output written on template_Article.pdf (7 pages, 517806 bytes).
 PDF statistics:
- 75 PDF objects out of 1000 (max. 8388607)
- 14 named destinations out of 1000 (max. 500000)
- 65 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 91 PDF objects out of 1000 (max. 8388607)
+ 19 named destinations out of 1000 (max. 500000)
+ 74 words of extra memory for PDF output out of 10000 (max. 10000000)
 
