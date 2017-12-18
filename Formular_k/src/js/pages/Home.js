@@ -18,7 +18,12 @@ export default class Home extends React.Component {
         super(props);
         this.state = {
             vname: "",
-            nname: ""
+            nname: "",
+            str: "",
+            hnr: "",
+            plz: "",
+            ort: "",
+            click: 0,
         }
     }
 
@@ -29,28 +34,39 @@ export default class Home extends React.Component {
         this.setState({ [name]: value })
      }
 
+     handleSubmit = () => {
+       //performance.now()
+     }
+
+     handleClick = (e) => {
+        var { click } = this.state
+        click++
+        this.setState({ click: click })
+     }
 
   render() {
-   const { value } = this.state
+
+    const {} = this.state
+
     return (
       <div>
-        <div class="row">
+        <div class="row" onClick={this.handleClick}>
 
-             <Form>
+             <Form loading={false}>
                  <Form.Group widths='equal'>
                      <Form.Input label='Vorname' placeholder='Vorname' name='vname' onChange={this.handleChange}/>
                      <Form.Input label='Nachname' placeholder='Nachname' name='nname'  onChange={this.handleChange}/>
                  </Form.Group>
-                 <Form.Group inline>
-                      <label>Size</label>
-                      <Form.Radio label='Small' value='sm' checked={value === 'sm'} onChange={this.handleChange} />
-                      <Form.Radio label='Medium' value='md' checked={value === 'md'} onChange={this.handleChange} />
-                      <Form.Radio label='Large' value='lg' checked={value === 'lg'} onChange={this.handleChange} />
+                 <Form.Group widths='equal'>
+                     <Form.Input label='Straße' placeholder='Straße' name='str' onChange={this.handleChange}/>
+                     <Form.Input label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} onChange={this.handleChange}/>
                  </Form.Group>
-                    <Form.Button>Submit</Form.Button>
+                 <Form.Group widths='equal'>
+                     <Form.Input label='Postleitzahl' placeholder='Plz' name='plz' width={3} onChange={this.handleChange}/>
+                     <Form.Input label='Ort' placeholder='Ort' name='ort' onChange={this.handleChange}/>
+                 </Form.Group>
+                 <Form.Button primary onClick={this.handleSubmit}>Submit</Form.Button>
              </Form>
-
-
         </div>
       </div>
     );
