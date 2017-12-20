@@ -4,6 +4,8 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var dbData = new sqlite3.Database('./database/data.db');
 
+var clustering = require('density-clustering');
+var kmeans = new clustering.KMEANS();
 
 
     var add = function (click, time, callback) {
@@ -33,8 +35,22 @@ var dbData = new sqlite3.Database('./database/data.db');
 
 
 router.post('/', function(req, res, next) {
+    var clusternr = 0;
     add(req.body.click, req.body.time, function () {
         read(function (data) {
+
+            var clusters = kmeans.run(data, 4);
+            console.log(clusters)
+            for (var i = 0; i < clusters.length; i++){
+                console.log("cluster number: "+ (i + 1))
+                for(var j = 0; j < clusters[i].length; j++){
+                    console.log(data[clusters[i][j]] )
+                    if(clusters[i][j] == (data.length-1)){
+                        clusternr = i + 1;
+                    }
+                }
+            }
+            console.log("Datensatz wurde dem Cluster: " + clusternr + " zugewiesen")
             res.send({status: ""})
         })
     })
