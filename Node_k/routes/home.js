@@ -40,17 +40,24 @@ router.post('/', function(req, res, next) {
         read(function (data) {
 
             var clusters = kmeans.run(data, 4);
-            console.log(clusters)
+            //console.log(clusters)
             for (var i = 0; i < clusters.length; i++){
-                console.log("cluster number: "+ (i + 1))
+                //console.log("cluster number: "+ (i + 1))
                 for(var j = 0; j < clusters[i].length; j++){
-                    console.log(data[clusters[i][j]] )
+                    //console.log(data[clusters[i][j]] )
                     if(clusters[i][j] == (data.length-1)){
                         clusternr = i + 1;
                     }
                 }
             }
             console.log("Datensatz wurde dem Cluster: " + clusternr + " zugewiesen")
+
+            var optics = new clustering.OPTICS();
+            // parameters: 2 - neighborhood radius, 2 - number of points in neighborhood to form a cluster
+            var clusters = optics.run(data, 50000, 2);
+            //var plot = optics.getReachabilityPlot();
+            console.log(clusters);
+
             res.send({status: ""})
         })
     })
