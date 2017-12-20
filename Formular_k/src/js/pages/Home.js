@@ -36,6 +36,7 @@ export default class Home extends React.Component {
 
      handleSubmit = () => {
        //performance.now()
+         this.props.dispatch(fetchInit(this.state.click, performance.now()))
      }
 
      handleClick = (e) => {

@@ -9,7 +9,7 @@ export function fetchInitState() {
 export function setInitState(data) {
     return {
         type: "FETCH_INIT_FULFILLED",
-        payload:  data                   // jetzt ist der Request fertig --> nun wird der Reducer informiert und reagiert darauf
+        payload:  data
     }
 }
 
@@ -20,43 +20,38 @@ export function initRejectedState(error) {
     }
 }
 
-// actions werden nacheinander getriggert
-export function fetchInit(id, stars) {
+export function fetchInit(click, time) {
     return (dispatch) => {
-        dispatch(fetchInitState()); // setzt neuen Status, damit Kompnenten wissen dass Daten aktualisiert werden aber noch nicht da ist
-        return fetch(config.BASE_URL + 'home', {   // REST call
+        dispatch(fetchInitState());
+        return fetch(config.BASE_URL + 'home', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                id: id,
-                stars: stars,
+                click: click,
+                time: time,
             })
         })
-            .then(response => {   // response kommt zurück
+            .then(response => {
                 if (response.status >= 200 && response.status < 300) {
                     console.log(response);
-                    response.json().then(json => { // umwandeln zu json
+                    response.json().then(json => {
                         dispatch(setInitState(json));
                     });
                 } else {
                     console.log(response);
                     response.json().then(json => {
-                        dispatch(initRejectedState('Error on fetching')); // status FULFILLED setzten, alle Komponenten, die es interessiert, wissen nun dass die neuen Daten da sind
-                                                                     // und bekommen diese über die Props mit, da sich der State geändert hat.
+                        dispatch(initRejectedState('Error on fetching'));
                         throw error;
                     });
                 }
             })
             .catch(
                 error => {
-                    //  error.json().then(json => {
                     console.log(error)
                     dispatch(initRejectedState(error));
-                    //throw error;
-                    //});
                 }
             );
     };
