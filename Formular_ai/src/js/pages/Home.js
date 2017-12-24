@@ -34,6 +34,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
+      this.props.dispatch(fetchInit(this.state.clickv, this.state.clickn, this.state.clicks, this.state.clickh, this.state.clickp, this.state.clicko))
     }
 
      handleChange = (e, { name, value }) => {
@@ -41,6 +42,7 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
+        this.setState({points: 6})
          this.props.dispatch(fetchInit(this.state.clickv, this.state.clickn, this.state.clicks, this.state.clickh, this.state.clickp, this.state.clicko))
      }
 
@@ -52,32 +54,29 @@ export default class Home extends React.Component {
      }
 
   render() {
-
+    const array = this.props.NewInit
     const {} = this.state
+    var test = []
+
+    test.push(<Form.Group widths='equal'><Form.Input id="clickv" label='Vorname' placeholder='Vorname' name='vname'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
+    test.push(<Form.Group widths='equal'><Form.Input id="clickn" label='Nachname' placeholder='Nachname' name='nname'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
+    test.push(<Form.Group widths='equal'><Form.Input id="clicks" label='Straße' placeholder='Straße' name='str'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
+    test.push(<Form.Group widths='equal'><Form.Input id="clickh" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4}  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
+    test.push(<Form.Group widths='equal'><Form.Input id="clickp" label='Postleitzahl' placeholder='Plz' name='plz' width={3} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
+    test.push(<Form.Group widths='equal'><Form.Input id="clicko" label='Ort' placeholder='Ort' name='ort' onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>)
 
     return (
       <div>
         <div class="row">
-
              <Form loading={false}>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clickv" label='Vorname' placeholder='Vorname' name='vname'  onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clickn" label='Nachname' placeholder='Nachname' name='nname'  onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clicks" label='Straße' placeholder='Straße' name='str'  onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clickh" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4}  onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clickp" label='Postleitzahl' placeholder='Plz' name='plz' width={3} onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
-                 <Form.Group widths='equal'>
-                     <Form.Input id="clicko" label='Ort' placeholder='Ort' name='ort' onClick={this.handleClick} onChange={this.handleChange}/>
-                 </Form.Group>
+                {
+                    array.form.map(function (data) {
+                    return (
+                          test[data]
+                        )
+                    })
+                }
+
                  <Form.Button primary onClick={this.handleSubmit}>Submit</Form.Button>
              </Form>
         </div>
