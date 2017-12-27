@@ -7,6 +7,7 @@ var dbData = new sqlite3.Database('./database/data.db');
     var add = function (data, raw, callback) {
         var insert = ""
         var values = ""
+        console.log(data.length)
         for(var i = 0; i<data.length; i++){
             insert = insert +"ele"+ data[i].id +","
             values = values + data[i].points +","
@@ -35,12 +36,12 @@ var dbData = new sqlite3.Database('./database/data.db');
               }
               rows.forEach((row) => {
                     data = row
-                    array.push(row.ele1)
-                    array.push(row.ele2)
-                    array.push(row.ele3)
-                    array.push(row.ele4)
-                    array.push(row.ele5)
-                    array.push(row.ele6)
+                    array.push({ id: 1, points: row.ele1 })
+                    array.push({ id: 2, points: row.ele2 })
+                    array.push({ id: 3, points: row.ele3 })
+                    array.push({ id: 4, points: row.ele4 })
+                    array.push({ id: 5, points: row.ele5 })
+                    array.push({ id: 6, points: row.ele6 })
               });
               callback(data, array)
             });
@@ -58,39 +59,33 @@ router.post('/', function(req, res, next) {
         return a - b;
     }
 
+    function compare(a,b) {
+      if (a.points < b.points)
+        return -1;
+      if (a.points > b.points)
+        return 1;
+      return 0;
+    }
+
     for(var i = 0; i<click.length; i++) {
         pt = click.length - i
-        points[click[i].id - 1] = { id: click[i].id, points: pt }
+        points.push({ id: click[i].id, points: pt })
     }
+
+    console.log(click)
+    console.log(points)
 
     add(points, click, function () {
         console.log("added new row")
         read(function (data, array) {
-            console.log(data)
-            array.sort(sortNumber)
+            //array.sort(sortNumber)
+            array.sort(compare)
+            console.log(array)
 
-            for (var i = array.length; i>=0; i--){
-                switch(array[i]){
-                    case data.ele1:
-                        form.push(0)
-                        break
-                    case data.ele2:
-                        form.push(1)
-                        break
-                    case data.ele3:
-                        form.push(2)
-                        break
-                    case data.ele4:
-                        form.push(3)
-                        break
-                    case data.ele5:
-                        form.push(4)
-                        break
-                    case data.ele6:
-                        form.push(5)
-                        break
-                }
+            for(var j = array.length; j>0; j--){
+                form.push(array[j-1].id - 1)
             }
+
             console.log(form)
             res.send({form: form})
         })
