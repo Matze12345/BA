@@ -4,18 +4,25 @@ var router = express.Router();
 var sqlite3 = require('sqlite3').verbose();
 var dbData = new sqlite3.Database('./database/data.db');
 
-var clustering = require('density-clustering');
-var kmeans = new clustering.KMEANS();
-
-
-    var add = function (ele1, ele2, ele3, ele4, ele5, ele6, callback) {
-        dbData.serialize(() => {
-            var stmt = dbData.prepare("INSERT INTO data VALUES (?,?,?,?,?,?)");
-                stmt.run(ele1, ele2, ele3, ele4, ele5, ele6);
+    var add = function (data, raw, callback) {
+        var insert = ""
+        var values = ""
+        for(var i = 0; i<data.length; i++){
+            insert = insert +"ele"+ data[i].id +","
+            values = values + data[i].points +","
+        }
+        if (insert.length > 0 && values.length > 0) {
+            insert = insert.substring(0, insert.length - 1);
+            values = values.substring(0, values.length - 1);
+            dbData.serialize(() => {
+                var stmt = dbData.prepare("INSERT INTO data ( " + insert + " ) VALUES ( " + values + " )");
+                stmt.run();
                 stmt.finalize();
-            callback();
-        })
+            })
+        }
+        callback();
     }
+
 
     var read = function (callback) {
         var data = 0;
@@ -43,12 +50,21 @@ var kmeans = new clustering.KMEANS();
 
 router.post('/', function(req, res, next) {
     var form = []
+    var click = req.body.click
+    var points = []
+    var pt = 0
 
     function sortNumber(a,b) {
         return a - b;
     }
 
-    add(req.body.ele1, req.body.ele2, req.body.ele3, req.body.ele4, req.body.ele5, req.body.ele6, function () {
+    for(var i = 0; i<click.length; i++) {
+        pt = click.length - i
+        points[click[i].id - 1] = { id: click[i].id, points: pt }
+    }
+
+    add(points, click, function () {
+        console.log("added new row")
         read(function (data, array) {
             console.log(data)
             array.sort(sortNumber)

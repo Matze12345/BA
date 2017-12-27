@@ -20,7 +20,7 @@ export function initRejectedState(error) {
     }
 }
 
-export function fetchInit(ele1, ele2, ele3, ele4, ele5, ele6) {
+export function fetchInit(click) {//ele1, ele2, ele3, ele4, ele5, ele6) {
     return (dispatch) => {
         dispatch(fetchInitState());
         return fetch(config.BASE_URL + 'home', {
@@ -30,12 +30,13 @@ export function fetchInit(ele1, ele2, ele3, ele4, ele5, ele6) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                ele1: ele1,
+                click: click,
+               /* ele1: ele1,
                 ele2: ele2,
                 ele3: ele3,
                 ele4: ele4,
                 ele5: ele5,
-                ele6: ele6,
+                ele6: ele6, */
             })
         })
             .then(response => {
