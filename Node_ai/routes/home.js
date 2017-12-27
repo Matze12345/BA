@@ -7,7 +7,6 @@ var dbData = new sqlite3.Database('./database/data.db');
     var add = function (data, raw, callback) {
         var insert = ""
         var values = ""
-        console.log(data.length)
         for(var i = 0; i<data.length; i++){
             insert = insert +"ele"+ data[i].id +","
             values = values + data[i].points +","
@@ -55,11 +54,7 @@ router.post('/', function(req, res, next) {
     var points = []
     var pt = 0
 
-    function sortNumber(a,b) {
-        return a - b;
-    }
-
-    function compare(a,b) {
+    function sort(a,b) {
       if (a.points < b.points)
         return -1;
       if (a.points > b.points)
@@ -67,20 +62,32 @@ router.post('/', function(req, res, next) {
       return 0;
     }
 
-    for(var i = 0; i<click.length; i++) {
-        pt = click.length - i
-        points.push({ id: click[i].id, points: pt })
+    function include(id, callback) {
+        var result = { state: false, index: 0}
+        for(var i = 0; i < points.length; i++) {
+            if (points[i].id == id) {
+                result.state = true
+                result.index = i
+                break;
+            }
+        }
+        callback(result)
     }
 
-    console.log(click)
-    console.log(points)
+    for(var i = 0; i<click.length; i++) {
+        pt = click.length - i
+        include(click[i].id, function (result) {
+            if(result.state == false) {
+                points.push({id: click[i].id, points: pt})
+            }else{
+                points[result.index].points = points[result.index].points + pt
+            }
+        })
+    }
 
     add(points, click, function () {
-        console.log("added new row")
         read(function (data, array) {
-            //array.sort(sortNumber)
-            array.sort(compare)
-            console.log(array)
+            array.sort(sort)
 
             for(var j = array.length; j>0; j--){
                 form.push(array[j-1].id - 1)
