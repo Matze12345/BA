@@ -27,7 +27,7 @@ export default class Home extends React.Component {
             hnr: "",
             plz: "",
             ort: "",
-            vorg: 0,
+            vorg: null,
             click: [],
         }
     }
@@ -42,14 +42,20 @@ export default class Home extends React.Component {
 
      handleSubmit = () => {
          this.props.dispatch(fetchInit(this.state.click))
-         this.setState({click: []})
+         this.setState({click: [], vorg: null})
      }
 
      handleClick = (e) => {
          var { click, vorg } = this.state
-         var skip = Math.abs( vorg - test[e.target.id - 1].index - 1 )
+         var skip = 0
+         console.log("vorgänger:" + vorg)
+         if (vorg != null){
+             skip = Math.abs(vorg - test[e.target.id - 1].index) - 1
+         }
+         else{
+             skip = 0
+         }
          click.push({id: e.target.id, skip: skip, time: ""})
-         console.log(test[e.target.id - 1].index)
          console.log("skip:" +skip)
          var vorganger = test[e.target.id - 1].index
          console.log(vorganger)

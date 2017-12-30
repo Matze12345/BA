@@ -75,7 +75,7 @@ router.post('/', function(req, res, next) {
     }
 
     for(var i = 0; i<click.length; i++) {
-        pt = click.length - i
+        pt = click.length - i + click[i].skip
         include(click[i].id, function (result) {
             if(result.state == false) {
                 points.push({id: click[i].id, points: pt})
