@@ -47,12 +47,8 @@ var dbData = new sqlite3.Database('./database/data.db');
         })
     }
 
-
-router.post('/', function(req, res, next) {
+router.get('/', function(req, res, next) {
     var form = []
-    var click = req.body.click
-    var points = []
-    var pt = 0
 
     function sort(a,b) {
       if (a.points < b.points)
@@ -61,6 +57,23 @@ router.post('/', function(req, res, next) {
         return 1;
       return 0;
     }
+
+    read(function (data, array) {
+            array.sort(sort)
+
+            for(var j = array.length; j>0; j--){
+                form.push(array[j-1].id - 1)
+            }
+
+            console.log(form)
+            res.send({form: form})
+        })
+});
+
+router.post('/', function(req, res, next) {
+    var click = req.body.click
+    var points = []
+    var pt = 0
 
     function include(id, callback) {
         var result = { state: false, index: 0}
@@ -86,16 +99,7 @@ router.post('/', function(req, res, next) {
     }
 
     add(points, click, function () {
-        read(function (data, array) {
-            array.sort(sort)
-
-            for(var j = array.length; j>0; j--){
-                form.push(array[j-1].id - 1)
-            }
-
-            console.log(form)
-            res.send({form: form})
-        })
+            res.send({state: true})
     })
 });
 

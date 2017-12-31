@@ -6,10 +6,9 @@ import '../../styles/layout.css';
 
 import Nav from "../components/layout/Nav";
 
-@connect((store) => {  // Wenn sich irgendwas in diesem Store ändert, was für dieses Komponente relevant ist, wird dies mit
-    // dieser Methode behandelt. Für alle, die mit store connected sind, werden die reducer aufgerufen
+@connect((store) => {
     return {
-        NewInit: store.initRed.initR,
+        NewInit: store.initReducer.initR,
     };
 })
 

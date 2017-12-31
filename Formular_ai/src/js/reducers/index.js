@@ -1,7 +1,9 @@
 import { combineReducers } from "redux"
 
-import initRed from "./initReducer"
+import initReducer from "./initReducer"
+import clickDataReducer from "./clickDataReducer"
 
 export default combineReducers({
-    initRed,
+    initReducer,
+    clickDataReducer
 })
