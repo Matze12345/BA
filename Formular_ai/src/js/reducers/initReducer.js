@@ -1,6 +1,7 @@
 export default function reducer(state={
                                     initR: {
                                         form: [],
+                                        status: true
                                     },
                                     fetching: false,
                                     fetched: false,

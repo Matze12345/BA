@@ -66,14 +66,16 @@ router.get('/', function(req, res, next) {
             }
 
             console.log(form)
-            res.send({form: form})
+            res.send({form: form, status: false})
         })
 });
 
 router.post('/', function(req, res, next) {
     var click = req.body.click
     var points = []
-    var pt = 0
+    var pt = 0.00
+
+    console.log(click)
 
     function include(id, callback) {
         var result = { state: false, index: 0}
@@ -88,7 +90,8 @@ router.post('/', function(req, res, next) {
     }
 
     for(var i = 0; i<click.length; i++) {
-        pt = click.length - i + click[i].skip
+        pt = click.length - i + ( click[i].skip * 0.5 ) + ( click[i].time / 10000  )
+
         include(click[i].id, function (result) {
             if(result.state == false) {
                 points.push({id: click[i].id, points: pt})
@@ -97,7 +100,7 @@ router.post('/', function(req, res, next) {
             }
         })
     }
-
+    console.log(points)
     add(points, click, function () {
             res.send({state: true})
     })

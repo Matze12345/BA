@@ -30,6 +30,7 @@ export default class Home extends React.Component {
             ort: "",
             vorg: null,
             click: [],
+            time: null,
         }
     }
 
@@ -38,47 +39,49 @@ export default class Home extends React.Component {
     }
 
      handleChange = (e, { name, value }) => {
-         this.setState({ [name]: value })
+         this.setState({ [name]: value, time: performance.now() })
      }
 
      handleSubmit = () => {
          this.props.dispatch(fetchClickData(this.state.click))
          this.props.dispatch(fetchInit())
-         this.setState({click: [], vorg: null})
+         this.setState({click: [], vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: ""})
      }
 
      handleClick = (e) => {
-         var { click, vorg } = this.state
+         var { click, vorg, time } = this.state
          var skip = 0
-         console.log("vorgänger:" + vorg)
+         if(time != null){
+            time = performance.now() - time
+         }else {
+             time = 0
+         }
          if (vorg != null){
              skip = Math.abs(vorg - form[e.target.id - 1].index) - 1
          }
          else{
              skip = 0
          }
-         click.push({id: e.target.id, skip: skip, time: ""})
-         console.log("skip:" +skip)
+         click.push({id: e.target.id, skip: skip, time: time})
          var vorganger = form[e.target.id - 1].index
-         console.log(vorganger)
          this.setState({vorg: vorganger})
      }
 
   render() {
     const array = this.props.NewInit
-    const {} = this.state
+    const { vname, nname, hnr, plz, ort, str} = this.state
 
-    form.push({id: 1, index: "", html: <Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname'  onClick={this.handleClick} onChange={this.handleChange}/> })
-    form.push({id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
+    form.push({id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
+    form.push({id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
     form.push({id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
     form.push({id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4}  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
     form.push({id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
-    form.push({id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
+    form.push({id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort'  onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
 
     return (
       <div>
         <div class="row">
-             <Form loading={false}>
+             <Form loading={array.status}>
                 {
                     array.form.map(function (data, index) {
                           form[data].index = index
