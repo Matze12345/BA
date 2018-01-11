@@ -1,4 +1,5 @@
 import config from '../../config/config'
+import { fetchInit } from "./initAction"
 
 export function fetchClick() {
     return {
@@ -20,7 +21,7 @@ export function clickDataRejected(error) {
     }
 }
 
-export function fetchClickData(click) {
+export function fetchClickData(data, time) {
     return (dispatch) => {
         dispatch(fetchClick());
         return fetch(config.BASE_URL + 'home', {
@@ -30,7 +31,8 @@ export function fetchClickData(click) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                click: click,
+                data: data,
+                time: time,
             })
         })
             .then(response => {
@@ -38,6 +40,7 @@ export function fetchClickData(click) {
                     console.log(response);
                     response.json().then(json => {
                         dispatch(setClickData(json));
+                        dispatch(fetchInit());
                     });
                 } else {
                     console.log(response);

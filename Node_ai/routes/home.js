@@ -3,6 +3,7 @@ var router = express.Router();
 
 var sqlite3 = require('sqlite3').verbose();
 var dbData = new sqlite3.Database('./database/data.db');
+var dbRaw = new sqlite3.Database('./database/raw.db');
 
     var add = function (data, raw, callback) {
         var insert = ""
@@ -20,6 +21,15 @@ var dbData = new sqlite3.Database('./database/data.db');
                 stmt.finalize();
             })
         }
+        callback();
+    }
+
+    var raw = function (raw, time, callback) {
+        dbRaw.serialize(() => {
+            var stmt = dbRaw.prepare("INSERT INTO raw ( raw, time  ) VALUES ( ?, ? )");
+            stmt.run(raw, time);
+            stmt.finalize();
+        })
         callback();
     }
 
@@ -74,8 +84,9 @@ router.post('/', function(req, res, next) {
     var click = req.body.click
     var points = []
     var pt = 0.00
+    var data = req.body.data
 
-    console.log(click)
+    //console.log(JSON.stringify(req.body.data))
 
     function include(id, callback) {
         var result = { state: false, index: 0}
@@ -89,20 +100,25 @@ router.post('/', function(req, res, next) {
         callback(result)
     }
 
-    for(var i = 0; i<click.length; i++) {
-        pt = click.length - i + ( click[i].skip * 0.5 ) + ( click[i].time / 10000  )
+    for(var i = 0; i<data.length; i++) {
+        if( data[i].input == true ) {
+            pt = data.length - i + ( data[i].skip * 0.5 ) + ( data[i].time / 10000  )
 
-        include(click[i].id, function (result) {
-            if(result.state == false) {
-                points.push({id: click[i].id, points: pt})
-            }else{
-                points[result.index].points = points[result.index].points + pt
-            }
-        })
+            include(data[i].id, function (result) {
+                if (result.state == false) {
+                    points.push({id: data[i].id, points: pt})
+                } else {
+                    points[result.index].points = points[result.index].points + pt
+                }
+            })
+        }
     }
     console.log(points)
     add(points, click, function () {
+        raw(JSON.stringify(req.body.data), req.body.time)
+        {
             res.send({state: true})
+        }
     })
 });
 
