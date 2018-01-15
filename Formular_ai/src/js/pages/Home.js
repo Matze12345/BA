@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import { fetchInit } from "../actions/initAction"
 import { fetchClickData } from "../actions/clickData"
 
-import { Form } from 'semantic-ui-react'
+import { Form, Message, Icon } from 'semantic-ui-react'
 
 var form;
 form = [];
@@ -31,6 +31,7 @@ export default class Home extends React.Component {
             vorg: null,
             time: null,
             data: [],
+            msg: "false",
         }
     }
 
@@ -45,9 +46,11 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
-        var data = this.state.data
-         this.props.dispatch(fetchClickData(data, performance.now()))
-         this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: []})
+         var data = this.state.data
+         this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: ""}, () => {
+             this.props.dispatch(fetchClickData(data, performance.now()))
+             this.props.dispatch(fetchInit())
+         })
      }
 
      handleClick = (e) => {
@@ -93,7 +96,7 @@ export default class Home extends React.Component {
 
   render() {
     const array = this.props.NewInit
-    const { vname, nname, hnr, plz, ort, str} = this.state
+    const { vname, nname, hnr, plz, ort, str, msg} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
     form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
@@ -105,6 +108,9 @@ export default class Home extends React.Component {
     return (
       <div>
         <div class="row">
+              <Message hidden={msg} icon color="green">
+                  <Message.Header>Erfolgreich gesendet</Message.Header>
+              </Message>
              <Form loading={array.status} onSubmit={this.handleSubmit}>
                 {
                     array.form.map(function (data, index) {
