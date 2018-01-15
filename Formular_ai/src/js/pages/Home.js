@@ -45,9 +45,9 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
-         this.props.dispatch(fetchClickData(this.state.data, performance.now() ))
-         //this.props.dispatch(fetchInit())
-         this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: []}, () => location.reload())
+        var data = this.state.data
+         this.props.dispatch(fetchClickData(data, performance.now()))
+         this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: []})
      }
 
      handleClick = (e) => {
@@ -95,13 +95,12 @@ export default class Home extends React.Component {
     const array = this.props.NewInit
     const { vname, nname, hnr, plz, ort, str} = this.state
 
-    form.push({id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>})
-    form.push({id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>})
-    form.push({id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>})
-    form.push({id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
-    form.push({id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange}/></Form.Group>})
-    form.push({id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>})
-
+    form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
+    form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
+    form[2] = {id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' value={str} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
+    form[3] = {id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} value={hnr} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>}
+    form[4] = {id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange}/></Form.Group>}
+    form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>}
 
     return (
       <div>
@@ -115,7 +114,7 @@ export default class Home extends React.Component {
                         )
                     })
                 }
-                <Form.Button primary content="Submit"/>
+                <Form.Button primary content="Senden"/>
              </Form>
         </div>
       </div>
