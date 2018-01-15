@@ -32,6 +32,7 @@ export default class Home extends React.Component {
             time: null,
             data: [],
             msg: "false",
+            error: "false"
         }
     }
 
@@ -46,11 +47,15 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
-         var data = this.state.data
-         this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: ""}, () => {
-             this.props.dispatch(fetchClickData(data, performance.now()))
-             this.props.dispatch(fetchInit())
-         })
+         if (this.state.vname != null && this.state.nname != null && this.state.plz != null && this.state.ort != null && this.state.hnr != null && this.state.str != null){
+             var data = this.state.data
+             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: "", error: "false"}, () => {
+                this.props.dispatch(fetchClickData(data, performance.now()))
+                this.props.dispatch(fetchInit())
+             })
+         }else{
+             this.setState({error: ""})
+         }
      }
 
      handleClick = (e) => {
@@ -96,7 +101,7 @@ export default class Home extends React.Component {
 
   render() {
     const array = this.props.NewInit
-    const { vname, nname, hnr, plz, ort, str, msg} = this.state
+    const { vname, nname, hnr, plz, ort, str, msg, error} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
     form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
@@ -110,6 +115,9 @@ export default class Home extends React.Component {
         <div class="row">
               <Message hidden={msg} icon color="green">
                   <Message.Header>Erfolgreich gesendet</Message.Header>
+              </Message>
+              <Message hidden={error} icon color="red">
+                  <Message.Header>Bitte alle Felder ausfüllen</Message.Header>
               </Message>
              <Form loading={array.status} onSubmit={this.handleSubmit}>
                 {
