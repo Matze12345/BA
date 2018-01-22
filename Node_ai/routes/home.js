@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var logic = require('../logic/logic')
+
 
 var sqlite3 = require('sqlite3').verbose();
 var dbData = new sqlite3.Database('./database/data.db');
@@ -81,40 +83,12 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    var click = req.body.click
     var points = []
-    var pt = 0.00
-    var data = req.body.data
 
-    //console.log(JSON.stringify(req.body.data))
-
-    function include(id, callback) {
-        var result = { state: false, index: 0}
-        for(var i = 0; i < points.length; i++) {
-            if (points[i].id == id) {
-                result.state = true
-                result.index = i
-                break;
-            }
-        }
-        callback(result)
-    }
-
-    for(var i = 0; i<data.length; i++) {
-        if( data[i].input == true ) {
-            pt = data.length - i + ( data[i].skip * 0.5 ) + ( data[i].time / 10000  )
-
-            include(data[i].id, function (result) {
-                if (result.state == false) {
-                    points.push({id: data[i].id, points: pt})
-                } else {
-                    points[result.index].points = points[result.index].points + pt
-                }
-            })
-        }
-    }
+    points = logic.points(req.body.data, 6)
     console.log(points)
-    add(points, click, function () {
+
+    add(points, req.body.click, function () {
         raw(JSON.stringify(req.body.data), req.body.time)
         {
             res.send({state: true})
