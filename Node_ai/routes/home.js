@@ -85,7 +85,7 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var points = []
 
-    points = logic.points(req.body.data, 6)
+    points = logic.score(req.body.data, 6)
     console.log(points)
 
     add(points, req.body.click, function () {

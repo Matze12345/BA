@@ -2,6 +2,7 @@ import React from "react";
 import {connect} from "react-redux"
 import { fetchInit } from "../actions/initAction"
 import { fetchClickData } from "../actions/clickData"
+import { fetchHelpData } from "../actions/helpAction"
 
 import { Form, Message, Icon } from 'semantic-ui-react'
 
@@ -59,11 +60,13 @@ export default class Home extends React.Component {
          const { vname, nname, hnr, plz, ort, str, data} = this.state
          const errors = validate(vname, nname, str, hnr, plz, ort)
 
+         this.props.dispatch(fetchHelpData(input, performance.now()))
+
          if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
              var input = data
              this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: "", errors: ""}, () => {
                 this.props.dispatch(fetchClickData(input, performance.now()))
-                this.props.dispatch(fetchInit())
+                //this.props.dispatch(fetchInit())
              })
          }else {
              this.setState({ errors: errors })

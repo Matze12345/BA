@@ -3,7 +3,7 @@
  */
 
 module.exports =  {
-    points: function (data, elements) {
+    score: function (data, elements) {
         var pt = 0.00
         var points = []
 
