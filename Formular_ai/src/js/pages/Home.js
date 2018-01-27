@@ -8,13 +8,22 @@ import { Form, Message, Icon } from 'semantic-ui-react'
 var form;
 form = [];
 
+function validate(vname, nname, str, hnr, plz, ort) {
+   return {
+        vname: vname.length === 0,
+        nname: nname.length === 0,
+        str: str.length === 0,
+        hnr: hnr.length === 0,
+        plz: plz.length === 0,
+        ort: ort.length === 0,
+   };
+}
 
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
     };
 })
-
 
 
 export default class Home extends React.Component {
@@ -32,7 +41,7 @@ export default class Home extends React.Component {
             time: null,
             data: [],
             msg: "false",
-            error: "false"
+            errors: "",
         }
     }
 
@@ -47,14 +56,17 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
-         if (this.state.vname != null && this.state.nname != null && this.state.plz != null && this.state.ort != null && this.state.hnr != null && this.state.str != null){
-             var data = this.state.data
-             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: "", error: "false"}, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
+         const { vname, nname, hnr, plz, ort, str, data} = this.state
+         const errors = validate(vname, nname, str, hnr, plz, ort)
+
+         if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
+             var input = data
+             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: "", errors: ""}, () => {
+                this.props.dispatch(fetchClickData(input, performance.now()))
                 this.props.dispatch(fetchInit())
              })
-         }else{
-             this.setState({error: ""})
+         }else {
+             this.setState({ errors: errors })
          }
      }
 
@@ -101,23 +113,20 @@ export default class Home extends React.Component {
 
   render() {
     const array = this.props.NewInit
-    const { vname, nname, hnr, plz, ort, str, msg, error} = this.state
+    const { vname, nname, hnr, plz, ort, str, msg, errors} = this.state
 
-    form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
-    form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
-    form[2] = {id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' value={str} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} /></Form.Group>}
-    form[3] = {id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} value={hnr} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>}
-    form[4] = {id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange}/></Form.Group>}
-    form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange}/></Form.Group>}
+    form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
+    form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""}/></Form.Group>}
+    form[2] = {id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' value={str} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.str ? "error" : ""} /></Form.Group>}
+    form[3] = {id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} value={hnr} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.hnr ? "error" : ""}/></Form.Group>}
+    form[4] = {id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange} error={errors.plz ? "error" : ""}/></Form.Group>}
+    form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""}/></Form.Group>}
 
     return (
       <div>
         <div class="row">
               <Message hidden={msg} icon color="green">
                   <Message.Header>Erfolgreich gesendet</Message.Header>
-              </Message>
-              <Message hidden={error} icon color="red">
-                  <Message.Header>Bitte alle Felder ausfüllen</Message.Header>
               </Message>
              <Form loading={array.status} onSubmit={this.handleSubmit}>
                 {
