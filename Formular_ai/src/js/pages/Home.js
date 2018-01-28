@@ -117,7 +117,7 @@ export default class Home extends React.Component {
      close = () => this.setState({ open: false })
      modal = (e) => {
         //time & clickdauert etc und true/false
-         this.props.dispatch(fetchHelpData(e.target.value, performance.now()))
+         this.props.dispatch(fetchHelpData(performance.now(), "3", e.target.value, true))
          console.log(e.target.value)
          this.setState({ open: false })
      }

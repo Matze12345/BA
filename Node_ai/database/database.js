@@ -36,6 +36,8 @@ var insertNeuronal = function (data, callback) {
     var stmt = dbNeuronal.prepare("INSERT INTO result VALUES (?)");
     stmt.run(data.result);
     stmt.finalize();
+
+    callback();
 }
 
 
@@ -54,7 +56,9 @@ module.exports =  {
         })
     },
     insertNeuronal: function (data, callback) {
+        console.log("inset")
         insertNeuronal(data, function () {
+            console.log("inseted bitch")
             callback()
         })
     }

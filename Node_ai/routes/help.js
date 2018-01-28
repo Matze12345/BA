@@ -15,16 +15,14 @@ const size = (result) => {
 //
 router.post('/', function(req, res, next) {
     //var output = neuronal.out({ r: 1, g: 0.4, b: 0 });
-    if(res.body.train == false){
+     if(req.body.train == false){
         var output = neuronal.out({ time: req.body.time, click: req.body.click });
         console.log(output)
         res.send({size: size(Math.round(output.output))})
     }else{
-        db.insertNeuronal({ time: req.body.time, click: req.body.click, result: req.body.result })
+        db.insertNeuronal(req.body)
         res.send({size: "small"})
     }
-
-
 });
 
 module.exports = router;

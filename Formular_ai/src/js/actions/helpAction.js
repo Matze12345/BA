@@ -20,7 +20,7 @@ export function helpRejected(error) {
     }
 }
 
-export function fetchHelpData(data, time) {
+export function fetchHelpData(time, click, result, train) {
     return (dispatch) => {
         dispatch(fetchHelp());
         return fetch(config.BASE_URL + 'help', {
@@ -30,8 +30,10 @@ export function fetchHelpData(data, time) {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                data: data,
                 time: time,
+                click: click,
+                result: result,
+                train: true
             })
         })
             .then(response => {
