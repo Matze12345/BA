@@ -6,27 +6,18 @@ import '../../styles/layout.css';
 
 import Nav from "../components/layout/Nav";
 
-@connect((store) => {
-    return {
-        NewInit: store.initReducer.initR,
-    };
-})
-
 export default class Layout extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        const formValue = this.props.NewInit;
         const { location } = this.props;
-        const containerStyle = {
-            marginTop: "60px"
-        };
+
         return (
             <div>
-                <div style={{backgroundColor: formValue.color}}>
-                        <div class="jumbotron">
+                <div>
+                        <div class="jumbotron" style={{backgroundColor: "#2185d0" }}>
                             <div class="container">
                               <h1>Formular</h1>
                               <p>KI & Web</p>
@@ -34,12 +25,10 @@ export default class Layout extends React.Component {
                         </div>
                 </div>
 
-              <div class="container" style={containerStyle}>
+              <div class="container" style={{marginTop: "60px"}}>
                 <div class="row">
                   <div class="col-lg-12">
-
                       {this.props.children}
-
                   </div>
                 </div>
               </div>
