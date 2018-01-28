@@ -53,6 +53,8 @@ db.selectNeuronal(function (data) {
     neuronal.train(data)
 })
 
+//db.insertNeuronal({ time: 5, click: 5, result: 1 })
+
 
 
 

@@ -4,7 +4,7 @@ import { fetchInit } from "../actions/initAction"
 import { fetchClickData } from "../actions/clickData"
 import { fetchHelpData } from "../actions/helpAction"
 
-import { Form, Message, Icon } from 'semantic-ui-react'
+import { Form, Message, Icon, Modal, Button } from 'semantic-ui-react'
 
 var form;
 form = [];
@@ -23,6 +23,7 @@ function validate(vname, nname, str, hnr, plz, ort) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
+        NewHelp: store.helpReducer.help
     };
 })
 
@@ -43,6 +44,7 @@ export default class Home extends React.Component {
             data: [],
             msg: "false",
             errors: "",
+            open: false,
         }
     }
 
@@ -114,20 +116,23 @@ export default class Home extends React.Component {
         }
      }
 
+     show = () => this.setState({ open: true })
+     close = () => this.setState({ open: false })
+
   render() {
     const array = this.props.NewInit
-    const { vname, nname, hnr, plz, ort, str, msg, errors} = this.state
+    const help  = this.props.NewHelp
+    const { vname, nname, hnr, plz, ort, str, msg, errors, open} = this.state
 
-    form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
-    form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""}/></Form.Group>}
-    form[2] = {id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' value={str} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.str ? "error" : ""} /></Form.Group>}
-    form[3] = {id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} value={hnr} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.hnr ? "error" : ""}/></Form.Group>}
-    form[4] = {id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange} error={errors.plz ? "error" : ""}/></Form.Group>}
-    form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""}/></Form.Group>}
+    form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} size={help.size} /></Form.Group>}
+    form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""} size={help.size}/></Form.Group>}
+    form[2] = {id: 3, index: "", html: <Form.Group widths='equal'><Form.Input id="3" label='Straße' placeholder='Straße' name='str' value={str} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.str ? "error" : ""} size={help.size} /></Form.Group>}
+    form[3] = {id: 4, index: "", html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr' width={4} value={hnr} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.hnr ? "error" : ""} size={help.size}/></Form.Group>}
+    form[4] = {id: 5, index: "", html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl' name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp} onClick={this.handleClick}  onChange={this.handleChange} error={errors.plz ? "error" : ""} size={help.size}/></Form.Group>}
+    form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""} size={help.size} /></Form.Group>}
 
     return (
       <div>
-        <div class="row">
               <Message hidden={msg} icon color="green">
                   <Message.Header>Erfolgreich gesendet</Message.Header>
               </Message>
@@ -140,10 +145,31 @@ export default class Home extends React.Component {
                         )
                     })
                 }
-                <Form.Button primary content="Senden"/>
+                <Form.Button primary content="Senden" size={help.size} onClick={this.show}/>
              </Form>
-        </div>
+
+
+           <div class="row">
+  <div class="col-sm-4">
+           <Modal size="mini" open={open} onClose={this.close}>
+                <Modal.Header>
+                    Hilfe
+                </Modal.Header>
+                <Modal.Content>
+                    <p>Soll die Größe der Felder geändert werden?</p>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button negative content='Nein'/>
+                    <Button positive content='Ja' />
+                </Modal.Actions>
+          </Modal>
+
+  </div>
+</div>
+
+
       </div>
+
     );
   }
 }
