@@ -1,6 +1,6 @@
 export default function reducer(state={
                                     help: {
-                                        size: "small",
+                                        open: false,
                                     },
                                     fetching: false,
                                     fetched: false,

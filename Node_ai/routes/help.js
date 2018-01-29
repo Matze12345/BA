@@ -3,26 +3,22 @@ var router = express.Router();
 var neuronal = require('../logic/neuronal')
 var db = require('../database/database')
 
-const size = (result) => {
+const open = (result) => {
     if (result == 1){
-        return "big"
+        return true
     }else{
-        return "small"
+        return false
     }
 }
-// beim starten vom server train machen mit allen daten  -- angefangen
-//beim clicken daten abspeichern in db  -- aber erst nachdem ja bzw nein gedrückt wurde
-//
+
 router.post('/', function(req, res, next) {
-    //var output = neuronal.out({ r: 1, g: 0.4, b: 0 });
-     if(req.body.train == false){
-        var output = neuronal.out({ time: req.body.time, click: req.body.click });
-        console.log(output)
-        res.send({size: size(Math.round(output.output))})
-    }else{
-        db.insertNeuronal(req.body)
-        res.send({size: "small"})
-    }
+    console.log(req.body)
+    var data = []
+    data.push(Math.round(req.body.time)/10000)
+    data.push(Math.round(req.body.click)/10000)
+    var output = neuronal.out(data);
+    console.log(output[0])
+    res.send({ open: open(Math.round(output[0])) })
 });
 
 module.exports = router;

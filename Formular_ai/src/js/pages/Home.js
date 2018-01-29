@@ -3,6 +3,7 @@ import {connect} from "react-redux"
 import { fetchInit } from "../actions/initAction"
 import { fetchClickData } from "../actions/clickData"
 import { fetchHelpData } from "../actions/helpAction"
+import { fetchHelpTrainData } from "../actions/helpTrain"
 
 import { Form, Message, Icon, Modal, Button } from 'semantic-ui-react'
 
@@ -23,7 +24,8 @@ function validate(vname, nname, str, hnr, plz, ort) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
-        NewHelp: store.helpReducer.help
+        NewHelp: store.helpReducer.help,
+        NewTrain: store.helpTrainReducer.help
     };
 })
 
@@ -45,6 +47,9 @@ export default class Home extends React.Component {
             msg: "false",
             errors: "",
             open: false,
+            click: "",
+            clickTime: "",
+            help: false,
         }
     }
 
@@ -113,18 +118,33 @@ export default class Home extends React.Component {
         }
      }
 
-     show = () => this.setState({ open: true })
-     close = () => this.setState({ open: false })
+     show = () => {
+        this.setState({ open: true })
+     }
+     close = () => {
+        this.setState({ open: false })
+     }
      modal = (e) => {
-        //time & clickdauert etc und true/false
-         this.props.dispatch(fetchHelpData(performance.now(), "3", e.target.value, true))
-         console.log(e.target.value)
+         var { click, clickTime } = this.state
+         this.props.dispatch(fetchHelpTrainData(click, clickTime , e.target.value))
          this.setState({ open: false })
+     }
+     helpDown = () => {
+         console.log("mousedown")
+         this.setState({ clickTime: performance.now(), click: performance.now()  })
+     }
+     helpUp = () => {
+         var { click, clickTime } = this.state
+         clickTime = performance.now() - this.state.clickTime
+         console.log("mouseup")
+         this.props.dispatch(fetchHelpData( click, clickTime))
+         this.setState({ help: true, clickTime: clickTime })
      }
 
   render() {
     const array = this.props.NewInit
-    const help  = this.props.NewHelp
+    const help  = this.props.NewTrain
+    const helpopen  = this.props.NewHelp
     const { vname, nname, hnr, plz, ort, str, msg, errors, open} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
@@ -135,7 +155,7 @@ export default class Home extends React.Component {
     form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""}  /></Form.Group>}
 
     return (
-      <div>
+      <div onMouseDown={this.state.help ? null : this.helpDown} onMouseUp={this.state.help ? null : this.helpUp}>
           <Message hidden={msg} icon color="green">
               <Message.Header>Erfolgreich gesendet</Message.Header>
           </Message>
@@ -151,7 +171,7 @@ export default class Home extends React.Component {
                 <Form.Button primary content="Senden" size={help.size} onClick={this.show}/>
           </Form>
 
-           <Modal size="mini" open={open} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
+           <Modal size="mini" open={helpopen.open} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
                 <Modal.Header>
                     Hilfe
                 </Modal.Header>
@@ -159,8 +179,8 @@ export default class Home extends React.Component {
                     <p>Soll die Größe der Felder geändert werden?</p>
                 </Modal.Content>
                 <Modal.Actions>
-                    <Button negative content='Nein' value="false" onClick={this.modal}/>
-                    <Button positive content='Ja' value="true" onClick={this.modal} />
+                    <Button negative content='Nein' value={0} onClick={this.modal}/>
+                    <Button positive content='Ja' value={1} onClick={this.modal} />
                 </Modal.Actions>
           </Modal>
       </div>

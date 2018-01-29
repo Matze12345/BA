@@ -11,7 +11,7 @@ var selectNeuronal = function (callback) {
                 throw err;
             }
             rows.forEach((row) => {
-               input.push(row)
+               input.push([row.time, row.click])
             });
 
             let sql = 'SELECT * FROM result';
@@ -20,7 +20,7 @@ var selectNeuronal = function (callback) {
                     throw err;
                 }
                 rows.forEach((row) => {
-                   output.push(row)
+                   output.push([row.output])
                 });
                 callback(input, output)
             })
@@ -29,8 +29,10 @@ var selectNeuronal = function (callback) {
 }
 
 var insertNeuronal = function (data, callback) {
+    var time = Math.round(data.time)/10000
+    var click = Math.round(data.click)/10000
     var stmt = dbNeuronal.prepare("INSERT INTO neuronal VALUES (?,?)");
-    stmt.run(data.time, data.click);
+    stmt.run(time, click);
     stmt.finalize();
 
     var stmt = dbNeuronal.prepare("INSERT INTO result VALUES (?)");
@@ -51,14 +53,11 @@ module.exports =  {
                     output: output[index]
                 }
             });
-
             callback(trainData)
         })
     },
     insertNeuronal: function (data, callback) {
-        console.log("inset")
         insertNeuronal(data, function () {
-            console.log("inseted bitch")
             callback()
         })
     }

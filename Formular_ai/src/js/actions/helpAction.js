@@ -20,7 +20,7 @@ export function helpRejected(error) {
     }
 }
 
-export function fetchHelpData(time, click, result, train) {
+export function fetchHelpData(time, click) {
     return (dispatch) => {
         dispatch(fetchHelp());
         return fetch(config.BASE_URL + 'help', {
@@ -32,8 +32,6 @@ export function fetchHelpData(time, click, result, train) {
             body: JSON.stringify({
                 time: time,
                 click: click,
-                result: result,
-                train: true
             })
         })
             .then(response => {

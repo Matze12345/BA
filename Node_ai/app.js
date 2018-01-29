@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var home = require('./routes/home')
 var help = require('./routes/help')
+var helptrain = require('./routes/helptrain')
 
 var neuronal = require('./logic/neuronal')
 var db = require('./database/database')
@@ -31,6 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/home', home);
 app.use('/help', help);
+app.use('/helptrain', helptrain);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
@@ -52,10 +54,5 @@ app.listen(80);
 db.selectNeuronal(function (data) {
     neuronal.train(data)
 })
-
-//db.insertNeuronal({ time: 5, click: 5, result: 1 })
-
-
-
 
 module.exports = app;
