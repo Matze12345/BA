@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var dbNeuronal = new sqlite3.Database('./database/neuronal.db');
 
+
 var selectNeuronal = function (callback) {
     var input = []
     var output = []
@@ -60,5 +61,5 @@ module.exports =  {
         insertNeuronal(data, function () {
             callback()
         })
-    }
+    },
 }

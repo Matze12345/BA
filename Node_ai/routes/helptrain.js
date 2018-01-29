@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var neuronal = require('../logic/neuronal')
-var db = require('../database/database')
+var db = require('../database/dbNeuronal')
 
 router.post('/', function(req, res, next) {
     console.log(req.body)

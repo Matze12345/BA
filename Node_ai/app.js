@@ -11,7 +11,7 @@ var help = require('./routes/help')
 var helptrain = require('./routes/helptrain')
 
 var neuronal = require('./logic/neuronal')
-var db = require('./database/database')
+var db = require('./database/dbNeuronal')
 
 var app = express();
 

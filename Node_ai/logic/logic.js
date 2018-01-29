@@ -1,7 +1,3 @@
-/**
- * Created by Unbekannt on 22.01.2018.
- */
-
 module.exports =  {
     score: function (data, elements) {
         var pt = 0.00
