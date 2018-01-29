@@ -44,9 +44,9 @@ export default class Home extends React.Component {
             vorg: null,
             time: null,
             data: [],
-            msg: "false",
+            msg: true,
             errors: "",
-            open: false,
+            open: true,
             click: "",
             clickTime: "",
             help: false,
@@ -69,7 +69,7 @@ export default class Home extends React.Component {
 
          if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
              var input = data
-             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: "", errors: ""}, () => {
+             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: false, errors: ""}, () => {
                 this.props.dispatch(fetchClickData(input, performance.now()))
              })
          }else {
@@ -125,27 +125,25 @@ export default class Home extends React.Component {
         this.setState({ open: false })
      }
      modal = (e) => {
-         var { click, clickTime } = this.state
-         this.props.dispatch(fetchHelpTrainData(click, clickTime , e.target.value))
+         this.props.dispatch(fetchHelpTrainData(this.state.click, this.state.clickTime , e.target.value))
          this.setState({ open: false })
      }
      helpDown = () => {
-         console.log("mousedown")
          this.setState({ clickTime: performance.now(), click: performance.now()  })
      }
      helpUp = () => {
          var { click, clickTime } = this.state
          clickTime = performance.now() - this.state.clickTime
-         console.log("mouseup")
          this.props.dispatch(fetchHelpData( click, clickTime))
          this.setState({ help: true, clickTime: clickTime })
      }
 
+
   render() {
     const array = this.props.NewInit
-    const help  = this.props.NewTrain
-    const helpopen  = this.props.NewHelp
-    const { vname, nname, hnr, plz, ort, str, msg, errors, open} = this.state
+    const size  = this.props.NewTrain
+    const modal = this.props.NewHelp
+    const { vname, nname, hnr, plz, ort, str, msg, errors, open, help} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
     form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""} /></Form.Group>}
@@ -155,11 +153,11 @@ export default class Home extends React.Component {
     form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""}  /></Form.Group>}
 
     return (
-      <div onMouseDown={this.state.help ? null : this.helpDown} onMouseUp={this.state.help ? null : this.helpUp}>
-          <Message hidden={msg} icon color="green">
+      <div onMouseDown={help ? null : this.helpDown} onMouseUp={help ? null : this.helpUp}>
+          <Message hidden={msg} icon="checkmark" color="green">
               <Message.Header>Erfolgreich gesendet</Message.Header>
           </Message>
-          <Form loading={array.status} onSubmit={this.handleSubmit} size={help.size}>
+          <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
                 {
                     array.form.map(function (data, index) {
                           form[data].index = index
@@ -168,10 +166,10 @@ export default class Home extends React.Component {
                         )
                     })
                 }
-                <Form.Button primary content="Senden" size={help.size} onClick={this.show}/>
+                <Form.Button primary content="Senden" size={size.size}/>
           </Form>
 
-           <Modal size="mini" open={helpopen.open} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
+           <Modal size="mini" open={open ? modal.open : false} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
                 <Modal.Header>
                     Hilfe
                 </Modal.Header>
@@ -184,7 +182,6 @@ export default class Home extends React.Component {
                 </Modal.Actions>
           </Modal>
       </div>
-
     );
   }
 }

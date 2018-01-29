@@ -3,8 +3,6 @@ var router = express.Router();
 var neuronal = require('../logic/neuronal')
 var db = require('../database/database')
 
-
-
 router.post('/', function(req, res, next) {
     console.log(req.body)
     db.insertNeuronal(req.body, function () {
