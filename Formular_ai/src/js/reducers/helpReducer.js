@@ -9,11 +9,11 @@ export default function reducer(state={
 
     switch (action.type) {
         case "FETCH_HELP": {
-            console.log("FETCH_HELP");
+            //console.log("FETCH_HELP");
             return {...state, fetching: true}
         }
         case "FETCH_HELP_REJECTED": {
-            console.log("FETCH_HELP_REJECTED" + action);
+            //console.log("FETCH_HELP_REJECTED" + action);
             return {...state, fetching: false, error: action.payload}
         }
         case "FETCH_HELP_FULFILLED": {

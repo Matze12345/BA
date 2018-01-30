@@ -37,13 +37,13 @@ export function fetchClickData(data, time) {
         })
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(setClickData(json));
                         dispatch(fetchInit());
                     });
                 } else {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(clickDataRejected('Error on fetching'));
                         throw error;
@@ -52,7 +52,7 @@ export function fetchClickData(data, time) {
             })
             .catch(
                 error => {
-                    console.log(error)
+                    //console.log(error)
                     dispatch(clickDataRejected(error));
                 }
             );

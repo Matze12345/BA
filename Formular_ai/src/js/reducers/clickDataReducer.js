@@ -9,11 +9,11 @@ export default function reducer(state={
 
     switch (action.type) {
         case "FETCH_CLICK_DATA": {
-            console.log("FETCH_CLICK_DATA");
+            //console.log("FETCH_CLICK_DATA");
             return {...state, fetching: true}
         }
         case "FETCH_CLICK_DATA_REJECTED": {
-            console.log("FETCH_CLICK_DATA_REJECTED" + action);
+            //console.log("FETCH_CLICK_DATA_REJECTED" + action);
             return {...state, fetching: false, error: action.payload}
         }
         case "FETCH_CLICK_DATA_FULFILLED": {

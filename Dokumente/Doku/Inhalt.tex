@@ -1,5 +1,5 @@
 \addsec{Datenanalyse}
-\addsec{Perzeptron, linearer klassifier}
+\addsec{Perzeptron}
 Das Perzeptron ist eine Form von künstlichen neuronalen Netzen. Dabei wird zwischen einlagigen und mehrlagigen Perzeptrons unterschieden.  Das Perzeptron wandelt einen Eingabevektor zu einem Ausgabevektor um. Bei einem einlagigen Perzeptron ist der Eingabevektor gleich der Ausgabevektor. Es lassen sich damit nur linear separable Mengen trennen. Nur die AND-Funktion ist linear separabel, die XOR-Funktion ist dagegen nicht linear separabel. 
 \begin{figure}[h]
 	\includegraphics[width=1\linewidth]{Bilder/perzeptron_and_xor}
@@ -43,10 +43,10 @@ Beim Clustering werden Daten mit Ähnlichkeiten zu Gruppen zusammengefasst, dies
 Bei sogenannten partitionierenden Clusterverfahren muss die Anzahl der Cluster k bekannt sein. Dann werden k Clusterzentren initialisiert und so lange verschoben bis sich keine Änderungen der Cluster ergeben. 
 \newline
 \textbf{K-Means-Algorithmus}\\
-Dazu müssen am Anfang die Anzahl der Cluster k bekannt gegeben werden. Anschließend die k-Clustercentren zufällig initialisiert und der Abstand zu den nächsten Daten berechnet und dementsprechend den Clustern zugeordnet. Nun wird das neue Mittelwert des Clusters berechnet und der vorherige Schritt widerholt bis es keine Änderungen der Clusterzentren mehr gibt. Das Problem dabei ist, dass die Anzahl der Cluster bereits zu Beginn bekannt sein müssen. Häufig ist dies jedoch nicht der Fall.
+Dazu müssen am Anfang die Anzahl der Cluster k bekannt gegeben werden. Anschließend die k-Clusterzentren zufällig initialisiert und der Abstand zu den nächsten Daten berechnet und dementsprechend den Clustern zugeordnet. Nun wird das neue Mittelwert des Clusters berechnet und der vorherige Schritt widerholt bis es keine Änderungen der Clusterzentren mehr gibt. Das Problem dabei ist, dass die Anzahl der Cluster bereits zu Beginn bekannt sein müssen. Häufig ist dies jedoch nicht der Fall.
 \newline
 \textbf{EM-Algorithmus}\\
-Der Expectation-Maximization-Algorithmus ist in zwei Schritte aufgeteilt, in Expectation und Maximization. Dabei wird beim Expectation Schritt für jeden Datenpunkt die Wahrscheinlichkeit berechnet zu welchem Cluster er gehört. Anschließend wird im Maximization Schritt die Parameterverteilung neu berechnet unter Verwendung der errechneten Wahscheinlichkeitsverteilung vom vorherigen Schritt. Dadurch ist meinst eine bessere Einteilung der Cluster möglich.
+Der Expectation-Maximization-Algorithmus ist in zwei Schritte aufgeteilt, in Expectation und Maximization. Dabei wird beim Expectation Schritt für jeden Datenpunkt die Wahrscheinlichkeit berechnet, zu welchem Cluster er gehört. Anschließend wird im Maximization Schritt die Parameterverteilung neu berechnet unter Verwendung der errechneten Wahrscheinlichkeitsverteilung vom vorherigen Schritt. Dadurch ist meinst eine bessere Einteilung der Cluster möglich.
 \addsec{Hierarchisches Clustering}
 Der Vorteil hierbei ist, dass die Anzahl der Cluster zu Beginn nicht bekannt sein müssen. Im ersten Schritt werden mit n Clustern gestartet. Dabei stellt jeder Datenpunkt ein Cluster dar.
  \begin{figure}[h]

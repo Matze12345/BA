@@ -32,12 +32,12 @@ export function fetchInit() {
         })
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(setInitState(json));
                     });
                 } else {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(initRejectedState('Error on fetching'));
                         throw error;
@@ -46,7 +46,7 @@ export function fetchInit() {
             })
             .catch(
                 error => {
-                    console.log(error)
+                    //console.log(error)
                     dispatch(initRejectedState(error));
                 }
             );

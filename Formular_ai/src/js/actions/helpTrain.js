@@ -37,12 +37,12 @@ export function fetchHelpTrainData(time, click, result) {
         })
             .then(response => {
                 if (response.status >= 200 && response.status < 300) {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(setHelpTrain(json));
                     });
                 } else {
-                    console.log(response);
+                    //console.log(response);
                     response.json().then(json => {
                         dispatch(helpTrainRejected('Error on fetching'));
                         throw error;
@@ -51,7 +51,7 @@ export function fetchHelpTrainData(time, click, result) {
             })
             .catch(
                 error => {
-                    console.log(error)
+                    //console.log(error)
                     dispatch(helpTrainRejected(error));
                 }
             );
