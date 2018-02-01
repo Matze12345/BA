@@ -4,6 +4,7 @@ import { fetchInit } from "../actions/initAction"
 import { fetchClickData } from "../actions/clickData"
 import { fetchHelpData } from "../actions/helpAction"
 import { fetchHelpTrainData } from "../actions/helpTrain"
+import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 
 import { Form, Message, Icon, Modal, Button } from 'semantic-ui-react'
 
@@ -57,6 +58,10 @@ export default class Home extends React.Component {
             input: [],
             startMove: "",
             endMove: "",
+
+            x: [],
+            y: [],
+            test: [],
         }
     }
 
@@ -166,6 +171,21 @@ export default class Home extends React.Component {
          this.setState({ help: true, clickTime: clickTime })
      }
      move = (e) => {
+         var { input, x, y, test } = this.state
+         x.push(e.clientX)
+         y.push(e.clientY)
+         if (input.length == 0 || input[input.length-1].type != "move"){
+            input.push({type: "move", start: performance.now(), end: performance.now(), id: e.target.id, x: x, y: y, entered: "", keyCount: 0})
+         }
+         else{
+             input[input.length-1].end = performance.now()
+             input[input.length-1].x = x
+             input[input.length-1].y = y
+         }
+         test.push({x: e.clientX, y: e.clientY})
+         this.setState({ x: x, y: y, input: input, test: test })
+         //console.log(input)
+
         //console.log(e.clientX, e.clientY)
      }
 
@@ -174,7 +194,7 @@ export default class Home extends React.Component {
     const array = this.props.NewInit
     const size  = this.props.NewTrain
     const modal = this.props.NewHelp
-    const { vname, nname, hnr, plz, ort, str, msg, errors, open, help} = this.state
+    const { vname, nname, hnr, plz, ort, str, msg, errors, open, help, test} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
     form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""} /></Form.Group>}
@@ -212,6 +232,18 @@ export default class Home extends React.Component {
                     <Button positive content='Ja' value={1} onClick={this.modal} />
                 </Modal.Actions>
           </Modal>
+
+          <ScatterChart width={600} height={500} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+            <XAxis type="number" dataKey={'x'} name='stature'/>
+            <YAxis type="number" dataKey={'y'} name='weight'/>
+            <ZAxis range={[100]}/>
+            <CartesianGrid />
+            <Tooltip cursor={{strokeDasharray: '3 3'}}/>
+            <Legend/>
+      	<Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="cross"/>
+      </ScatterChart>
+
+
       </div>
     );
   }
