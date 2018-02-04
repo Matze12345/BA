@@ -26,13 +26,9 @@ export default class Layout extends React.Component {
                     </div>
                 </div>
 
-                <div class="container" style={{marginTop: "60px"}}>
-                    <div class="row">
-                        <div class="col-lg-12">
+
                             {this.props.children}
-                        </div>
-                    </div>
-                </div>
+
             </div>
         );
     }

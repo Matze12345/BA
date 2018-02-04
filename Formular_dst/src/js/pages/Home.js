@@ -160,47 +160,54 @@ export default class Home extends React.Component {
     form[5] = {id: 6, index: "", html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.ort ? "error" : ""}  /></Form.Group>}
 
     return (
-      <div onMouseDown={help ? null : this.helpDown} onMouseUp={help ? null : this.helpUp} onMouseMove={this.move}>
-          <Message hidden={msg} icon="checkmark" color="green">
-              <Message.Header>Erfolgreich gesendet</Message.Header>
-          </Message>
-          <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
-                {
-                    array.form.map(function (data, index) {
-                          form[data].index = index
-                    return (
-                          form[data].html
-                        )
-                    })
-                }
-                <Form.Button primary content="Senden" size={size.size}/>
-          </Form>
+        <div onMouseMove={this.move}>
+            <div class="container" style={{marginTop: "60px"}} >
+                <div class="row">
+                    <div class="col-lg-12">
+                          <div onMouseDown={help ? null : this.helpDown} onMouseUp={help ? null : this.helpUp}>
+                              <Message hidden={msg} icon="checkmark" color="green">
+                                  <Message.Header>Erfolgreich gesendet</Message.Header>
+                              </Message>
+                              <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
+                                    {
+                                        array.form.map(function (data, index) {
+                                              form[data].index = index
+                                        return (
+                                              form[data].html
+                                            )
+                                        })
+                                    }
+                                    <Form.Button primary content="Senden" size={size.size}/>
+                              </Form>
 
-           <Modal size="mini" open={open ? modal.open : false} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
-                <Modal.Header>
-                    Hilfe
-                </Modal.Header>
-                <Modal.Content>
-                    <p>Soll die Größe der Felder geändert werden?</p>
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button negative content='Nein' value={0} onClick={this.modal}/>
-                    <Button positive content='Ja' value={1} onClick={this.modal} />
-                </Modal.Actions>
-          </Modal>
+                               <Modal size="mini" open={open ? modal.open : false} onClose={this.close} style={{ marginTop: "0%", height: "20%" }}>
+                                    <Modal.Header>
+                                        Hilfe
+                                    </Modal.Header>
+                                    <Modal.Content>
+                                        <p>Soll die Größe der Felder geändert werden?</p>
+                                    </Modal.Content>
+                                    <Modal.Actions>
+                                        <Button negative content='Nein' value={0} onClick={this.modal}/>
+                                        <Button positive content='Ja' value={1} onClick={this.modal} />
+                                    </Modal.Actions>
+                              </Modal>
 
-          <ScatterChart width={600} height={500} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
-            <XAxis type="number" dataKey={'x'} name='stature'/>
-            <YAxis type="number" dataKey={'y'} name='weight'/>
-            <ZAxis range={[100]}/>
-            <CartesianGrid />
-            <Tooltip cursor={{strokeDasharray: '3 3'}}/>
-            <Legend/>
-      	<Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="point"/>
-      </ScatterChart>
+                              <ScatterChart width={600} height={500} margin={{top: 20, right: 20, bottom: 20, left: 20}}>
+                                <XAxis type="number" dataKey={'x'} name='stature'/>
+                                <YAxis type="number" dataKey={'y'} name='weight'/>
+                                <ZAxis range={[100]}/>
+                                <CartesianGrid />
+                                <Tooltip cursor={{strokeDasharray: '3 3'}}/>
+                                <Legend/>
+                            <Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="point"/>
+                          </ScatterChart>
 
-
-      </div>
+                          </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     );
   }
 }
