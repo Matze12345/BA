@@ -52,13 +52,7 @@ export default class Home extends React.Component {
             clickTime: "",
             help: false,
 
-            startInput: "",
-            endInput: "",
-            idInput: "",
             input: [],
-            startMove: "",
-            endMove: "",
-
             x: [],
             y: [],
             test: [],
@@ -70,16 +64,10 @@ export default class Home extends React.Component {
     }
 
      handleChange = (e, { name, value }) => {
-        var { input } = this.state
+         var { input } = this.state
          input[input.length - 1].end = performance.now();
          input[input.length - 1].keyCount = input[input.length - 1].keyCount + 1;
-        this.setState({ endInput: performance.now, input : input })
-
-
-
-         var { data } = this.state
-         data[data.length - 1].input = true
-         this.setState({ [name]: value, time: performance.now(), data: data })
+         this.setState({ input : input, [name]: value })
      }
 
      handleSubmit = () => {
@@ -98,56 +86,27 @@ export default class Home extends React.Component {
 
      handleClick = (e) => {
          var { input } = this.state
-         input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, entered: "click", keyCount: 0 })
+         if (input.length != 0 && input[input.length-1].type == "move"){
+             input[input.length-1].end = performance.now()
+         }
+         input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, key: "mouse", keyCount: 0 })
          this.setState({ startInput: performance.now(), idInput: e.target.id, input: input })
          console.log(input)
-
-
-         var { vorg, time, data } = this.state
-         var skip = 0
-         if(time != null){
-            time = performance.now() - time
-         }else {
-             time = 0
-         }
-         if (vorg != null){
-             skip = Math.abs(vorg - form[e.target.id - 1].index) - 1
-         }
-         else{
-             skip = 0
-         }
-         var vorganger = form[e.target.id - 1].index
-         this.setState({vorg: vorganger})
-
-         data.push( { type: "click", id: e.target.id, index: form[e.target.id-1].index, skip: skip, time: time, input: false } )
-         this.setState({ data: data })
      }
 
 
      handleKeyUp = (e) => {
         if (e.keyCode == 9) //Tab = 9
         {
+             // move und input
              var { input } = this.state
-             input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, entered: "tab", keyCount: 0})
+             if (input.length != 0 && input[input.length-1].type == "move"){
+                input[input.length-1].end = performance.now()
+             }
+             input.push({type: "move", start: performance.now(), end: performance.now(), id: "", x: "", y: "", key: "tab", keyCount: 0})
+             input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: "", y: "", key: "tab", keyCount: 0})
              this.setState({ startInput: performance.now(), idInput: e.target.id, input: input })
              console.log(input)
-
-
-
-
-            var { time, data } = this.state
-
-            if(time != null){
-                time = performance.now() - time
-            } else {
-                time = 0
-            }
-
-            var vorganger = form[e.target.id - 1].index
-            this.setState({vorg: vorganger})
-
-            data.push( { type: "tab", id: e.target.id, index: form[e.target.id-1].index, skip: 0, time: time, input: false } )
-            this.setState({ data: data })
         }
      }
 
@@ -172,21 +131,20 @@ export default class Home extends React.Component {
      }
      move = (e) => {
          var { input, x, y, test } = this.state
-         x.push(e.clientX)
-         y.push(e.clientY)
-         if (input.length == 0 || input[input.length-1].type != "move"){
-            input.push({type: "move", start: performance.now(), end: performance.now(), id: e.target.id, x: x, y: y, entered: "", keyCount: 0})
+         if(x.length == 0 || Math.abs(x[x.length-1]-e.clientX) > window.screen.availHeight * 0.03 || y.length == 0 || Math.abs(y[y.length-1]-e.clientY) > window.screen.availWidth * 0.02){
+             x.push(e.clientX)
+             y.push(e.clientY)
+             if (input.length == 0 || input[input.length-1].type != "move"){
+                input.push({type: "move", start: performance.now(), end: performance.now(), id: "", x: x, y: y, key: "mouse", keyCount: 0})
+             }
+             else{
+                 input[input.length-1].end = performance.now()
+                 input[input.length-1].x = x
+                 input[input.length-1].y = y
+             }
+             test.push({x: e.clientX, y: (e.clientY * (-1))})
+             this.setState({ x: x, y: y, input: input, test: test })
          }
-         else{
-             input[input.length-1].end = performance.now()
-             input[input.length-1].x = x
-             input[input.length-1].y = y
-         }
-         test.push({x: e.clientX, y: e.clientY})
-         this.setState({ x: x, y: y, input: input, test: test })
-         //console.log(input)
-
-        //console.log(e.clientX, e.clientY)
      }
 
 
@@ -240,7 +198,7 @@ export default class Home extends React.Component {
             <CartesianGrid />
             <Tooltip cursor={{strokeDasharray: '3 3'}}/>
             <Legend/>
-      	<Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="cross"/>
+      	<Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="point"/>
       </ScatterChart>
 
 
