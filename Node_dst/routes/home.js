@@ -27,13 +27,14 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
     var points = []
 
-    points = logic.score(req.body.data, 6)
+    //points = logic.score(req.body.data, 6)
 
-    db.insertScore(points, function () {
+    //db.insertScore(points, function () {
+        //db.insertRaw(JSON.stringify(req.body.data), req.body.time, function () {
         db.insertRaw(JSON.stringify(req.body.data), req.body.time, function () {
             res.send({state: true})
         })
-    })
+    //})
 });
 
 module.exports = router;

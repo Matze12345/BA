@@ -42,9 +42,7 @@ export default class Home extends React.Component {
             hnr: "",
             plz: "",
             ort: "",
-            vorg: null,
-            time: null,
-            data: [],
+
             msg: true,
             errors: "",
             open: true,
@@ -71,13 +69,13 @@ export default class Home extends React.Component {
      }
 
      handleSubmit = () => {
-         const { vname, nname, hnr, plz, ort, str, data} = this.state
+         const { vname, nname, hnr, plz, ort, str, input} = this.state
          const errors = validate(vname, nname, str, hnr, plz, ort)
 
          if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
-             var input = data
-             this.setState({vorg: null, time: null, vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", data: [], msg: false, errors: ""}, () => {
-                this.props.dispatch(fetchClickData(input, performance.now()))
+             var data = input
+             this.setState({vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", msg: false, errors: "", input: [], x: [], y: [], test: []}, () => {
+                this.props.dispatch(fetchClickData(data, performance.now()))
              })
          }else {
              this.setState({ errors: errors })
