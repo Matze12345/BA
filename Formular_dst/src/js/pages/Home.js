@@ -53,7 +53,7 @@ export default class Home extends React.Component {
             input: [],
             x: [],
             y: [],
-            test: [],
+            plot: [],
         }
     }
 
@@ -63,8 +63,12 @@ export default class Home extends React.Component {
 
      handleChange = (e, { name, value }) => {
          var { input } = this.state
-         input[input.length - 1].end = performance.now();
-         input[input.length - 1].keyCount = input[input.length - 1].keyCount + 1;
+         if(input[input.length-1].type != "input"){
+             input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, key: "mouse", keyCount: 1 })
+         }else{
+             input[input.length - 1].end = performance.now();
+             input[input.length - 1].keyCount = input[input.length - 1].keyCount + 1;
+         }
          this.setState({ input : input, [name]: value })
      }
 
@@ -74,7 +78,7 @@ export default class Home extends React.Component {
 
          if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
              var data = input
-             this.setState({vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", msg: false, errors: "", input: [], x: [], y: [], test: []}, () => {
+             this.setState({vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", msg: false, errors: "", input: [], x: [], y: [], plot: []}, () => {
                 this.props.dispatch(fetchClickData(data, performance.now()))
              })
          }else {
@@ -88,7 +92,7 @@ export default class Home extends React.Component {
              input[input.length-1].end = performance.now()
          }
          input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, key: "mouse", keyCount: 0 })
-         this.setState({ startInput: performance.now(), idInput: e.target.id, input: input })
+         this.setState({ input: input })
          console.log(input)
      }
 
@@ -103,7 +107,7 @@ export default class Home extends React.Component {
              }
              input.push({type: "move", start: performance.now(), end: performance.now(), id: "", x: "", y: "", key: "tab", keyCount: 0})
              input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: "", y: "", key: "tab", keyCount: 0})
-             this.setState({ startInput: performance.now(), idInput: e.target.id, input: input })
+             this.setState({ input: input })
              console.log(input)
         }
      }
@@ -128,8 +132,15 @@ export default class Home extends React.Component {
          this.setState({ help: true, clickTime: clickTime })
      }
      move = (e) => {
-         var { input, x, y, test } = this.state
+         var { input, x, y, plot } = this.state
+
          if(x.length == 0 || Math.abs(x[x.length-1]-e.clientX) > window.screen.availHeight * 0.03 || y.length == 0 || Math.abs(y[y.length-1]-e.clientY) > window.screen.availWidth * 0.02){
+
+             //strecke berechnen
+             //if(x.length > 1 && y.length > 1){
+             //   console.log(Math.sqrt( Math.pow(Math.abs(x[x.length-1])-Math.abs(e.clientX), 2) + Math.pow(Math.abs(y[y.length-1])-Math.abs(e.clientY), 2) ))
+             //}
+
              x.push(e.clientX)
              y.push(e.clientY)
              if (input.length == 0 || input[input.length-1].type != "move"){
@@ -140,8 +151,8 @@ export default class Home extends React.Component {
                  input[input.length-1].x = x
                  input[input.length-1].y = y
              }
-             test.push({x: e.clientX, y: (e.clientY * (-1))})
-             this.setState({ x: x, y: y, input: input, test: test })
+             plot.push({x: e.clientX, y: (e.clientY * (-1))})
+             this.setState({ x: x, y: y, input: input, plot: plot })
          }
      }
 
@@ -150,7 +161,7 @@ export default class Home extends React.Component {
     const array = this.props.NewInit
     const size  = this.props.NewTrain
     const modal = this.props.NewHelp
-    const { vname, nname, hnr, plz, ort, str, msg, errors, open, help, test} = this.state
+    const { vname, nname, hnr, plz, ort, str, msg, errors, open, help, plot} = this.state
 
     form[0] = {id: 1, index: "", html: <Form.Group widths='equal'><Form.Input id="1" label='Vorname'  placeholder='Vorname' name='vname' value={vname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.vname ? "error" : ""} /></Form.Group>}
     form[1] = {id: 2, index: "", html: <Form.Group widths='equal'><Form.Input id="2" label='Nachname' placeholder='Nachname' name='nname' value={nname} onKeyUp={this.handleKeyUp} onClick={this.handleClick} onChange={this.handleChange} error={errors.nname ? "error" : ""} /></Form.Group>}
@@ -200,7 +211,7 @@ export default class Home extends React.Component {
                                 <CartesianGrid />
                                 <Tooltip cursor={{strokeDasharray: '3 3'}}/>
                                 <Legend/>
-                            <Scatter name='Koordinaten' data={test} fill='#8884d8' line shape="point"/>
+                            <Scatter name='Koordinaten' data={plot} fill='#8884d8' line shape="point"/>
                           </ScatterChart>
 
                           </div>
