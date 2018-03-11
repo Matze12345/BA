@@ -1,6 +1,7 @@
 var sqlite3 = require('sqlite3').verbose();
 var dbData = new sqlite3.Database('./database/data.db');
 var dbRaw = new sqlite3.Database('./database/raw.db');
+var dbNearest = new sqlite3.Database('./database/nearest.db');
 
 
 var selectScore = function (callback) {
@@ -52,6 +53,30 @@ var insertRaw = function (raw, time, callback) {
     callback();
 }
 
+var insertNearest = function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
+     dbNearest.serialize(() => {
+        var stmt = dbNearest.prepare("INSERT INTO nearest ( strecke, moveSpeed, inputSpeed, tab, mouse, time  ) VALUES ( ?, ?, ?, ?, ?, ? )");
+        stmt.run(strecke, moveSpeed, inputSpeed, tab, mouse, time);
+        stmt.finalize();
+    })
+    callback();
+}
+
+var selectNearest = function (callback) {
+     var data = []
+    dbNearest.serialize(() => {
+            let sql = 'SELECT * FROM nearest';
+            dbNearest.all(sql, [], (err, rows) => {
+              if (err) {
+                throw err;
+              }
+              rows.forEach((row) => {
+                    data.push([row.strecke, row.moveSpeed, row.inputSpeed, row.tab, row.mouse, row.time])
+              });
+              callback(data)
+            });
+     })
+}
 
 module.exports =  {
     selectScore: function (callback) {
@@ -66,9 +91,19 @@ module.exports =  {
     },
     insertRaw: function (raw, time, callback) {
 
-        console.log(raw.toString(), time)
+        //console.log(raw.toString(), time)
         insertRaw(raw.toString(), time, function () {
             callback()
         })
     },
+    insertNearest: function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
+        insertNearest(strecke, moveSpeed, inputSpeed, tab, mouse, time,function () {
+            callback()
+        })
+    },
+    selectNearest: function (callback) {
+        selectNearest(function (data) {
+            callback(data)
+        })
+    }
 }
