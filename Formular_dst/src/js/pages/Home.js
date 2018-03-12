@@ -93,7 +93,7 @@ export default class Home extends React.Component {
          }
          input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, key: "mouse", keyCount: 0 })
          this.setState({ input: input })
-         console.log(input)
+         //console.log(input)
      }
 
 
@@ -108,7 +108,7 @@ export default class Home extends React.Component {
              input.push({type: "move", start: performance.now(), end: performance.now(), id: "", x: "", y: "", key: "tab", keyCount: 0})
              input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: "", y: "", key: "tab", keyCount: 0})
              this.setState({ input: input })
-             console.log(input)
+             //console.log(input)
         }
      }
 
@@ -125,10 +125,10 @@ export default class Home extends React.Component {
      helpDown = () => {
          this.setState({ clickTime: performance.now(), click: performance.now()  })
      }
-     helpUp = () => {
+     helpUp = (e) => {
          var { click, clickTime } = this.state
          clickTime = performance.now() - this.state.clickTime
-         //this.props.dispatch(fetchHelpData( click, clickTime))
+         //this.props.dispatch(fetchHelpData( click, clickTime, e.clientX, e.clientY))
          this.setState({ help: true, clickTime: clickTime })
      }
      move = (e) => {
