@@ -12,7 +12,7 @@ const open = (result) => {
 }
 
 router.post('/', function(req, res, next) {
-    console.log(req.body)
+    //console.log(req.body)
     var data = []
     data.push(Math.round(req.body.time)/10000)
     data.push(Math.round(req.body.click)/10000)

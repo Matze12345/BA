@@ -66,7 +66,7 @@ module.exports =  {
     },
     insertRaw: function (raw, time, callback) {
 
-        console.log(raw.toString(), time)
+        //console.log(raw.toString(), time)
         insertRaw(raw.toString(), time, function () {
             callback()
         })

@@ -19,7 +19,7 @@ router.get('/', function(req, res, next) {
         for(var j = score.length; j>0; j--){
             form.push(score[j-1].id - 1)
         }
-        console.log(form)
+        //console.log(form)
         res.send({form: form, status: false})
     })
 });
