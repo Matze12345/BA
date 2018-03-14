@@ -53,6 +53,24 @@ var insertRaw = function (raw, time, callback) {
     callback();
 }
 
+var selectRaw = function (callback) {
+    var data = []
+    var time = []
+    dbRaw.serialize(() => {
+            let sql = 'SELECT * FROM raw';
+            dbRaw.all(sql, [], (err, rows) => {
+              if (err) {
+                throw err;
+              }
+              rows.forEach((row) => {
+                    data.push(row.raw)
+                    time.push(row.time)
+              });
+              callback(data[1], time[1])
+            });
+     })
+}
+
 var insertNearest = function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
      dbNearest.serialize(() => {
         var stmt = dbNearest.prepare("INSERT INTO nearest ( strecke, moveSpeed, inputSpeed, tab, mouse, time  ) VALUES ( ?, ?, ?, ?, ?, ? )");
@@ -94,6 +112,11 @@ module.exports =  {
         //console.log(raw.toString(), time)
         insertRaw(raw.toString(), time, function () {
             callback()
+        })
+    },
+    selectRaw: function (callback) {
+        selectRaw(function (raw, time) {
+            callback(raw, time)
         })
     },
     insertNearest: function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
