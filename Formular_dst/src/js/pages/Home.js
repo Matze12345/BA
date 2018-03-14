@@ -69,7 +69,7 @@ export default class Home extends React.Component {
              input[input.length - 1].end = performance.now();
              input[input.length - 1].keyCount = input[input.length - 1].keyCount + 1;
          }
-         this.setState({ input : input, [name]: value })
+         this.setState({ input : input, [name]: value, x: [], y: [] })
      }
 
      handleSubmit = () => {
@@ -92,7 +92,7 @@ export default class Home extends React.Component {
              input[input.length-1].end = performance.now()
          }
          input.push({type: "input", start: performance.now(), end: performance.now(), id: e.target.id, x: e.clientX, y: e.clientY, key: "mouse", keyCount: 0 })
-         this.setState({ input: input })
+         this.setState({ input: input, x: [], y: [] })
          //console.log(input)
      }
 

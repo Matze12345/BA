@@ -1,9 +1,15 @@
 module.exports =  {
+
     score: function (data) {
         var pt = 0.00
         var points = []
         var skip = 0
         var cnt = 6
+        var strecke = 0
+        var time = 0
+
+        var x = []
+        var y = []
 
         function include(id, callback) {
             var result = { state: false, index: 0}
@@ -17,11 +23,23 @@ module.exports =  {
             callback(result)
         }
 
+
         for(var i = 0; i<data.length; i++) {
+            if(data[i].type == "move" ){
+                x = data[i].x
+                y = data[i].y
+                for (var j = 0; j < x.length - 1; j++) {
+                    strecke = strecke + Math.sqrt(Math.pow(Math.abs(x[j]) - Math.abs(x[j + 1]), 2) + Math.pow(Math.abs(y[j]) - Math.abs(y[j + 1]), 2))
+                }
+                time = time + data[i].end - data[i].start
+            }
+
             if( data[i].type == "input" ) {
                 if(data[i].keyCount != 0) {
-                    pt = data[i].id
+                    //console.log(strecke, time)
+                    pt = data[i].id  + (time/1000) + (strecke/1000)
 
+                    time = strecke = 0
 
                     //pt = data.length - i + ( data[i].skip * 0.4 * data[i].time / 10000  )
 
