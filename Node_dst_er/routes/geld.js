@@ -33,6 +33,8 @@ router.post('/', function (req, res, next) {
     var rawData = req.body.data
     var rawTime = req.body.time
 
+    console.log(rawData)
+
     var points = []
     points = logic.score(3, rawData)
     //console.log(points)

@@ -59,7 +59,7 @@ export default class Geld extends React.Component {
     }
 
     handleChange = (e, {name, value}) => {
-        console.log(name, value)
+        console.log(name, value, e.target.id)
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
@@ -79,16 +79,16 @@ export default class Geld extends React.Component {
         this.setState({input: input, [name]: value, x: [], y: []})
     }
 
-    handleChangeColor = (e, color) => {
+    handleChangeColor = (color) => {
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
                 type: "input",
                 start: performance.now(),
                 end: performance.now(),
-                id: e.target.id,
-                x: e.clientX,
-                y: e.clientY,
+                id: 3,
+                x: "",
+                y: "",
                 key: "mouse",
                 keyCount: 1
             })
@@ -101,7 +101,7 @@ export default class Geld extends React.Component {
 
     handleSubmit = () => {
         const {art, anz, gravur, mat, ort, farbe, input} = this.state
-        const errors = validate(art, anz, farbe, gravur, mat, ort)
+        const errors = validate(art, anz, farbe, gravur, mat)
 
         if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false && errors.farbe == false) {
             var data = input
@@ -220,20 +220,24 @@ export default class Geld extends React.Component {
             value: '4'
         }, {text: '5', value: '5'}, {text: '6', value: '6'}, {text: '7', value: '7'}, {text: '8', value: '8'},]
 
+        const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"]
+
         form[0] = {
             id: 1,
             index: "",
-            html: <Form.Group inline><label>Art</label>
-                <Form.Radio id="1_h" name='art' label='Herren' value='herren' checked={art === 'herren'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.art ? "error" : ""}/>
-                <Form.Radio id="1_d" name='art' label='Damen' value='damen' checked={art === 'damen'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.art ? "error" : ""}/>
+            html: <Form.Group grouped>
+                <label>Art</label>
+                <Form.Group inline>
+                    <Form.Radio id="1_h" name='art' label='Herren' value='herren' checked={art === 'herren'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.art ? "error" : ""}/>
+                    <Form.Radio id="1_d" name='art' label='Damen' value='damen' checked={art === 'damen'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.art ? "error" : ""}/>
+                </Form.Group>
             </Form.Group>
-
 
         }
         form[1] = {
@@ -247,12 +251,14 @@ export default class Geld extends React.Component {
         form[2] = {
             id: 3,
             index: "",
-            html: <div><Form.Field label='Farbe'></Form.Field><CirclePicker id="3" label='Straße' name='farbe'
-                                                                            value={farbe} onKeyUp={this.handleKeyUp}
-                                                                            onClick={this.handleClick}
-                                                                            onChange={this.handleChangeColor}
-                                                                            error={errors.farbe ? "error" : ""}
-                                                                            color={farbe}/></div>
+            html: <div><label>Farbe</label><CirclePicker id="3" label='Straße' name='farbe'
+                                                         value={farbe} onKeyUp={this.handleKeyUp}
+                                                         onClick={this.handleClick}
+                                                         onChange={this.handleChangeColor}
+                                                         error={errors.farbe ? "error" : ""}
+                                                         colors={colors}
+                                                         width="504px"
+                                                         color={farbe}/><br/></div>
         }
         form[3] = {
             id: 4,
@@ -265,15 +271,18 @@ export default class Geld extends React.Component {
         form[4] = {
             id: 5,
             index: "",
-            html: <Form.Group inline><label>Material</label>
-                <Form.Radio id="5_l" name='mat' label='Leder' value='leder' checked={mat === 'leder'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.mat ? "error" : ""}/>
-                <Form.Radio id="5_s" name='mat' label='Stoff' value='stoff' checked={mat === 'stoff'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.mat ? "error" : ""}/>
+            html: <Form.Group grouped>
+                <label>Material</label>
+                <Form.Group inline>
+                    <Form.Radio id="5_l" name='mat' label='Leder' value='leder' checked={mat === 'leder'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.mat ? "error" : ""}/>
+                    <Form.Radio id="5_s" name='mat' label='Stoff' value='stoff' checked={mat === 'stoff'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.mat ? "error" : ""}/>
+                </Form.Group>
             </Form.Group>
         }
 

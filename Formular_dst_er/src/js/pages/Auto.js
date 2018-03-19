@@ -61,7 +61,7 @@ export default class Auto extends React.Component {
     }
 
     handleChange = (e, {name, value}) => {
-        console.log(name, value)
+        console.log(name, value, e.target.id)
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
@@ -81,16 +81,16 @@ export default class Auto extends React.Component {
         this.setState({input: input, [name]: value, x: [], y: []})
     }
 
-    handleChangeColor = (e, color) => {
+    handleChangeColor = (color) => {
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
                 type: "input",
                 start: performance.now(),
                 end: performance.now(),
-                id: e.target.id,
-                x: e.clientX,
-                y: e.clientY,
+                id: 3,
+                x: "",
+                y: "",
                 key: "mouse",
                 keyCount: 1
             })
@@ -101,9 +101,10 @@ export default class Auto extends React.Component {
         this.setState({input: input, farbe: color.hex, x: [], y: []})
     };
 
+
     handleSubmit = () => {
-        const {herst, nname, km, bj, leistung, farbe, input} = this.state
-        const errors = validate(herst, nname, farbe, km, bj, leistung)
+        const {herst, km, bj, leistung, farbe, input} = this.state
+        const errors = validate(herst, farbe, km, bj, leistung)
 
         if (errors.herst == false && errors.km == false && errors.bj == false && errors.farbe == false && errors.leistung == false) {
             var data = input
@@ -217,6 +218,8 @@ export default class Auto extends React.Component {
         const modal = this.props.NewHelp
         const {herst, nname, km, bj, leistung, farbe, msg, errors, open, help, plot} = this.state
 
+        const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"]
+
         form[0] = {
             id: 1,
             index: "",
@@ -224,13 +227,12 @@ export default class Auto extends React.Component {
                                                          value={herst} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.herst ? "error" : ""}/></Form.Group>
-
-
         }
         form[1] = {
             id: 2,
             index: "",
-            html:  <Form.Group widths='equal'><Form.Input id="6" label='Leistung' placeholder='PS' name='leistung' value={leistung}
+            html: <Form.Group widths='equal'><Form.Input id="2" label='Leistung' placeholder='PS' name='leistung'
+                                                         value={leistung}
                                                          onKeyUp={this.handleKeyUp} onClick={this.handleClick}
                                                          onChange={this.handleChange}
                                                          error={errors.leistung ? "error" : ""}/></Form.Group>
@@ -238,12 +240,14 @@ export default class Auto extends React.Component {
         form[2] = {
             id: 3,
             index: "",
-            html: <div><Form.Field label='Farbe'></Form.Field><CirclePicker id="3" label='Straße' name='farbe'
-                                                                            value={farbe} onKeyUp={this.handleKeyUp}
-                                                                            onClick={this.handleClick}
-                                                                            onChange={this.handleChangeColor}
-                                                                            error={errors.farbe ? "error" : ""}
-                                                                            color={farbe}/></div>
+            html: <div><label>Farbe</label><CirclePicker id="3" label='Straße' name='farbe'
+                                                         value={farbe} onKeyUp={this.handleKeyUp}
+                                                         onClick={this.handleClick}
+                                                         onChange={this.handleChangeColor}
+                                                         error={errors.farbe ? "error" : ""}
+                                                         colors={colors}
+                                                         width="504px"
+                                                         color={farbe}/><br/></div>
         }
         form[3] = {
             id: 4,

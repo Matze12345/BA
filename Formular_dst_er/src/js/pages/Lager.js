@@ -79,7 +79,7 @@ export default class Lager extends React.Component {
 
     handleSubmit = () => {
         const {artnr, lager, hnr, plz, ort, anz, input} = this.state
-        const errors = validate(artnr, lager, anz, hnr, plz, ort)
+        const errors = validate(artnr, lager, anz)
 
         if (errors.artnr == false && errors.lager == false && errors.anz == false) {
             var data = input
@@ -257,12 +257,9 @@ export default class Lager extends React.Component {
                                         )
                                     })
                                 }
-                                <Form.Button primary content="Senden" size={size.size}> <Link to="/geld">Click to
-                                    login</Link> </Form.Button>
+                                <Form.Button primary content="Senden" size={size.size}></Form.Button>
                             </Form>
-                            <span className="btn">
-                          <Link to="/geld">Click to login</Link>
-                        </span>
+
                         </div>
                     </div>
                 </div>

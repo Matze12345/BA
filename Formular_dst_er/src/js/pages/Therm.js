@@ -77,16 +77,16 @@ export default class Therm extends React.Component {
         this.setState({input: input, [name]: value, x: [], y: []})
     }
 
-    handleChangeColor = (e, color) => {
+    handleChangeColor = (color) => {
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
                 type: "input",
                 start: performance.now(),
                 end: performance.now(),
-                id: e.target.id,
-                x: e.clientX,
-                y: e.clientY,
+                id: 3,
+                x: "",
+                y: "",
                 key: "mouse",
                 keyCount: 1
             })
@@ -97,9 +97,10 @@ export default class Therm extends React.Component {
         this.setState({input: input, farbe: color.hex, x: [], y: []})
     };
 
+
     handleSubmit = () => {
         const {mat, vol, hnr, plz, ort, farbe, input} = this.state
-        const errors = validate(mat, vol, farbe, hnr, plz, ort)
+        const errors = validate(mat, vol, farbe)
 
         if (errors.mat == false && errors.vol == false && errors.farbe == false) {
             var data = input
@@ -211,10 +212,15 @@ export default class Therm extends React.Component {
         const modal = this.props.NewHelp
         const {mat, vol, hnr, plz, ort, farbe, msg, errors, open, help, plot} = this.state
 
+         const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#795548", "#607d8b"]
+
+
         form[0] = {
             id: 1,
             index: "",
-            html: <Form.Group inline><label>Material</label>
+            html: <Form.Group grouped>
+                <label>Material</label>
+                <Form.Group inline>
                 <Form.Radio id="1_l" name='mat' label='Metall' value='metall' checked={mat === 'metall'}
                             onKeyUp={this.handleKeyUp}
                             onClick={this.handleClick} onChange={this.handleChange}
@@ -224,11 +230,14 @@ export default class Therm extends React.Component {
                             onClick={this.handleClick} onChange={this.handleChange}
                             error={errors.mat ? "error" : ""}/>
             </Form.Group>
+            </Form.Group>
         }
         form[1] = {
             id: 2,
             index: "",
-            html: <Form.Group inline><label>Größe</label>
+            html: <Form.Group grouped>
+                <label>Größe</label>
+                <Form.Group inline>
                 <Form.Radio id="1_0.5" name='vol' label='0.5 Liter' value='0.5' checked={vol === '0.5'}
                             onKeyUp={this.handleKeyUp}
                             onClick={this.handleClick} onChange={this.handleChange}
@@ -246,16 +255,20 @@ export default class Therm extends React.Component {
                             onClick={this.handleClick} onChange={this.handleChange}
                             error={errors.vol ? "error" : ""}/>
             </Form.Group>
+            </Form.Group>
         }
         form[2] = {
             id: 3,
             index: "",
-            html: <div><Form.Field label='Farbe'></Form.Field><CirclePicker id="3" label='Straße' name='farbe'
-                                                                            value={farbe} onKeyUp={this.handleKeyUp}
-                                                                            onClick={this.handleClick}
-                                                                            onChange={this.handleChangeColor}
-                                                                            error={errors.farbe ? "error" : ""}
-                                                                            color={farbe}/></div>
+            html: <div><label>Farbe</label><CirclePicker id="3" name='farbe'
+                                                         value={farbe} onKeyUp={this.handleKeyUp}
+                                                         onClick={this.handleClick}
+                                                         onChange={this.handleChangeColor}
+                                                         error={errors.farbe ? "error" : ""}
+                                                         colors={colors}
+                                                         width="504px"
+                                                         color={farbe}/><br/></div>
+
         }
         form[3] = {
             id: 4,
@@ -264,28 +277,6 @@ export default class Therm extends React.Component {
                                                          width={4} value={hnr} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.hnr ? "error" : ""}/></Form.Group>
-        }
-        form[4] = {
-            id: 5,
-            index: "",
-            html: <Form.Group inline><label>Material</label>
-                <Form.Radio id="5_l" name='plz' label='Leder' value='leder' checked={plz === 'leder'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.plz ? "error" : ""}/>
-                <Form.Radio id="5_s" name='plz' label='Stoff' value='stoff' checked={plz === 'stoff'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.plz ? "error" : ""}/>
-            </Form.Group>
-        }
-        form[5] = {
-            id: 6,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort}
-                                                         onKeyUp={this.handleKeyUp} onClick={this.handleClick}
-                                                         onChange={this.handleChange}
-                                                         error={errors.ort ? "error" : ""}/></Form.Group>
         }
 
         return (
