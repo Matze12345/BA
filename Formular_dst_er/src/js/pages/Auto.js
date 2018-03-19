@@ -12,10 +12,9 @@ import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 var form;
 form = [];
 
-function validate(herst, nname, farbe, km, bj, leistung) {
+function validate(herst, farbe, km, bj, leistung) {
     return {
         herst: herst.length === 0,
-        nname: nname.length === 0,
         farbe: farbe.length === 0,
         km: km.length === 0,
         bj: bj.length === 0,
@@ -32,13 +31,12 @@ function validate(herst, nname, farbe, km, bj, leistung) {
 })
 
 
-export default class Home extends React.Component {
+export default class Auto extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             herst: "",
-            nname: "",
             farbe: "",
             km: "",
             bj: "",
@@ -59,7 +57,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchInit())
+        this.props.dispatch(fetchInit('auto'))
     }
 
     handleChange = (e, {name, value}) => {
@@ -107,11 +105,10 @@ export default class Home extends React.Component {
         const {herst, nname, km, bj, leistung, farbe, input} = this.state
         const errors = validate(herst, nname, farbe, km, bj, leistung)
 
-        if (errors.herst == false && errors.nname == false && errors.km == false && errors.bj == false && errors.farbe == false && errors.leistung == false) {
+        if (errors.herst == false && errors.km == false && errors.bj == false && errors.farbe == false && errors.leistung == false) {
             var data = input
             this.setState({
                 herst: "",
-                nname: "",
                 farbe: "",
                 km: "",
                 bj: "",
@@ -123,7 +120,7 @@ export default class Home extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
+                this.props.dispatch(fetchClickData('auto', data, performance.now()))
             })
         } else {
             this.setState({errors: errors})
@@ -220,11 +217,6 @@ export default class Home extends React.Component {
         const modal = this.props.NewHelp
         const {herst, nname, km, bj, leistung, farbe, msg, errors, open, help, plot} = this.state
 
-        const anzOptions = [{text: '1', value: '1'}, {text: '2', value: '2'}, {text: '3', value: '3'}, {
-            text: '4',
-            value: '4'
-        }, {text: '5', value: '5'}, {text: '6', value: '6'}, {text: '7', value: '7'}, {text: '8', value: '8'},]
-
         form[0] = {
             id: 1,
             index: "",
@@ -238,10 +230,10 @@ export default class Home extends React.Component {
         form[1] = {
             id: 2,
             index: "",
-            html: <Form.Select options={anzOptions} placeholder='' id="2" label='Anzahl Innenfächer' name='nname'
-                               onKeyUp={this.handleKeyUp} value={nname}
-                               onClick={this.handleClick} onChange={this.handleChange}
-                               error={errors.nname ? "error" : ""}/>
+            html:  <Form.Group widths='equal'><Form.Input id="6" label='Leistung' placeholder='PS' name='leistung' value={leistung}
+                                                         onKeyUp={this.handleKeyUp} onClick={this.handleClick}
+                                                         onChange={this.handleChange}
+                                                         error={errors.leistung ? "error" : ""}/></Form.Group>
         }
         form[2] = {
             id: 3,
@@ -268,14 +260,6 @@ export default class Home extends React.Component {
                                                          value={bj} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.bj ? "error" : ""}/></Form.Group>
-        }
-        form[5] = {
-            id: 6,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="6" label='Leistung' placeholder='PS' name='leistung' value={leistung}
-                                                         onKeyUp={this.handleKeyUp} onClick={this.handleClick}
-                                                         onChange={this.handleChange}
-                                                         error={errors.leistung ? "error" : ""}/></Form.Group>
         }
 
         return (

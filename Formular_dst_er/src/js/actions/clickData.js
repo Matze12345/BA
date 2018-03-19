@@ -21,10 +21,10 @@ export function clickDataRejected(error) {
     }
 }
 
-export function fetchClickData(data, time) {
+export function fetchClickData(path, data, time) {
     return (dispatch) => {
         dispatch(fetchClick());
-        return fetch(config.BASE_URL + 'home', {
+        return fetch(config.BASE_URL + path, {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -40,7 +40,7 @@ export function fetchClickData(data, time) {
                     //console.log(response);
                     response.json().then(json => {
                         dispatch(setClickData(json));
-                        dispatch(fetchInit());
+                        dispatch(fetchInit(path));
                     });
                 } else {
                     //console.log(response);

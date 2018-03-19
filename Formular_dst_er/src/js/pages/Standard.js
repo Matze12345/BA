@@ -60,7 +60,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-         this.props.dispatch(fetchInit())
+         this.props.dispatch(fetchInit('home'))
     }
 
      handleChange = (e, { name, value }) => {
@@ -81,8 +81,7 @@ export default class Home extends React.Component {
          if (errors.vname == false && errors.nname == false && errors.hnr == false && errors.plz == false && errors.str == false && errors.ort == false){
              var data = input
              this.setState({vname: "", nname: "", str: "", hnr: "", plz: "", ort: "", msg: false, errors: "", input: [], x: [], y: [], plot: []}, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
-                 //this.props.history.push("/geld")
+                this.props.dispatch(fetchClickData('home', data, performance.now()))
              })
          }else {
              this.setState({ errors: errors })

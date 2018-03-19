@@ -10,14 +10,13 @@ import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 var form;
 form = [];
 
-function validate(art, anz, farbe, gravur, mat, ort) {
+function validate(art, anz, farbe, gravur, mat) {
     return {
         art: art.length === 0,
         anz: anz.length === 0,
         farbe: farbe.length === 0,
         gravur: gravur.length === 0,
         mat: mat.length === 0,
-        ort: ort.length === 0,
     };
 }
 
@@ -30,7 +29,7 @@ function validate(art, anz, farbe, gravur, mat, ort) {
 })
 
 
-export default class Home extends React.Component {
+export default class Geld extends React.Component {
 
     constructor(props) {
         super(props);
@@ -40,7 +39,6 @@ export default class Home extends React.Component {
             farbe: "",
             gravur: "",
             mat: "",
-            ort: "",
 
             msg: true,
             errors: "",
@@ -57,7 +55,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchInit())
+        this.props.dispatch(fetchInit('geld'))
     }
 
     handleChange = (e, {name, value}) => {
@@ -105,7 +103,7 @@ export default class Home extends React.Component {
         const {art, anz, gravur, mat, ort, farbe, input} = this.state
         const errors = validate(art, anz, farbe, gravur, mat, ort)
 
-        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false && errors.farbe == false && errors.ort == false) {
+        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false && errors.farbe == false) {
             var data = input
             this.setState({
                 art: "",
@@ -113,7 +111,6 @@ export default class Home extends React.Component {
                 farbe: "",
                 gravur: "",
                 mat: "",
-                ort: "",
                 msg: false,
                 errors: "",
                 input: [],
@@ -121,7 +118,7 @@ export default class Home extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
+                this.props.dispatch(fetchClickData('geld', data, performance.now()))
             })
         } else {
             this.setState({errors: errors})
@@ -279,14 +276,7 @@ export default class Home extends React.Component {
                             error={errors.mat ? "error" : ""}/>
             </Form.Group>
         }
-        form[5] = {
-            id: 6,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort}
-                                                         onKeyUp={this.handleKeyUp} onClick={this.handleClick}
-                                                         onChange={this.handleChange}
-                                                         error={errors.ort ? "error" : ""}/></Form.Group>
-        }
+
 
         return (
             <div onMouseMove={this.move}>

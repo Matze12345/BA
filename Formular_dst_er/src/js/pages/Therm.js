@@ -12,14 +12,11 @@ import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 var form;
 form = [];
 
-function validate(mat, vol, farbe, hnr, plz, ort) {
+function validate(mat, vol, farbe) {
     return {
         mat: mat.length === 0,
         vol: vol.length === 0,
         farbe: farbe.length === 0,
-        hnr: hnr.length === 0,
-        plz: plz.length === 0,
-        ort: ort.length === 0,
     };
 }
 
@@ -32,7 +29,7 @@ function validate(mat, vol, farbe, hnr, plz, ort) {
 })
 
 
-export default class Home extends React.Component {
+export default class Therm extends React.Component {
 
     constructor(props) {
         super(props);
@@ -40,9 +37,6 @@ export default class Home extends React.Component {
             mat: "",
             vol: "",
             farbe: "",
-            hnr: "",
-            plz: "",
-            ort: "",
 
             msg: true,
             errors: "",
@@ -59,7 +53,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchInit())
+        this.props.dispatch(fetchInit('therm'))
     }
 
     handleChange = (e, {name, value}) => {
@@ -107,15 +101,12 @@ export default class Home extends React.Component {
         const {mat, vol, hnr, plz, ort, farbe, input} = this.state
         const errors = validate(mat, vol, farbe, hnr, plz, ort)
 
-        if (errors.mat == false && errors.vol == false && errors.hnr == false && errors.plz == false && errors.farbe == false && errors.ort == false) {
+        if (errors.mat == false && errors.vol == false && errors.farbe == false) {
             var data = input
             this.setState({
                 mat: "",
                 vol: "",
                 farbe: "",
-                hnr: "",
-                plz: "",
-                ort: "",
                 msg: false,
                 errors: "",
                 input: [],
@@ -123,7 +114,7 @@ export default class Home extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
+                this.props.dispatch(fetchClickData('therm', data, performance.now()))
             })
         } else {
             this.setState({errors: errors})

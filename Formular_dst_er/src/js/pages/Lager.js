@@ -13,14 +13,11 @@ import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 var form;
 form = [];
 
-function validate(artnr, lager, anz, hnr, plz, ort) {
+function validate(artnr, lager, anz) {
     return {
         artnr: artnr.length === 0,
         lager: lager.length === 0,
         anz: anz.length === 0,
-        hnr: hnr.length === 0,
-        plz: plz.length === 0,
-        ort: ort.length === 0,
     };
 }
 
@@ -33,7 +30,7 @@ function validate(artnr, lager, anz, hnr, plz, ort) {
 })
 
 
-export default class Home extends React.Component {
+export default class Lager extends React.Component {
 
     constructor(props) {
         super(props);
@@ -41,9 +38,6 @@ export default class Home extends React.Component {
             artnr: "",
             lager: "",
             anz: "",
-            hnr: "",
-            plz: "",
-            ort: "",
 
             msg: true,
             errors: "",
@@ -60,7 +54,7 @@ export default class Home extends React.Component {
     }
 
     componentWillMount() {
-        this.props.dispatch(fetchInit())
+        this.props.dispatch(fetchInit('lager'))
     }
 
     handleChange = (e, {name, value}) => {
@@ -87,15 +81,12 @@ export default class Home extends React.Component {
         const {artnr, lager, hnr, plz, ort, anz, input} = this.state
         const errors = validate(artnr, lager, anz, hnr, plz, ort)
 
-        if (errors.artnr == false && errors.lager == false && errors.hnr == false && errors.plz == false && errors.anz == false && errors.ort == false) {
+        if (errors.artnr == false && errors.lager == false && errors.anz == false) {
             var data = input
             this.setState({
                 artnr: "",
                 lager: "",
                 anz: "",
-                hnr: "",
-                plz: "",
-                ort: "",
                 msg: false,
                 errors: "",
                 input: [],
@@ -103,7 +94,7 @@ export default class Home extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData(data, performance.now()))
+                this.props.dispatch(fetchClickData('lager', data, performance.now()))
                 //this.props.history.push("/geld")
             })
         } else {
@@ -247,30 +238,6 @@ export default class Home extends React.Component {
                                                          value={anz} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.anz ? "error" : ""}/></Form.Group>
-        }
-        form[3] = {
-            id: 4,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="4" label='Hausnummer' placeholder='Hausnummer' name='hnr'
-                                                         width={4} value={hnr} onKeyUp={this.handleKeyUp}
-                                                         onClick={this.handleClick} onChange={this.handleChange}
-                                                         error={errors.hnr ? "error" : ""}/></Form.Group>
-        }
-        form[4] = {
-            id: 5,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="5" label='Postleitzahl' placeholder='Postleitzahl'
-                                                         name='plz' width={3} value={plz} onKeyUp={this.handleKeyUp}
-                                                         onClick={this.handleClick} onChange={this.handleChange}
-                                                         error={errors.plz ? "error" : ""}/></Form.Group>
-        }
-        form[5] = {
-            id: 6,
-            index: "",
-            html: <Form.Group widths='equal'><Form.Input id="6" label='Ort' placeholder='Ort' name='ort' value={ort}
-                                                         onKeyUp={this.handleKeyUp} onClick={this.handleClick}
-                                                         onChange={this.handleChange}
-                                                         error={errors.ort ? "error" : ""}/></Form.Group>
         }
 
         return (
