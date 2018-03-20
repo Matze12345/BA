@@ -58,15 +58,15 @@ export default class Geld extends React.Component {
         this.props.dispatch(fetchInit('geld'))
     }
 
-    handleChange = (e, {name, value}) => {
-        console.log(name, value, e.target.id)
+    handleChange = (e, {name, value, itemId}) => {
+        console.log("change: ", e.clientX, e.clientY, itemId)
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
                 type: "input",
                 start: performance.now(),
                 end: performance.now(),
-                id: e.target.id,
+                id: itemId,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -125,7 +125,10 @@ export default class Geld extends React.Component {
         }
     }
 
-    handleClick = (e) => {
+    handleClick = (e, {itemId}) => {
+        if (itemId == null) {
+            itemId = e.target.id
+        }
         var {input} = this.state
         if (input.length != 0 && input[input.length - 1].type == "move") {
             input[input.length - 1].end = performance.now()
@@ -134,20 +137,22 @@ export default class Geld extends React.Component {
             type: "input",
             start: performance.now(),
             end: performance.now(),
-            id: e.target.id,
+            id: itemId,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
             keyCount: 0
         })
         this.setState({input: input, x: [], y: []})
-        console.log(input)
     }
 
 
-    handleKeyUp = (e) => {
+    handleKeyUp = (e, {itemId}) => {
         if (e.keyCode == 9) //Tab = 9
         {
+            if (itemId == null) {
+                itemId = e.target.id
+            }
             // move und input
             var {input} = this.state
             if (input.length != 0 && input[input.length - 1].type == "move") {
@@ -167,14 +172,13 @@ export default class Geld extends React.Component {
                 type: "input",
                 start: performance.now(),
                 end: performance.now(),
-                id: e.target.id,
+                id: itemId,
                 x: "",
                 y: "",
                 key: "tab",
                 keyCount: 0
             })
             this.setState({input: input})
-            //console.log(input)
         }
     }
 
@@ -228,11 +232,11 @@ export default class Geld extends React.Component {
             html: <Form.Group grouped>
                 <label>Art</label>
                 <Form.Group inline>
-                    <Form.Radio id="1_h" name='art' label='Herren' value='herren' checked={art === 'herren'}
+                    <Form.Radio itemId="1" name='art' label='Herren' value='herren' checked={art === 'herren'}
                                 onKeyUp={this.handleKeyUp}
                                 onClick={this.handleClick} onChange={this.handleChange}
                                 error={errors.art ? "error" : ""}/>
-                    <Form.Radio id="1_d" name='art' label='Damen' value='damen' checked={art === 'damen'}
+                    <Form.Radio itemId="1" name='art' label='Damen' value='damen' checked={art === 'damen'}
                                 onKeyUp={this.handleKeyUp}
                                 onClick={this.handleClick} onChange={this.handleChange}
                                 error={errors.art ? "error" : ""}/>
@@ -243,7 +247,7 @@ export default class Geld extends React.Component {
         form[1] = {
             id: 2,
             index: "",
-            html: <Form.Select options={anzOptions} placeholder='' id="2" label='Anzahl Innenfächer' name='anz'
+            html: <Form.Select options={anzOptions} placeholder='' itemId="2" label='Anzahl Innenfächer' name='anz'
                                onKeyUp={this.handleKeyUp} value={anz}
                                onClick={this.handleClick} onChange={this.handleChange}
                                error={errors.anz ? "error" : ""}/>
@@ -263,7 +267,8 @@ export default class Geld extends React.Component {
         form[3] = {
             id: 4,
             index: "",
-            html: <Form.Group widths='equal'><Form.Input id="4" label='Gravur' placeholder='Gravur' name='gravur'
+            html: <Form.Group widths='equal'><Form.Input id="4" itemId="4" label='Gravur' placeholder='Gravur'
+                                                         name='gravur'
                                                          width={4} value={gravur} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.gravur ? "error" : ""}/></Form.Group>
@@ -274,11 +279,11 @@ export default class Geld extends React.Component {
             html: <Form.Group grouped>
                 <label>Material</label>
                 <Form.Group inline>
-                    <Form.Radio id="5_l" name='mat' label='Leder' value='leder' checked={mat === 'leder'}
+                    <Form.Radio itemId="5" name='mat' label='Leder' value='leder' checked={mat === 'leder'}
                                 onKeyUp={this.handleKeyUp}
                                 onClick={this.handleClick} onChange={this.handleChange}
                                 error={errors.mat ? "error" : ""}/>
-                    <Form.Radio id="5_s" name='mat' label='Stoff' value='stoff' checked={mat === 'stoff'}
+                    <Form.Radio itemId="5" name='mat' label='Stoff' value='stoff' checked={mat === 'stoff'}
                                 onKeyUp={this.handleKeyUp}
                                 onClick={this.handleClick} onChange={this.handleChange}
                                 error={errors.mat ? "error" : ""}/>

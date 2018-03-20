@@ -61,7 +61,6 @@ export default class Auto extends React.Component {
     }
 
     handleChange = (e, {name, value}) => {
-        console.log(name, value, e.target.id)
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
@@ -144,7 +143,6 @@ export default class Auto extends React.Component {
             keyCount: 0
         })
         this.setState({input: input, x: [], y: []})
-        console.log(input)
     }
 
 
@@ -177,7 +175,6 @@ export default class Auto extends React.Component {
                 keyCount: 0
             })
             this.setState({input: input})
-            //console.log(input)
         }
     }
 
