@@ -2,8 +2,6 @@ import React from "react";
 import {connect} from "react-redux"
 import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
-import {fetchHelpData} from "../actions/helpAction"
-import {fetchHelpTrainData} from "../actions/helpTrain"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import {CirclePicker} from 'react-color'
 
@@ -25,8 +23,6 @@ function validate(herst, farbe, km, bj, leistung) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
-        NewHelp: store.helpReducer.help,
-        NewTrain: store.helpTrainReducer.help
     };
 })
 
@@ -120,7 +116,7 @@ export default class Auto extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData('auto', data, performance.now()))
+                this.props.dispatch(fetchClickData('auto', data, performance.now(), "lager"))
             })
         } else {
             this.setState({errors: errors})
@@ -271,7 +267,7 @@ export default class Auto extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
-                            <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
+                            <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
                                         form[data].index = index
@@ -280,7 +276,7 @@ export default class Auto extends React.Component {
                                         )
                                     })
                                 }
-                                <Form.Button primary content="Senden" size={size.size}/>
+                                <Form.Button primary content="Senden" size="medium"/>
                             </Form>
                         </div>
                     </div>

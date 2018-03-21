@@ -1,5 +1,5 @@
 import config from '../../config/config'
-import { fetchInit } from "./initAction"
+import {setInitState, fetchInit} from "./initAction"
 
 export function fetchClick() {
     return {
@@ -10,7 +10,7 @@ export function fetchClick() {
 export function setClickData(data) {
     return {
         type: "FETCH_CLICK_DATA_FULFILLED",
-        payload:  data
+        payload: data
     }
 }
 
@@ -21,7 +21,7 @@ export function clickDataRejected(error) {
     }
 }
 
-export function fetchClickData(path, data, time) {
+export function fetchClickData(path, data, time, nextPage) {
     return (dispatch) => {
         dispatch(fetchClick());
         return fetch(config.BASE_URL + path, {
@@ -40,7 +40,12 @@ export function fetchClickData(path, data, time) {
                     //console.log(response);
                     response.json().then(json => {
                         dispatch(setClickData(json));
-                        dispatch(fetchInit(path));
+                        console.log(nextPage, path)
+                        if (path != "lager" || nextPage != "lager") {
+                            console.log("new page")
+                            dispatch(setInitState({form: [], status: true}));
+                            window.location.assign("/#/" + nextPage)
+                        }
                     });
                 } else {
                     //console.log(response);

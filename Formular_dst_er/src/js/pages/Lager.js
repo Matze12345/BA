@@ -2,11 +2,7 @@ import React from "react";
 import {connect} from "react-redux"
 import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
-import {fetchHelpData} from "../actions/helpAction"
-import {fetchHelpTrainData} from "../actions/helpTrain"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-
-import {Router, Route, Link, RouteHandler} from 'react-router';
 
 import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 
@@ -24,8 +20,6 @@ function validate(artnr, lager, anz) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
-        NewHelp: store.helpReducer.help,
-        NewTrain: store.helpTrainReducer.help
     };
 })
 
@@ -78,7 +72,7 @@ export default class Lager extends React.Component {
     }
 
     handleSubmit = () => {
-        const {artnr, lager, hnr, plz, ort, anz, input} = this.state
+        const {artnr, lager, anz, input} = this.state
         const errors = validate(artnr, lager, anz)
 
         if (errors.artnr == false && errors.lager == false && errors.anz == false) {
@@ -94,8 +88,7 @@ export default class Lager extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData('lager', data, performance.now()))
-                //this.props.history.push("/geld")
+                this.props.dispatch(fetchClickData('lager', data, performance.now(), "lager"))
             })
         } else {
             this.setState({errors: errors})
@@ -118,7 +111,6 @@ export default class Lager extends React.Component {
             keyCount: 0
         })
         this.setState({input: input, x: [], y: []})
-        //console.log(input)
     }
 
 
@@ -151,38 +143,13 @@ export default class Lager extends React.Component {
                 keyCount: 0
             })
             this.setState({input: input})
-            //console.log(input)
         }
     }
 
-    show = () => {
-        this.setState({open: true})
-    }
-    close = () => {
-        this.setState({open: false})
-    }
-    modal = (e) => {
-        this.props.dispatch(fetchHelpTrainData(this.state.click, this.state.clickTime, e.target.value))
-        this.setState({open: false})
-    }
-    helpDown = () => {
-        this.setState({clickTime: performance.now(), click: performance.now()})
-    }
-    helpUp = (e) => {
-        var {click, clickTime} = this.state
-        clickTime = performance.now() - this.state.clickTime
-        //this.props.dispatch(fetchHelpData( click, clickTime, e.clientX, e.clientY))
-        this.setState({help: true, clickTime: clickTime})
-    }
     move = (e) => {
         var {input, x, y, plot} = this.state
 
         if (x.length == 0 || Math.abs(x[x.length - 1] - e.clientX) > window.screen.availHeight * 0.03 || y.length == 0 || Math.abs(y[y.length - 1] - e.clientY) > window.screen.availWidth * 0.02) {
-
-            //strecke berechnen
-            //if(x.length > 1 && y.length > 1){
-            //   console.log(Math.sqrt( Math.pow(Math.abs(x[x.length-1])-Math.abs(e.clientX), 2) + Math.pow(Math.abs(y[y.length-1])-Math.abs(e.clientY), 2) ))
-            //}
 
             x.push(e.clientX)
             y.push(e.clientY)
@@ -211,9 +178,7 @@ export default class Lager extends React.Component {
 
     render() {
         const array = this.props.NewInit
-        const size = this.props.NewTrain
-        const modal = this.props.NewHelp
-        const {artnr, lager, hnr, plz, ort, anz, msg, errors, open, help, plot} = this.state
+        const {artnr, lager, anz, msg, errors} = this.state
 
         form[0] = {
             id: 1,
@@ -248,7 +213,7 @@ export default class Lager extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
-                            <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
+                            <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
                                         form[data].index = index
@@ -257,7 +222,7 @@ export default class Lager extends React.Component {
                                         )
                                     })
                                 }
-                                <Form.Button primary content="Senden" size={size.size}></Form.Button>
+                                <Form.Button primary content="Senden" size="medium"/>
                             </Form>
 
                         </div>

@@ -23,8 +23,6 @@ function validate(art, anz, farbe, gravur, mat) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
-        NewHelp: store.helpReducer.help,
-        NewTrain: store.helpTrainReducer.help
     };
 })
 
@@ -59,7 +57,6 @@ export default class Geld extends React.Component {
     }
 
     handleChange = (e, {name, value, itemId}) => {
-        console.log("change: ", e.clientX, e.clientY, itemId)
         var {input} = this.state
         if (input[input.length - 1].type != "input") {
             input.push({
@@ -118,7 +115,7 @@ export default class Geld extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData('geld', data, performance.now()))
+                this.props.dispatch(fetchClickData('geld', data, performance.now(), "therm"))
             })
         } else {
             this.setState({errors: errors})
@@ -215,9 +212,7 @@ export default class Geld extends React.Component {
 
     render() {
         const array = this.props.NewInit
-        const size = this.props.NewTrain
-        const modal = this.props.NewHelp
-        const {art, anz, gravur, mat, ort, farbe, msg, errors, open, help, plot} = this.state
+        const {art, anz, gravur, mat, farbe, msg, errors, open, help, plot} = this.state
 
         const anzOptions = [{text: '1', value: '1'}, {text: '2', value: '2'}, {text: '3', value: '3'}, {
             text: '4',
@@ -300,7 +295,7 @@ export default class Geld extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
-                            <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
+                            <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
                                         form[data].index = index
@@ -309,7 +304,7 @@ export default class Geld extends React.Component {
                                         )
                                     })
                                 }
-                                <Form.Button primary content="Senden" size={size.size}/>
+                                <Form.Button primary content="Senden" size="medium"/>
                             </Form>
                         </div>
                     </div>

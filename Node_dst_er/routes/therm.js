@@ -34,7 +34,7 @@ router.post('/', function (req, res, next) {
     var rawTime = req.body.time
 
     var points = []
-    points = logic.score(5, rawData)
+    points = logic.score(3, rawData)
     //console.log(points)
     db.insertThermScore(points, function () {
         db.insertThermRaw(JSON.stringify(rawData), req.body.time, function () {

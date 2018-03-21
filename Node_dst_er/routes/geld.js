@@ -33,10 +33,10 @@ router.post('/', function (req, res, next) {
     var rawData = req.body.data
     var rawTime = req.body.time
 
-    console.log(rawData)
+    //console.log(rawData)
 
     var points = []
-    points = logic.score(3, rawData)
+    points = logic.score(5, rawData)
     //console.log(points)
     db.insertGeldScore(points, function () {
         db.insertGeldRaw(JSON.stringify(rawData), req.body.time, function () {

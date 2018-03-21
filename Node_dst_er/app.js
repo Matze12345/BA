@@ -59,8 +59,8 @@ app.use(function(err, req, res, next) {
 app.listen(80);
 
 //Trainingsdaten laden
-db.selectNeuronal(function (data) {
-    neuronal.train(data)
-})
+//db.selectNeuronal(function (data) {
+  //  neuronal.train(data)
+//})
 
 module.exports = app;

@@ -2,8 +2,6 @@ import React from "react";
 import {connect} from "react-redux"
 import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
-import {fetchHelpData} from "../actions/helpAction"
-import {fetchHelpTrainData} from "../actions/helpTrain"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import {CirclePicker} from 'react-color'
 
@@ -23,8 +21,6 @@ function validate(mat, vol, farbe) {
 @connect((store) => {
     return {
         NewInit: store.initReducer.initR,
-        NewHelp: store.helpReducer.help,
-        NewTrain: store.helpTrainReducer.help
     };
 })
 
@@ -114,7 +110,7 @@ export default class Therm extends React.Component {
                 y: [],
                 plot: []
             }, () => {
-                this.props.dispatch(fetchClickData('therm', data, performance.now()))
+                this.props.dispatch(fetchClickData('therm', data, performance.now(), "auto"))
             })
         } else {
             this.setState({errors: errors})
@@ -206,9 +202,7 @@ export default class Therm extends React.Component {
 
     render() {
         const array = this.props.NewInit
-        const size = this.props.NewTrain
-        const modal = this.props.NewHelp
-        const {mat, vol, hnr, plz, ort, farbe, msg, errors, open, help, plot} = this.state
+        const {mat, vol, farbe, msg, errors} = this.state
 
          const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#795548", "#607d8b"]
 
@@ -277,7 +271,7 @@ export default class Therm extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
-                            <Form loading={array.status} onSubmit={this.handleSubmit} size={size.size}>
+                            <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
                                         form[data].index = index
@@ -286,7 +280,7 @@ export default class Therm extends React.Component {
                                         )
                                     })
                                 }
-                                <Form.Button primary content="Senden" size={size.size}/>
+                                <Form.Button primary content="Senden" size="medium"/>
                             </Form>
                         </div>
                     </div>
