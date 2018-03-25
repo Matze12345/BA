@@ -56,7 +56,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
 });
 
-app.listen(80);
+app.listen(8080);
 
 //Trainingsdaten laden
 //db.selectNeuronal(function (data) {

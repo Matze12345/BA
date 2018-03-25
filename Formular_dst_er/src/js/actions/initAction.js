@@ -23,7 +23,7 @@ export function initRejectedState(error) {
 export function fetchInit(path) {
     return (dispatch) => {
         dispatch(fetchInitState());
-        return fetch(config.BASE_URL + path, {
+        return fetch(config.BASE_URL + "home", {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
