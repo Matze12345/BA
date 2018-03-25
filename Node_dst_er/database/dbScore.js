@@ -16,7 +16,7 @@ var dbThermRaw = new sqlite3.Database('./database/rawTherm.db');
 var selectScore = function (callback) {
     var score = []
     dbData.serialize(() => {
-        let sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5, SUM(e6) as e6 FROM data';
+        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5, SUM(e6) as e6 FROM data';
         dbData.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -67,7 +67,7 @@ var insertRaw = function (raw, time, callback) {
 var selectGeldScore = function (callback) {
     var score = []
     dbGeldData.serialize(() => {
-        let sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataGeld';
+        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataGeld';
         dbGeldData.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -117,7 +117,7 @@ var insertGeldRaw = function (raw, time, callback) {
 var selectAutoScore = function (callback) {
     var score = []
     dbAutoData.serialize(() => {
-        let sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataAuto';
+        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataAuto';
         dbAutoData.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -167,7 +167,7 @@ var insertAutoRaw = function (raw, time, callback) {
 var selectThermScore = function (callback) {
     var score = []
     dbThermData.serialize(() => {
-        let sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataTherm';
+        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataTherm';
         dbThermData.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -215,7 +215,7 @@ var insertThermRaw = function (raw, time, callback) {
 var selectLagerScore = function (callback) {
     var score = []
     dbLagerData.serialize(() => {
-        let sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataLager';
+        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataLager';
         dbLagerData.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -264,7 +264,7 @@ var selectRaw = function (callback) {
     var data = []
     var time = []
     dbLagerRaw.serialize(() => {
-        let sql = 'SELECT * FROM raw';
+        var sql = 'SELECT * FROM raw';
         dbLagerRaw.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -292,7 +292,7 @@ var insertNearest = function (strecke, moveSpeed, inputSpeed, tab, mouse, time, 
 var selectNearest = function (callback) {
     var data = []
     dbNearest.serialize(() => {
-        let sql = 'SELECT * FROM nearest';
+        var sql = 'SELECT * FROM nearest';
         dbNearest.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
