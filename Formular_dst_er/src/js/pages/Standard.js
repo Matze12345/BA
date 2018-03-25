@@ -67,6 +67,7 @@ export default class Home extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id-1].index,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -116,6 +117,7 @@ export default class Home extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: e.target.id,
+            index: form[e.target.id-1].index,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -138,6 +140,7 @@ export default class Home extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: "",
+                index: "",
                 x: "",
                 y: "",
                 key: "tab",
@@ -148,6 +151,7 @@ export default class Home extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id-1].index,
                 x: "",
                 y: "",
                 key: "tab",
@@ -174,6 +178,7 @@ export default class Home extends React.Component {
                     start: performance.now(),
                     end: performance.now(),
                     id: "",
+                    index: "",
                     x: x,
                     y: y,
                     key: "mouse",
@@ -264,6 +269,7 @@ export default class Home extends React.Component {
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
                         </div>
+                         <br/>
                     </div>
                 </div>
             </div>

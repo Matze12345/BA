@@ -3,7 +3,7 @@ import {connect} from "react-redux"
 import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
-
+import '../../styles/image.css'
 import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 
 var form;
@@ -213,6 +213,11 @@ export default class Lager extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
+                              <div>
+                                <img src={require("../../images/lager_2.jpg")} width="80%" height="80%"/>
+                                <br/>
+                                <div class="center"> Geben Sie den aktuellen Lagerbestand ein </div>
+                            </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
@@ -226,6 +231,7 @@ export default class Lager extends React.Component {
                             </Form>
 
                         </div>
+                         <br/>
                     </div>
                 </div>
             </div>
