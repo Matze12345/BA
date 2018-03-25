@@ -37,19 +37,22 @@ module.exports =  {
             if( data[i].type == "input" ) {
                 if(data[i].keyCount != 0) {
                     //console.log(strecke, time)
-                    pt = data[i].id  + (time/1000) + (strecke/1000)
+                   // pt = data[i].id  + (time/1000) + (strecke/1000)
 
-                    time = strecke = 0
+
 
                     //pt = data.length - i + ( data[i].skip * 0.4 * data[i].time / 10000  )
 
                     include(data[i].id, function (result) {
                         if (result.state == false) {
+                            pt = cnt  + (time/1000) + (strecke/1000)
+                            time = strecke = 0
                             //points.push({id: data[i].id, points: pt})
-                            points.push({id: data[i].id, points: cnt})
+                            points.push({id: data[i].id, points: pt})
                             cnt--
                         } else {
-                            //points[result.index].points = points[result.index].points + pt
+                            points[result.index].points = points[result.index].points + (time/1000)
+                            time = strecke = 0
                         }
                     })
                 }
