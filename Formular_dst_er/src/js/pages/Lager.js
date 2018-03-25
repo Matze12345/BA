@@ -59,6 +59,7 @@ export default class Lager extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id - 1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -105,6 +106,7 @@ export default class Lager extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: e.target.id,
+            index: form[e.target.id - 1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -127,6 +129,7 @@ export default class Lager extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: "",
+                index: "",
                 x: "",
                 y: "",
                 key: "tab",
@@ -137,6 +140,7 @@ export default class Lager extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id - 1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",
@@ -159,6 +163,7 @@ export default class Lager extends React.Component {
                     start: performance.now(),
                     end: performance.now(),
                     id: "",
+                    index: "",
                     x: x,
                     y: y,
                     key: "mouse",
@@ -183,7 +188,8 @@ export default class Lager extends React.Component {
         form[0] = {
             id: 1,
             index: "",
-            html: <Form.Group widths='equal'><Form.Input id="1" label='Artikelnummer' placeholder='Artikelnummer' name='artnr'
+            html: <Form.Group widths='equal'><Form.Input id="1" label='Artikelnummer' placeholder='Artikelnummer'
+                                                         name='artnr'
                                                          value={artnr} onKeyUp={this.handleKeyUp}
                                                          onClick={this.handleClick} onChange={this.handleChange}
                                                          error={errors.artnr ? "error" : ""}/></Form.Group>
@@ -211,12 +217,12 @@ export default class Lager extends React.Component {
                     <div class="row">
                         <div class="col-lg-12">
                             <Message hidden={msg} icon="checkmark" color="green">
-                                <Message.Header>Erfolgreich gesendet</Message.Header>
+                                <Message.Header>vielen Dank für Ihre Teilnahme</Message.Header>
                             </Message>
-                              <div>
+                            <div>
                                 <img src={require("../../images/lager_2.jpg")} width="80%" height="80%"/>
                                 <br/>
-                                <div class="center"> Geben Sie den aktuellen Lagerbestand ein </div>
+                                <div class="center"> Geben Sie den aktuellen Lagerbestand ein</div>
                             </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
@@ -229,9 +235,8 @@ export default class Lager extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
-
+                            <br/>
                         </div>
-                         <br/>
                     </div>
                 </div>
             </div>

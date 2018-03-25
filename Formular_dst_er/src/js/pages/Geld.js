@@ -64,7 +64,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
-                index: form[itemId-1].index,
+                index: form[itemId-1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -85,7 +85,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
-                index: form[3-1].index,
+                index: form[3-1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -102,7 +102,7 @@ export default class Geld extends React.Component {
         const {art, anz, gravur, mat, ort, farbe, input} = this.state
         const errors = validate(art, anz, farbe, gravur, mat)
 
-        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false && errors.farbe == false) {
+        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false) {
             var data = input
             this.setState({
                 art: "",
@@ -137,7 +137,7 @@ export default class Geld extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: itemId,
-            index: form[itemId-1].index,
+            index: form[itemId-1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -174,7 +174,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
-                index: form[itemId-1].index,
+                index: form[itemId-1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",

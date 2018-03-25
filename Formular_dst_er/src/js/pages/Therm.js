@@ -60,7 +60,7 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
-                index: form[itemId - 1].index,
+                index: form[itemId - 1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -81,7 +81,7 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
-                index: form[3 - 1].index,
+                index: form[3 - 1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -99,7 +99,7 @@ export default class Therm extends React.Component {
         const {mat, vol, farbe, input} = this.state
         const errors = validate(mat, vol, farbe)
 
-        if (errors.mat == false && errors.vol == false && errors.farbe == false) {
+        if (errors.mat == false && errors.vol == false) {
             var data = input
             this.setState({
                 mat: "",
@@ -129,7 +129,7 @@ export default class Therm extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: itemId,
-            index: form[itemId - 1].index,
+            index: form[itemId - 1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -163,14 +163,13 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
-                index: form[itemId - 1].index,
+                index: form[itemId - 1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",
                 keyCount: 0
             })
             this.setState({input: input})
-            //console.log(input)
         }
     }
 
@@ -293,8 +292,9 @@ export default class Therm extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
+
+                            <br/>
                         </div>
-                        <br/>
                     </div>
                 </div>
             </div>

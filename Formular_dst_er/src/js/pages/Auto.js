@@ -64,7 +64,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
-                index: form[e.target.id-1].index,
+                index: form[e.target.id-1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -85,7 +85,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
-                index: form[3-1].index,
+                index: form[3-1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -103,7 +103,7 @@ export default class Auto extends React.Component {
         const {herst, km, bj, leistung, farbe, input} = this.state
         const errors = validate(herst, farbe, km, bj, leistung)
 
-        if (errors.herst == false && errors.km == false && errors.bj == false && errors.farbe == false && errors.leistung == false) {
+        if (errors.herst == false && errors.km == false && errors.bj == false && errors.leistung == false) {
             var data = input
             this.setState({
                 herst: "",
@@ -135,7 +135,7 @@ export default class Auto extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: e.target.id,
-            index: form[e.target.id-1].index,
+            index: form[e.target.id-1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -169,7 +169,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
-                index: form[e.target.id-1].index,
+                index: form[e.target.id-1].index  + 1,
                 x: "",
                 y: "",
                 key: "tab",

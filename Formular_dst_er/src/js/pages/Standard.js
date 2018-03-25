@@ -67,7 +67,7 @@ export default class Home extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
-                index: form[e.target.id-1].index,
+                index: form[e.target.id - 1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -117,7 +117,7 @@ export default class Home extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: e.target.id,
-            index: form[e.target.id-1].index,
+            index: form[e.target.id - 1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -151,7 +151,7 @@ export default class Home extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
-                index: form[e.target.id-1].index,
+                index: form[e.target.id - 1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",
@@ -257,6 +257,11 @@ export default class Home extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
+                            <div>
+                                <div class="center"> Bitte füllen Sie das Formular aus (die Daten werden nicht gespeichert)
+                                </div>
+                                <br/>
+                            </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
@@ -268,8 +273,8 @@ export default class Home extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
+                            <br/>
                         </div>
-                         <br/>
                     </div>
                 </div>
             </div>
