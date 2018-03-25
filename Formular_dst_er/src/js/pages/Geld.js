@@ -4,7 +4,7 @@ import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import {CirclePicker} from 'react-color'
-
+import '../../styles/image.css'
 import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 
 var form;
@@ -64,6 +64,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
+                index: form[itemId-1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -84,6 +85,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
+                index: form[3-1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -100,7 +102,7 @@ export default class Geld extends React.Component {
         const {art, anz, gravur, mat, ort, farbe, input} = this.state
         const errors = validate(art, anz, farbe, gravur, mat)
 
-        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false && errors.farbe == false) {
+        if (errors.art == false && errors.anz == false && errors.gravur == false && errors.mat == false) {
             var data = input
             this.setState({
                 art: "",
@@ -135,6 +137,7 @@ export default class Geld extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: itemId,
+            index: form[itemId-1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -160,6 +163,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: "",
+                index: "",
                 x: "",
                 y: "",
                 key: "tab",
@@ -170,6 +174,7 @@ export default class Geld extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
+                index: form[itemId-1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",
@@ -193,6 +198,7 @@ export default class Geld extends React.Component {
                     start: performance.now(),
                     end: performance.now(),
                     id: "",
+                    index: "",
                     x: x,
                     y: y,
                     key: "mouse",
@@ -219,7 +225,7 @@ export default class Geld extends React.Component {
             value: '4'
         }, {text: '5', value: '5'}, {text: '6', value: '6'}, {text: '7', value: '7'}, {text: '8', value: '8'},]
 
-        const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"]
+        const colors = ["#f2f2f2", "#e6b800", "#b38f00", "#006622", "#ff4d4d", "#cc0000", "#3333ff", "#000066", "#808080", "#663300", "#331a00", "#000000"]
 
         form[0] = {
             id: 1,
@@ -295,6 +301,11 @@ export default class Geld extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
+                            <div>
+                                <img src={require("../../images/geld.jpg")} width="20%" height="20%"/>
+                                <br/>
+                                <div class="center"> Konfigurieren Sie ihren Geldbeutel </div>
+                            </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
@@ -306,6 +317,7 @@ export default class Geld extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
+                            <br/>
                         </div>
                     </div>
                 </div>

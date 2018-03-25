@@ -4,7 +4,7 @@ import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import {CirclePicker} from 'react-color'
-
+import '../../styles/image.css'
 import {Form, Message, Icon, Modal, Button} from 'semantic-ui-react'
 
 var form;
@@ -64,6 +64,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id-1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -84,6 +85,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
+                index: form[3-1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -101,7 +103,7 @@ export default class Auto extends React.Component {
         const {herst, km, bj, leistung, farbe, input} = this.state
         const errors = validate(herst, farbe, km, bj, leistung)
 
-        if (errors.herst == false && errors.km == false && errors.bj == false && errors.farbe == false && errors.leistung == false) {
+        if (errors.herst == false && errors.km == false && errors.bj == false && errors.leistung == false) {
             var data = input
             this.setState({
                 herst: "",
@@ -133,6 +135,7 @@ export default class Auto extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: e.target.id,
+            index: form[e.target.id-1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -155,6 +158,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: "",
+                index: "",
                 x: "",
                 y: "",
                 key: "tab",
@@ -165,6 +169,7 @@ export default class Auto extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: e.target.id,
+                index: form[e.target.id-1].index  + 1,
                 x: "",
                 y: "",
                 key: "tab",
@@ -188,6 +193,7 @@ export default class Auto extends React.Component {
                     start: performance.now(),
                     end: performance.now(),
                     id: "",
+                    index: "",
                     x: x,
                     y: y,
                     key: "mouse",
@@ -211,7 +217,7 @@ export default class Auto extends React.Component {
         const modal = this.props.NewHelp
         const {herst, nname, km, bj, leistung, farbe, msg, errors, open, help, plot} = this.state
 
-        const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#cddc39", "#ffeb3b", "#ffc107", "#ff9800", "#ff5722", "#795548", "#607d8b"]
+        const colors = ["#ff6600", "#ff0000", "#990000", "#00b33c", "#004d1a", "#4d4dff", "#0000ff", "#000080", "#cccccc", "#b3b3b3", "#808080", "#000000"]
 
         form[0] = {
             id: 1,
@@ -267,6 +273,11 @@ export default class Auto extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
+                             <div>
+                                <img src={require("../../images/auto.jpg")} width="20%" height="20%"/>
+                                <br/>
+                                <div class="center"> Geben Sie bitte ihre Fahrzeugdaten ein </div>
+                            </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
@@ -278,6 +289,7 @@ export default class Auto extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
+                             <br/>
                         </div>
                     </div>
                 </div>

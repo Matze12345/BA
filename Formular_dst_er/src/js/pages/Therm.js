@@ -4,7 +4,7 @@ import {fetchInit} from "../actions/initAction"
 import {fetchClickData} from "../actions/clickData"
 import {ScatterChart, Scatter, XAxis, YAxis, ZAxis, CartesianGrid, Tooltip, Legend} from 'recharts';
 import {CirclePicker} from 'react-color'
-
+import '../../styles/image.css'
 import {Form, Message, Icon, Modal, Button, Radio, Select, Input} from 'semantic-ui-react'
 
 var form;
@@ -60,6 +60,7 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
+                index: form[itemId - 1].index + 1,
                 x: e.clientX,
                 y: e.clientY,
                 key: "mouse",
@@ -80,6 +81,7 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: 3,
+                index: form[3 - 1].index + 1,
                 x: "",
                 y: "",
                 key: "mouse",
@@ -97,7 +99,7 @@ export default class Therm extends React.Component {
         const {mat, vol, farbe, input} = this.state
         const errors = validate(mat, vol, farbe)
 
-        if (errors.mat == false && errors.vol == false && errors.farbe == false) {
+        if (errors.mat == false && errors.vol == false) {
             var data = input
             this.setState({
                 mat: "",
@@ -127,6 +129,7 @@ export default class Therm extends React.Component {
             start: performance.now(),
             end: performance.now(),
             id: itemId,
+            index: form[itemId - 1].index + 1,
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
@@ -149,6 +152,7 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: "",
+                index: "",
                 x: "",
                 y: "",
                 key: "tab",
@@ -159,13 +163,13 @@ export default class Therm extends React.Component {
                 start: performance.now(),
                 end: performance.now(),
                 id: itemId,
+                index: form[itemId - 1].index + 1,
                 x: "",
                 y: "",
                 key: "tab",
                 keyCount: 0
             })
             this.setState({input: input})
-            //console.log(input)
         }
     }
 
@@ -183,6 +187,7 @@ export default class Therm extends React.Component {
                     start: performance.now(),
                     end: performance.now(),
                     id: "",
+                    index: "",
                     x: x,
                     y: y,
                     key: "mouse",
@@ -204,7 +209,7 @@ export default class Therm extends React.Component {
         const array = this.props.NewInit
         const {mat, vol, farbe, msg, errors} = this.state
 
-         const colors = ["#03a9f4", "#00bcd4", "#009688", "#4caf50", "#8bc34a", "#795548", "#607d8b"]
+        const colors = ["#ff6600", "#e60000", "#00802b", "#0000cc", "#cccccc", "#8c8c8c", "#000000"]
 
 
         form[0] = {
@@ -213,15 +218,15 @@ export default class Therm extends React.Component {
             html: <Form.Group grouped>
                 <label>Material</label>
                 <Form.Group inline id="1">
-                <Form.Radio itemId="1" name='mat' label='Metall' value='metall' checked={mat === 'metall'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick } onChange={this.handleChange}
-                            error={errors.mat ? "error" : ""}/>
-                <Form.Radio itemId="1" name='mat' label='Glas' value='glas' checked={mat === 'glas'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.mat ? "error" : ""}/>
-            </Form.Group>
+                    <Form.Radio itemId="1" name='mat' label='Metall' value='metall' checked={mat === 'metall'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick } onChange={this.handleChange}
+                                error={errors.mat ? "error" : ""}/>
+                    <Form.Radio itemId="1" name='mat' label='Glas' value='glas' checked={mat === 'glas'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.mat ? "error" : ""}/>
+                </Form.Group>
             </Form.Group>
         }
         form[1] = {
@@ -230,23 +235,23 @@ export default class Therm extends React.Component {
             html: <Form.Group grouped>
                 <label>Größe</label>
                 <Form.Group inline id="2">
-                <Form.Radio itemId="2" name='vol' label='0.5 Liter' value='0.5' checked={vol === '0.5'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.vol ? "error" : ""}/>
-                <Form.Radio itemId="2" name='vol' label='1.0 Liter' value='1.0' checked={vol === '1.0'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.vol ? "error" : ""}/>
-                <Form.Radio itemId="2" name='vol' label='1.5 Liter' value='1.5' checked={vol === '1.5'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.vol ? "error" : ""}/>
-                <Form.Radio itemId="2" name='vol' label='2.0 Liter' value='2.0' checked={vol === '2.0'}
-                            onKeyUp={this.handleKeyUp}
-                            onClick={this.handleClick} onChange={this.handleChange}
-                            error={errors.vol ? "error" : ""}/>
-            </Form.Group>
+                    <Form.Radio itemId="2" name='vol' label='0.5 Liter' value='0.5' checked={vol === '0.5'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.vol ? "error" : ""}/>
+                    <Form.Radio itemId="2" name='vol' label='1.0 Liter' value='1.0' checked={vol === '1.0'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.vol ? "error" : ""}/>
+                    <Form.Radio itemId="2" name='vol' label='1.5 Liter' value='1.5' checked={vol === '1.5'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.vol ? "error" : ""}/>
+                    <Form.Radio itemId="2" name='vol' label='2.0 Liter' value='2.0' checked={vol === '2.0'}
+                                onKeyUp={this.handleKeyUp}
+                                onClick={this.handleClick} onChange={this.handleChange}
+                                error={errors.vol ? "error" : ""}/>
+                </Form.Group>
             </Form.Group>
         }
         form[2] = {
@@ -271,6 +276,11 @@ export default class Therm extends React.Component {
                             <Message hidden={msg} icon="checkmark" color="green">
                                 <Message.Header>Erfolgreich gesendet</Message.Header>
                             </Message>
+                            <div>
+                                <img src={require("../../images/therm.jpg")} width="3%" height="3%"/>
+                                <br/>
+                                <div class="center"> Konfigurieren Sie ihre Thermoskanne</div>
+                            </div>
                             <Form loading={array.status} onSubmit={this.handleSubmit} size="medium">
                                 {
                                     array.form.map(function (data, index) {
@@ -282,6 +292,8 @@ export default class Therm extends React.Component {
                                 }
                                 <Form.Button primary content="Senden" size="medium"/>
                             </Form>
+
+                            <br/>
                         </div>
                     </div>
                 </div>

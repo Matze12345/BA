@@ -28,9 +28,11 @@ var selectScore = function (callback) {
                 score.push({id: 4, points: row.e4})
                 score.push({id: 5, points: row.e5})
                 score.push({id: 6, points: row.e6})
-            });
+            })
+            ;
             callback(score)
-        });
+        })
+        ;
     })
 }
 
@@ -76,9 +78,11 @@ var selectGeldScore = function (callback) {
                 score.push({id: 3, points: row.e3})
                 score.push({id: 4, points: row.e4})
                 score.push({id: 5, points: row.e5})
-            });
+            })
+            ;
             callback(score)
-        });
+        })
+        ;
     })
 }
 
@@ -124,9 +128,11 @@ var selectAutoScore = function (callback) {
                 score.push({id: 3, points: row.e3})
                 score.push({id: 4, points: row.e4})
                 score.push({id: 5, points: row.e5})
-            });
+            })
+            ;
             callback(score)
-        });
+        })
+        ;
     })
 }
 
@@ -170,9 +176,11 @@ var selectThermScore = function (callback) {
                 score.push({id: 1, points: row.e1})
                 score.push({id: 2, points: row.e2})
                 score.push({id: 3, points: row.e3})
-            });
+            })
+            ;
             callback(score)
-        });
+        })
+        ;
     })
 }
 
@@ -218,7 +226,8 @@ var selectLagerScore = function (callback) {
                 score.push({id: 3, points: row.e3})
             });
             callback(score)
-        });
+        })
+        ;
     })
 }
 
@@ -263,9 +272,11 @@ var selectRaw = function (callback) {
             rows.forEach((row) => {
                 data.push(row.raw)
                 time.push(row.time)
-            });
+            })
+            ;
             callback(data[1], time[1])
-        });
+        })
+        ;
     })
 }
 
@@ -288,13 +299,20 @@ var selectNearest = function (callback) {
             }
             rows.forEach((row) => {
                 data.push([row.strecke, row.moveSpeed, row.inputSpeed, row.tab, row.mouse, row.time])
-            });
+            })
+            ;
             callback(data)
-        });
+        })
+        ;
     })
 }
 
 module.exports = {
+    createStandard: function (callback) {
+        dbData.run("CREATE TABLE IF NOT EXISTS data( e1 FLOAT, e2 FLOAT, e3 FLOAT, e4 FLOAT, e5 FLOAT, e6 FLOAT )")
+        dbRaw.run("CREATE TABLE IF NOT EXISTS raw( raw TEXT, time FLOAT )")
+        callback();
+    },
     selectScore: function (callback) {
         selectScore(function (score) {
             callback(score)
