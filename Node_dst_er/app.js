@@ -16,6 +16,7 @@ var helptrain = require('./routes/helptrain')
 
 var neuronal = require('./logic/neuronal')
 var db = require('./database/dbNeuronal')
+var auswerten = require('./logic/auswerten')
 
 var app = express();
 
@@ -55,8 +56,14 @@ app.use(function(err, req, res, next) {
 
   res.status(err.status || 500);
 });
+//
+//app.listen(8080);
 
-app.listen(8080);
+app.listen(80)
+
+auswerten.auswerten(function () {
+    console.log("ausgewertet")
+})
 
 //Trainingsdaten laden
 //db.selectNeuronal(function (data) {

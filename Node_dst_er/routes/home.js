@@ -17,16 +17,16 @@ router.get('/', function (req, res, next) {
         return 0;
     }
 
-     db.createStandard(function () {
-         db.selectScore(function (score) {
-             score.sort(sort)
-             for (var j = score.length; j > 0; j--) {
-                 form.push(score[j - 1].id - 1)
-             }
-             //console.log(form)
-             res.send({form: form, status: false})
-         })
-     })
+    db.createStandard(function () {
+        db.selectScore(function (score) {
+            score.sort(sort)
+            for (var j = score.length; j > 0; j--) {
+                form.push(score[j - 1].id - 1)
+            }
+            //console.log(form)
+            res.send({form: form, status: false})
+        })
+    })
 });
 
 router.post('/', function (req, res, next) {
@@ -38,7 +38,18 @@ router.post('/', function (req, res, next) {
 
     var rawData = req.body.data
     var rawTime = req.body.time
-    var x = []
+
+    var points = []
+    points = logic.score(6, rawData)
+    //console.log(points)
+    db.insertScore(points, function () {
+        db.insertRaw(JSON.stringify(rawData), req.body.time, function () {
+            res.send({state: true})
+        })
+    })
+
+
+ /*   var x = []
     var y = []
     var strecke = 0
     var time = 0
@@ -96,7 +107,7 @@ router.post('/', function (req, res, next) {
                 })
             })
         })
-    })
+    }) */
 })
 // console.log("strecke: "+strecke + " moveSpeed: "+moveSpeed+" inputSpeed: "+inputSpeed+" tab: "+tab+ " mouse: "+mouse+" time: "+ req.body.time)
 //})

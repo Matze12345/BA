@@ -6,7 +6,7 @@ var selectNeuronal = function (callback) {
     var input = []
     var output = []
     dbNeuronal.serialize(() => {
-        let sql = 'SELECT * FROM neuronal';
+        var sql = 'SELECT * FROM neuronal';
         dbNeuronal.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -15,7 +15,7 @@ var selectNeuronal = function (callback) {
                input.push([row.time, row.click])
             });
 
-            let sql = 'SELECT * FROM result';
+            var sql = 'SELECT * FROM result';
             dbNeuronal.all(sql, [], (err, rows) => {
                 if (err) {
                     throw err;

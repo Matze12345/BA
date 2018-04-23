@@ -263,8 +263,88 @@ var insertLagerRaw = function (raw, time, callback) {
 var selectRaw = function (callback) {
     var data = []
     var time = []
-    dbLagerRaw.serialize(() => {
+    dbRaw.serialize(() => {
         var sql = 'SELECT * FROM raw';
+        dbRaw.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                data.push(row.raw)
+                time.push(row.time)
+            })
+            ;
+            callback(data, time)
+        })
+        ;
+    })
+}
+
+var selectAutoRaw = function (callback) {
+    var data = []
+    var time = []
+    dbAutoRaw.serialize(() => {
+        var sql = 'SELECT * FROM rawAuto';
+        dbAutoRaw.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                data.push(row.raw)
+                time.push(row.time)
+            })
+            ;
+            callback(data, time)
+        })
+        ;
+    })
+}
+
+var selectGeldRaw = function (callback) {
+    var data = []
+    var time = []
+    dbGeldRaw.serialize(() => {
+        var sql = 'SELECT * FROM rawGeld';
+        dbGeldRaw.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                data.push(row.raw)
+                time.push(row.time)
+            })
+            ;
+            callback(data, time)
+        })
+        ;
+    })
+}
+
+var selectThermRaw = function (callback) {
+    var data = []
+    var time = []
+    dbThermRaw.serialize(() => {
+        var sql = 'SELECT * FROM rawTherm';
+        dbThermRaw.all(sql, [], (err, rows) => {
+            if (err) {
+                throw err;
+            }
+            rows.forEach((row) => {
+                data.push(row.raw)
+                time.push(row.time)
+            })
+            ;
+            callback(data, time)
+        })
+        ;
+    })
+}
+
+var selectLagerRaw = function (callback) {
+    var data = []
+    var time = []
+    dbLagerRaw.serialize(() => {
+        var sql = 'SELECT * FROM rawLager';
         dbLagerRaw.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
@@ -274,7 +354,7 @@ var selectRaw = function (callback) {
                 time.push(row.time)
             })
             ;
-            callback(data[1], time[1])
+            callback(data, time)
         })
         ;
     })
@@ -335,6 +415,29 @@ module.exports = {
             callback(raw, time)
         })
     },
+
+
+    selectAutoRaw: function (callback) {
+        selectAutoRaw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+    selectGeldRaw: function (callback) {
+        selectGeldRaw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+    selectLagerRaw: function (callback) {
+        selectLagerRaw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+    selectThermRaw: function (callback) {
+        selectThermRaw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+
     insertNearest: function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
         insertNearest(strecke, moveSpeed, inputSpeed, tab, mouse, time, function () {
             callback()
