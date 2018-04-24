@@ -11,7 +11,7 @@ module.exports = {
 
     auswerten: function (callback) {
 
-        db.selectAutoRaw(function (raw, dataTime) {
+        db.selectThermRaw(function (raw, dataTime) {
             var data = []
             var min = []
             var max = []
@@ -110,23 +110,29 @@ module.exports = {
             }
 
 
+
             var normData = []
+            var normOutData = []
             for (var i = 0; i < data.length; i++) {
-                normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), ((data[i][3] - min[3]) / (max[3] - min[3])), ((data[i][4] - min[4]) / (max[4] - min[4]))])
+             //   normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), ((data[i][3] - min[3]) / (max[3] - min[3])), ((data[i][4] - min[4]) / (max[4] - min[4]))])
+                normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), 0, ((data[i][4] - min[4]) / (max[4] - min[4]))])
+              //  normOutData.push([Math.round(((data[i][0] - min[0]) / (max[0] - min[0]))*1000)/1000+";"+ Math.round(((data[i][1] - min[1]) / (max[1] - min[1]))*1000)/1000+";"+ Math.round(((data[i][2] - min[2]) / (max[2] - min[2]))*1000)/1000+";"+ Math.round(((data[i][3] - min[3]) / (max[3] - min[3]))*1000)/1000+";"+ Math.round(((data[i][4] - min[4]) / (max[4] - min[4]))*1000)/1000])
+                normOutData.push([Math.round(((data[i][0] - min[0]) / (max[0] - min[0]))*1000)/1000+";"+ Math.round(((data[i][1] - min[1]) / (max[1] - min[1]))*1000)/1000+";"+ Math.round(((data[i][2] - min[2]) / (max[2] - min[2]))*1000)/1000+";"+0+";"+ Math.round(((data[i][4] - min[4]) / (max[4] - min[4]))*1000)/1000])
             }
-            //  console.log(normData)
+            //  console.log(data)
 
             //  console.log(max)
             //  console.log(min)
             // console.log(normData)
 
 
-             var res = skmeans(normData, 4, ["kmpp"], [20000])
+         /*    var res = skmeans(normData, 4, ["kmpp"], [20000])
 
             var res = skmeans(normData, 4, [[ 0, 0, 0.2894590972991365, 0, 0.23529411764705882],
                                            [1,0.48869234924517113,0.17801444477695727,0,0.4117647058823529],
                                            [0.3490197434864035,0.37453329620947545,0.03905828199092338,0,0.17647058823529413],
                                             [0.3447312407560549,0.3844999378828552,0.26494284865128725,0.5,0]], [20000])
+
             console.log(res)
             console.log("################################### CLUSTER 1 #################################")
             console.log(res.idxs)
@@ -153,10 +159,12 @@ module.exports = {
                    console.log(normData[i].toString())
                 }
             }
+*/
 
 
             var clusters = kmeans.run(normData, 4);
             console.log("####################################################################")
+
 
             //var clusters = dbscan.run(normData, 0.2, 2);
 
@@ -166,12 +174,12 @@ module.exports = {
             //console.log(clusters)
 
             for (var i = 0; i < clusters.length; i++) {
-              //   console.log('###############################    CLUSTER ' + (i + 1) + " Länge " + clusters[i].length + '      #####################################')
+                 console.log('###############################    CLUSTER ' + (i + 1) + " Länge " + clusters[i].length + '      #####################################')
                 for (var j = 0; j < clusters[i].length; j++) {
-                   //    console.log(data[clusters[i][j]].toString())
-                    /*   if (clusters[i][j] == (data.length - 1)) {
-                     clusternr = i + 1;
-                     } */
+                      console.log(normOutData[clusters[i][j]].toString())
+                     //  if (clusters[i][j] == (data.length - 1)) {
+                    //    clusternr = i + 1;
+                   //  }
                 }
             }
 
