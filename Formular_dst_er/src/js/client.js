@@ -9,6 +9,7 @@ import Therm from "./pages/Therm";
 import Auto from "./pages/Auto";
 import Lager from "./pages/Lager";
 import Layout from "./pages/Layout";
+import Login from "./pages/Login";
 import store from "./store"
 
 
@@ -18,7 +19,8 @@ ReactDOM.render(
     <Provider store={store}>
         <Router history={hashHistory}>
             <Route path="/" component={Layout}>
-                <IndexRoute component={Home}></IndexRoute>
+                <IndexRoute component={Login}></IndexRoute>
+                <Route path="home" name="home" component={Home}></Route>
                 <Route path="geld" name="geld" component={Geld}></Route>
                 <Route path="therm" name="therm" component={Therm}></Route>
                 <Route path="auto" name="auto" component={Auto}></Route>
