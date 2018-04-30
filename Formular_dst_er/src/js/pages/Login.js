@@ -59,10 +59,12 @@ export default class Home extends React.Component {
                     <div class="col-lg-12">
 
                         <div>
-                            <div class="center"> Bitte melden Sie sich an, um die Tests durchzuführen
+                            <div class="center"> Bitte melden Sie sich an
                             </div>
                             <br/>
                         </div>
+
+                        <br/><br/>
 
                         <Grid verticalAlign='middle' columns={4} centered>
                             <Grid.Row>
