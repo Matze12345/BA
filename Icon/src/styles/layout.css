@@ -1,0 +1,14 @@
+/*.jumbotron{
+    background-color: transparent;
+} */
+
+
+#box2 {
+    background-color: green;
+
+    border: 1px solid black;
+    text-align: center;
+
+    margin:0 auto
+}
+
