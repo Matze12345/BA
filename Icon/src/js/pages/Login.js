@@ -57,9 +57,7 @@ export default class Home extends React.Component {
     }
 
     changeColor = () => {
-        this.setState({
-            color: "red"
-        })
+        this.setState({color: "red"})
     }
 
     changeSize = (e, value) => {
@@ -86,7 +84,7 @@ export default class Home extends React.Component {
                     <div class="col-lg-12">
 
                         <div>
-                            <div class="center"> Bitte melden Sie sich an
+                            <div class="center">
                             </div>
                             <br/>
                         </div>
@@ -97,14 +95,27 @@ export default class Home extends React.Component {
                         <div>
                             <div class="center">
 
-                                <Button icon='world' onClick={this.changeColor}/>
-                                <Button icon='world' onClick={(e) => this.changeVisibility(e, "none")}/>
-                                <Button icon='world' onClick={(e) => this.changeVisibility(e, "flex")}/>
-                                <Button icon='world' onClick={(e) => this.changeSize(e, -50)}/>
-                                <Button icon='world' onClick={(e) => this.changeSize(e, +50)}/>
-                                <Button icon='world' onClick={this.changeColor}/>
-                                <Button icon='world' onClick={this.changeColor}/>
-
+                                <Button icon onClick={this.changeColor}>
+                                    <span class="glyphicon glyphicon-tint"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeVisibility(e, "none")}>
+                                    <span class="glyphicon glyphicon-eye-close"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeVisibility(e, "flex")}>
+                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeSize(e, -50)}>
+                                    <span class="glyphicon glyphicon-zoom-out"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeSize(e, +50)}>
+                                    <span class="glyphicon glyphicon-zoom-in"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeVisibility(e, "none")}>
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </Button>
+                                <Button icon onClick={(e) => this.changeVisibility(e, "none")}>
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </Button>
                             </div>
                             <br/>
                         </div>
