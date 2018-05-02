@@ -11,7 +11,7 @@ module.exports = {
 
     auswerten: function (callback) {
 
-        db.selectThermRaw(function (raw, dataTime) {
+        db.selectGeldRaw(function (raw, dataTime) {
             var data = []
             var min = []
             var max = []
@@ -114,7 +114,7 @@ module.exports = {
             var normData = []
             var normOutData = []
             for (var i = 0; i < data.length; i++) {
-             //   normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), ((data[i][3] - min[3]) / (max[3] - min[3])), ((data[i][4] - min[4]) / (max[4] - min[4]))])
+              //  normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), ((data[i][3] - min[3]) / (max[3] - min[3])), ((data[i][4] - min[4]) / (max[4] - min[4]))])
                 normData.push([((data[i][0] - min[0]) / (max[0] - min[0])), ((data[i][1] - min[1]) / (max[1] - min[1])), ((data[i][2] - min[2]) / (max[2] - min[2])), 0, ((data[i][4] - min[4]) / (max[4] - min[4]))])
               //  normOutData.push([Math.round(((data[i][0] - min[0]) / (max[0] - min[0]))*1000)/1000+";"+ Math.round(((data[i][1] - min[1]) / (max[1] - min[1]))*1000)/1000+";"+ Math.round(((data[i][2] - min[2]) / (max[2] - min[2]))*1000)/1000+";"+ Math.round(((data[i][3] - min[3]) / (max[3] - min[3]))*1000)/1000+";"+ Math.round(((data[i][4] - min[4]) / (max[4] - min[4]))*1000)/1000])
                 normOutData.push([Math.round(((data[i][0] - min[0]) / (max[0] - min[0]))*1000)/1000+";"+ Math.round(((data[i][1] - min[1]) / (max[1] - min[1]))*1000)/1000+";"+ Math.round(((data[i][2] - min[2]) / (max[2] - min[2]))*1000)/1000+";"+0+";"+ Math.round(((data[i][4] - min[4]) / (max[4] - min[4]))*1000)/1000])

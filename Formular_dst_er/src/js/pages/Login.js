@@ -7,7 +7,7 @@ import {Form, Message, Icon, Modal, Button, Grid} from 'semantic-ui-react'
 
 function validate(pw) {
     return {
-        pw: pw !== '123456',
+        pw: pw !== 'kiundweb',
     };
 }
 
@@ -78,7 +78,7 @@ export default class Home extends React.Component {
                                             <Form.Input id="2" placeholder='Passwort' name='pw' value={pw}
                                                         type="password"
                                                         onChange={this.handleChange} error={error.pw ? "error" : ""}/>
-                                            <Form.Button fluid primary content="Login" size="medium"/>
+                                            <Form.Button fluid primary content="Anmelden" size="medium"/>
                                         </Form.Group>
 
                                     </Form>
