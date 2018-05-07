@@ -13,6 +13,7 @@ var iconset;
 iconset = [];
 
 var array = new Array(0, 1, 2, 3, 4, 5, 6)
+var question = new Array("Zoom", "Löschen", "Anzeigen")
 
 Array.prototype.shuffle = function () {
     var tmp, rand;
@@ -44,6 +45,9 @@ export default class Login extends React.Component {
             input: [],
             x: [],
             y: [],
+            questNo: 0,
+            wrong: 0,
+            answered: false
         }
     }
 
@@ -52,9 +56,17 @@ export default class Login extends React.Component {
     }
 
     handleClick = (e) => {
-        var {input} = this.state
+        var {input, questNo, wrong, answered} = this.state
         if (input.length != 0 && input[input.length - 1].type == "move") {
             input[input.length - 1].end = performance.now()
+        }
+        console.log(questNo + 1)
+        console.log(e.target.id)
+        if (questNo + 1 == e.target.id) {
+            questNo = questNo + 1
+            answered = true
+        } else {
+            wrong = wrong + 1
         }
         input.push({
             type: "input",
@@ -65,9 +77,15 @@ export default class Login extends React.Component {
             x: e.clientX,
             y: e.clientY,
             key: "mouse",
+            wrong: wrong,
+            answered: answered
         })
-        this.setState({input: input, x: [], y: []}, () => {
+        if(answered == true){
+            wrong = 0
+        }
+        this.setState({input: input, x: [], y: [], questNo: questNo, wrong: wrong, answered: false}, () => { if(questNo+1 == 3){
             this.props.dispatch(fetchClickData('home', input, performance.now(), "geld"))
+            }
         })
 
         console.log(input)
@@ -112,6 +130,8 @@ export default class Login extends React.Component {
                     x: x,
                     y: y,
                     key: "mouse",
+                    wrong: 0,
+                    answered: false
                 })
             }
             else {
@@ -126,7 +146,7 @@ export default class Login extends React.Component {
 
 
     render() {
-        const {color, width, height, radius, hidden} = this.state
+        const {color, width, height, radius, hidden, questNo} = this.state
 
         iconset[0] = {
             id: 1,
@@ -187,6 +207,9 @@ export default class Login extends React.Component {
 
                             <div>
                                 <div class="center">
+                                    {
+                                        question[questNo]
+                                    }
                                 </div>
                                 <br/>
                             </div>
