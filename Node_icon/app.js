@@ -6,13 +6,9 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var home = require('./routes/home')
-var geld = require('./routes/geld')
-var auto = require('./routes/auto')
-var lager = require('./routes/lager')
-var therm = require('./routes/therm')
-var help = require('./routes/help')
-var helptrain = require('./routes/helptrain')
+var set1 = require('./routes/set1')
+var set2 = require('./routes/set2')
+var set3 = require('./routes/set3')
 
 var neuronal = require('./logic/neuronal')
 var db = require('./database/dbNeuronal')
@@ -35,13 +31,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/home', home);
-app.use('/geld', geld);
-app.use('/auto', auto);
-app.use('/lager', lager);
-app.use('/therm', therm);
-app.use('/help', help);
-app.use('/helptrain', helptrain);
+app.use('/set1', set1);
+app.use('/set2', set2);
+app.use('/set3', set3);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

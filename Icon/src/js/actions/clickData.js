@@ -41,9 +41,9 @@ export function fetchClickData(path, data, time, nextPage) {
                     response.json().then(json => {
                         dispatch(setClickData(json));
                         console.log(nextPage, path)
-                        if (path != "lager" || nextPage != "lager") {
+                        if (path != "set3" || nextPage != "set3") {
                             console.log("new page")
-                            dispatch(setInitState({form: [], status: true}));
+                            //dispatch(setInitState({form: [], status: true}));
                             window.location.assign("/#/" + nextPage)
                         }
                     });

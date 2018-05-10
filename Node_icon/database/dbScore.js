@@ -1,258 +1,21 @@
 var sqlite3 = require('sqlite3').verbose();
-var dbData = new sqlite3.Database('./database/data.db');
-var dbRaw = new sqlite3.Database('./database/raw.db');
 var dbNearest = new sqlite3.Database('./database/nearest.db');
+var dbSet1Raw = new sqlite3.Database('./database/set1raw.db');
+var dbSet2Raw = new sqlite3.Database('./database/set2raw.db');
+var dbSet3Raw = new sqlite3.Database('./database/set3raw.db');
 
-var dbGeldData = new sqlite3.Database('./database/dataGeld.db');
-var dbGeldRaw = new sqlite3.Database('./database/rawGeld.db');
-var dbAutoData = new sqlite3.Database('./database/dataAuto.db');
-var dbAutoRaw = new sqlite3.Database('./database/rawAuto.db');
-var dbLagerData = new sqlite3.Database('./database/dataLager.db');
-var dbLagerRaw = new sqlite3.Database('./database/rawLager.db');
-var dbThermData = new sqlite3.Database('./database/dataTherm.db');
-var dbThermRaw = new sqlite3.Database('./database/rawTherm.db');
-
-
-var selectScore = function (callback) {
-    var score = []
-    dbData.serialize(() => {
-        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5, SUM(e6) as e6 FROM data';
-        dbData.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                score.push({id: 1, points: row.e1})
-                score.push({id: 2, points: row.e2})
-                score.push({id: 3, points: row.e3})
-                score.push({id: 4, points: row.e4})
-                score.push({id: 5, points: row.e5})
-                score.push({id: 6, points: row.e6})
-            })
-            ;
-            callback(score)
-        })
-        ;
-    })
-}
-
-var insertScore = function (data, callback) {
-    var insert = ""
-    var values = ""
-    for (var i = 0; i < data.length; i++) {
-        insert = insert + "e" + data[i].id + ","
-        values = values + data[i].points + ","
-    }
-    if (insert.length > 0 && values.length > 0) {
-        insert = insert.substring(0, insert.length - 1);
-        values = values.substring(0, values.length - 1);
-        dbData.serialize(() => {
-            var stmt = dbData.prepare("INSERT INTO data ( " + insert + " ) VALUES ( " + values + " )");
-            stmt.run();
-            stmt.finalize();
-        })
-    }
-    callback();
-}
-
-var insertRaw = function (raw, time, callback) {
-    dbRaw.serialize(() => {
-        var stmt = dbRaw.prepare("INSERT INTO raw ( raw, time  ) VALUES ( ?, ? )");
+var insertSet1Raw = function (raw, time, callback) {
+    dbSet1Raw.serialize(() => {
+        var stmt = dbSet1Raw.prepare("INSERT INTO set1raw ( raw, time  ) VALUES ( ?, ? )");
         stmt.run(raw, time);
         stmt.finalize();
     })
     callback();
 }
 
-var selectGeldScore = function (callback) {
-    var score = []
-    dbGeldData.serialize(() => {
-        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataGeld';
-        dbGeldData.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                score.push({id: 1, points: row.e1})
-                score.push({id: 2, points: row.e2})
-                score.push({id: 3, points: row.e3})
-                score.push({id: 4, points: row.e4})
-                score.push({id: 5, points: row.e5})
-            })
-            ;
-            callback(score)
-        })
-        ;
-    })
-}
-
-var insertGeldScore = function (data, callback) {
-    var insert = ""
-    var values = ""
-    for (var i = 0; i < data.length; i++) {
-        insert = insert + "e" + data[i].id + ","
-        values = values + data[i].points + ","
-    }
-    if (insert.length > 0 && values.length > 0) {
-        insert = insert.substring(0, insert.length - 1);
-        values = values.substring(0, values.length - 1);
-        dbGeldData.serialize(() => {
-            var stmt = dbGeldData.prepare("INSERT INTO dataGeld ( " + insert + " ) VALUES ( " + values + " )");
-            stmt.run();
-            stmt.finalize();
-        })
-    }
-    callback();
-}
-
-var insertGeldRaw = function (raw, time, callback) {
-    dbGeldRaw.serialize(() => {
-        var stmt = dbGeldRaw.prepare("INSERT INTO rawGeld ( raw, time  ) VALUES ( ?, ? )");
-        stmt.run(raw, time);
-        stmt.finalize();
-    })
-    callback();
-}
-
-var selectAutoScore = function (callback) {
-    var score = []
-    dbAutoData.serialize(() => {
-        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3, SUM(e4) as e4, SUM(e5) as e5 FROM dataAuto';
-        dbAutoData.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                score.push({id: 1, points: row.e1})
-                score.push({id: 2, points: row.e2})
-                score.push({id: 3, points: row.e3})
-                score.push({id: 4, points: row.e4})
-                score.push({id: 5, points: row.e5})
-            })
-            ;
-            callback(score)
-        })
-        ;
-    })
-}
-
-var insertAutoScore = function (data, callback) {
-    var insert = ""
-    var values = ""
-    for (var i = 0; i < data.length; i++) {
-        insert = insert + "e" + data[i].id + ","
-        values = values + data[i].points + ","
-    }
-    if (insert.length > 0 && values.length > 0) {
-        insert = insert.substring(0, insert.length - 1);
-        values = values.substring(0, values.length - 1);
-        dbAutoData.serialize(() => {
-            var stmt = dbAutoData.prepare("INSERT INTO dataAuto ( " + insert + " ) VALUES ( " + values + " )");
-            stmt.run();
-            stmt.finalize();
-        })
-    }
-    callback();
-}
-
-var insertAutoRaw = function (raw, time, callback) {
-    dbAutoRaw.serialize(() => {
-        var stmt = dbAutoRaw.prepare("INSERT INTO rawAuto ( raw, time  ) VALUES ( ?, ? )");
-        stmt.run(raw, time);
-        stmt.finalize();
-    })
-    callback();
-}
-
-var selectThermScore = function (callback) {
-    var score = []
-    dbThermData.serialize(() => {
-        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataTherm';
-        dbThermData.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                score.push({id: 1, points: row.e1})
-                score.push({id: 2, points: row.e2})
-                score.push({id: 3, points: row.e3})
-            })
-            ;
-            callback(score)
-        })
-        ;
-    })
-}
-
-var insertThermScore = function (data, callback) {
-    var insert = ""
-    var values = ""
-    for (var i = 0; i < data.length; i++) {
-        insert = insert + "e" + data[i].id + ","
-        values = values + data[i].points + ","
-    }
-    if (insert.length > 0 && values.length > 0) {
-        insert = insert.substring(0, insert.length - 1);
-        values = values.substring(0, values.length - 1);
-        dbThermData.serialize(() => {
-            var stmt = dbThermData.prepare("INSERT INTO dataTherm ( " + insert + " ) VALUES ( " + values + " )");
-            stmt.run();
-            stmt.finalize();
-        })
-    }
-    callback();
-}
-
-var insertThermRaw = function (raw, time, callback) {
-    dbThermRaw.serialize(() => {
-        var stmt = dbThermRaw.prepare("INSERT INTO rawTherm ( raw, time  ) VALUES ( ?, ? )");
-        stmt.run(raw, time);
-        stmt.finalize();
-    })
-    callback();
-}
-
-var selectLagerScore = function (callback) {
-    var score = []
-    dbLagerData.serialize(() => {
-        var sql = 'SELECT SUM(e1) as e1, SUM(e2) as e2, SUM(e3) as e3 FROM dataLager';
-        dbLagerData.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                score.push({id: 1, points: row.e1})
-                score.push({id: 2, points: row.e2})
-                score.push({id: 3, points: row.e3})
-            });
-            callback(score)
-        })
-        ;
-    })
-}
-
-var insertLagerScore = function (data, callback) {
-    var insert = ""
-    var values = ""
-    for (var i = 0; i < data.length; i++) {
-        insert = insert + "e" + data[i].id + ","
-        values = values + data[i].points + ","
-    }
-    if (insert.length > 0 && values.length > 0) {
-        insert = insert.substring(0, insert.length - 1);
-        values = values.substring(0, values.length - 1);
-        dbLagerData.serialize(() => {
-            var stmt = dbLagerData.prepare("INSERT INTO dataLager ( " + insert + " ) VALUES ( " + values + " )");
-            stmt.run();
-            stmt.finalize();
-        })
-    }
-    callback();
-}
-
-var insertLagerRaw = function (raw, time, callback) {
-    dbLagerRaw.serialize(() => {
-        var stmt = dbLagerRaw.prepare("INSERT INTO rawLager ( raw, time  ) VALUES ( ?, ? )");
+var insertSet3Raw = function (raw, time, callback) {
+    dbSet3Raw.serialize(() => {
+        var stmt = dbSet3Raw.prepare("INSERT INTO set3raw ( raw, time  ) VALUES ( ?, ? )");
         stmt.run(raw, time);
         stmt.finalize();
     })
@@ -260,12 +23,24 @@ var insertLagerRaw = function (raw, time, callback) {
 }
 
 
-var selectRaw = function (callback) {
+
+var insertSet2Raw = function (raw, time, callback) {
+    dbSet2Raw.serialize(() => {
+        var stmt = dbSet2Raw.prepare("INSERT INTO set2raw ( raw, time  ) VALUES ( ?, ? )");
+        stmt.run(raw, time);
+        stmt.finalize();
+    })
+    callback();
+}
+
+
+
+var selectSet1Raw = function (callback) {
     var data = []
     var time = []
-    dbRaw.serialize(() => {
-        var sql = 'SELECT * FROM raw';
-        dbRaw.all(sql, [], (err, rows) => {
+    dbSet1Raw.serialize(() => {
+        var sql = 'SELECT * FROM set1raw';
+        dbSet1Raw.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -280,12 +55,12 @@ var selectRaw = function (callback) {
     })
 }
 
-var selectAutoRaw = function (callback) {
+var selectSet2Raw = function (callback) {
     var data = []
     var time = []
-    dbAutoRaw.serialize(() => {
-        var sql = 'SELECT * FROM rawAuto';
-        dbAutoRaw.all(sql, [], (err, rows) => {
+    dbSet2Raw.serialize(() => {
+        var sql = 'SELECT * FROM set2raw';
+        dbSet2Raw.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -300,12 +75,12 @@ var selectAutoRaw = function (callback) {
     })
 }
 
-var selectGeldRaw = function (callback) {
+var selectSet3Raw = function (callback) {
     var data = []
     var time = []
-    dbGeldRaw.serialize(() => {
-        var sql = 'SELECT * FROM rawGeld';
-        dbGeldRaw.all(sql, [], (err, rows) => {
+    dbSet3Raw.serialize(() => {
+        var sql = 'SELECT * FROM set3raw';
+        dbSet3Raw.all(sql, [], (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -320,45 +95,7 @@ var selectGeldRaw = function (callback) {
     })
 }
 
-var selectThermRaw = function (callback) {
-    var data = []
-    var time = []
-    dbThermRaw.serialize(() => {
-        var sql = 'SELECT * FROM rawTherm';
-        dbThermRaw.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                data.push(row.raw)
-                time.push(row.time)
-            })
-            ;
-            callback(data, time)
-        })
-        ;
-    })
-}
 
-var selectLagerRaw = function (callback) {
-    var data = []
-    var time = []
-    dbLagerRaw.serialize(() => {
-        var sql = 'SELECT * FROM rawLager';
-        dbLagerRaw.all(sql, [], (err, rows) => {
-            if (err) {
-                throw err;
-            }
-            rows.forEach((row) => {
-                data.push(row.raw)
-                time.push(row.time)
-            })
-            ;
-            callback(data, time)
-        })
-        ;
-    })
-}
 
 var insertNearest = function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
     dbNearest.serialize(() => {
@@ -388,57 +125,51 @@ var selectNearest = function (callback) {
 }
 
 module.exports = {
-    createStandard: function (callback) {
-        dbData.run("CREATE TABLE IF NOT EXISTS data( e1 FLOAT, e2 FLOAT, e3 FLOAT, e4 FLOAT, e5 FLOAT, e6 FLOAT )")
-        dbRaw.run("CREATE TABLE IF NOT EXISTS raw( raw TEXT, time FLOAT )")
+    createSet1: function (callback) {
+        dbSet1Raw.run("CREATE TABLE IF NOT EXISTS set1raw( raw TEXT, time FLOAT )")
         callback();
     },
-    selectScore: function (callback) {
-        selectScore(function (score) {
-            callback(score)
-        })
-    },
-    insertScore: function (data, callback) {
-        insertScore(data, function () {
+    insertSet1Raw: function (raw, time, callback) {
+        insertSet1Raw(raw.toString(), time, function () {
             callback()
         })
     },
-    insertRaw: function (raw, time, callback) {
-
-        //console.log(raw.toString(), time)
-        insertRaw(raw.toString(), time, function () {
+    selectSet1Raw: function (callback) {
+        selectSet1Raw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+    selectSet2Raw: function (callback) {
+        selectSet2Raw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+        insertSet2Raw: function (raw, time, callback) {
+        insertSet2Raw(raw.toString(), time, function () {
             callback()
         })
     },
-    selectRaw: function (callback) {
-        selectRaw(function (raw, time) {
+    createSet2: function (callback) {
+        dbSet2Raw.run("CREATE TABLE IF NOT EXISTS set2raw( raw TEXT, time FLOAT )")
+        callback();
+    },
+    selectSet3Raw: function (callback) {
+        selectSet3Raw(function (raw, time) {
             callback(raw, time)
         })
+    },
+    insertSet3Raw: function (raw, time, callback) {
+        insertSet3Raw(raw.toString(), time, function () {
+            callback()
+        })
+    },
+    createSet3: function (callback) {
+        dbSet3Raw.run("CREATE TABLE IF NOT EXISTS set3raw( raw TEXT, time FLOAT )")
+        callback();
     },
 
 
-    selectAutoRaw: function (callback) {
-        selectAutoRaw(function (raw, time) {
-            callback(raw, time)
-        })
-    },
-    selectGeldRaw: function (callback) {
-        selectGeldRaw(function (raw, time) {
-            callback(raw, time)
-        })
-    },
-    selectLagerRaw: function (callback) {
-        selectLagerRaw(function (raw, time) {
-            callback(raw, time)
-        })
-    },
-    selectThermRaw: function (callback) {
-        selectThermRaw(function (raw, time) {
-            callback(raw, time)
-        })
-    },
-
-    insertNearest: function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
+        insertNearest: function (strecke, moveSpeed, inputSpeed, tab, mouse, time, callback) {
         insertNearest(strecke, moveSpeed, inputSpeed, tab, mouse, time, function () {
             callback()
         })
@@ -449,84 +180,4 @@ module.exports = {
         })
     },
 
-    selectGeldScore: function (callback) {
-        selectGeldScore(function (score) {
-            callback(score)
-        })
-    },
-    insertGeldScore: function (data, callback) {
-        insertGeldScore(data, function () {
-            callback()
-        })
-    },
-    insertGeldRaw: function (raw, time, callback) {
-        insertGeldRaw(raw.toString(), time, function () {
-            callback()
-        })
-    },
-    createGeld: function (callback) {
-        dbGeldData.run("CREATE TABLE IF NOT EXISTS dataGeld( e1 FLOAT, e2 FLOAT, e3 FLOAT, e4 FLOAT, e5 FLOAT )")
-        dbGeldRaw.run("CREATE TABLE IF NOT EXISTS rawGeld( raw TEXT, time FLOAT )")
-        callback();
-    },
-    selectAutoScore: function (callback) {
-        selectAutoScore(function (score) {
-            callback(score)
-        })
-    },
-    insertAutoScore: function (data, callback) {
-        insertAutoScore(data, function () {
-            callback()
-        })
-    },
-    insertAutoRaw: function (raw, time, callback) {
-        insertAutoRaw(raw.toString(), time, function () {
-            callback()
-        })
-    },
-    createAuto: function (callback) {
-        dbAutoData.run("CREATE TABLE IF NOT EXISTS dataAuto( e1 FLOAT, e2 FLOAT, e3 FLOAT, e4 FLOAT, e5 FLOAT )")
-        dbAutoRaw.run("CREATE TABLE IF NOT EXISTS rawAuto( raw TEXT, time FLOAT )")
-        callback();
-    },
-    selectThermScore: function (callback) {
-        selectThermScore(function (score) {
-            callback(score)
-        })
-    },
-    insertThermScore: function (data, callback) {
-        insertThermScore(data, function () {
-            callback()
-        })
-    },
-    insertThermRaw: function (raw, time, callback) {
-        insertThermRaw(raw.toString(), time, function () {
-            callback()
-        })
-    },
-    createTherm: function (callback) {
-        dbThermData.run("CREATE TABLE IF NOT EXISTS dataTherm( e1 FLOAT, e2 FLOAT, e3 FLOAT )")
-        dbThermRaw.run("CREATE TABLE IF NOT EXISTS rawTherm( raw TEXT, time FLOAT )")
-        callback();
-    },
-    selectLagerScore: function (callback) {
-        selectLagerScore(function (score) {
-            callback(score)
-        })
-    },
-    insertLagerScore: function (data, callback) {
-        insertLagerScore(data, function () {
-            callback()
-        })
-    },
-    insertLagerRaw: function (raw, time, callback) {
-        insertLagerRaw(raw.toString(), time, function () {
-            callback()
-        })
-    },
-    createLager: function (callback) {
-        dbLagerData.run("CREATE TABLE IF NOT EXISTS dataLager( e1 FLOAT, e2 FLOAT, e3 FLOAT )")
-        dbLagerRaw.run("CREATE TABLE IF NOT EXISTS rawLager( raw TEXT, time FLOAT )")
-        callback();
-    }
 }

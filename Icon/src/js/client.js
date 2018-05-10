@@ -3,11 +3,9 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux"
 import { Router, Route, IndexRoute, hashHistory } from "react-router";
 
-import Home from "./pages/Standard";
-import Geld from "./pages/Geld";
-import Therm from "./pages/Therm";
-import Auto from "./pages/Auto";
-import Lager from "./pages/Lager";
+import Set2 from "./pages/Set2";
+import Set3 from "./pages/Set3";
+import Set1 from "./pages/Set1";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
 import store from "./store"
@@ -20,11 +18,9 @@ ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={Layout}>
                 <IndexRoute component={Login}></IndexRoute>
-                <Route path="home" name="home" component={Home}></Route>
-                <Route path="geld" name="geld" component={Geld}></Route>
-                <Route path="therm" name="therm" component={Therm}></Route>
-                <Route path="auto" name="auto" component={Auto}></Route>
-                <Route path="lager" name="lager" component={Lager}></Route>
+                <Route path="set2" name="set2" component={Set2}></Route>
+                <Route path="set3" name="set3" component={Set3}></Route>
+                <Route path="set1" name="set1" component={Set1}></Route>
             </Route>
         </Router>
     </Provider>,
