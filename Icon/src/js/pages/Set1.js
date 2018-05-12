@@ -7,7 +7,7 @@ import {fetchClickData} from "../actions/clickData"
 
 import {Router, Route, Link, RouteHandler} from 'react-router';
 
-import {Form, Message, Icon, Modal, Button, Grid} from 'semantic-ui-react'
+import {Form, Message, Icon, Modal, Button, Grid, Loader} from 'semantic-ui-react'
 
 var iconset;
 iconset = [];
@@ -41,6 +41,7 @@ export default class Set1 extends React.Component {
             height: 200,
             radius: 100,
             hidden: "flex",
+            load: false,
 
             input: [],
             x: [],
@@ -84,6 +85,7 @@ export default class Set1 extends React.Component {
             wrong = 0
         }
         this.setState({input: input, x: [], y: [], questNo: questNo, wrong: wrong, answered: false}, () => { if(questNo == 3){
+            this.setState({ load: true})
             this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
             }
         })
@@ -146,7 +148,7 @@ export default class Set1 extends React.Component {
 
 
     render() {
-        const {color, width, height, radius, hidden, questNo} = this.state
+        const {color, width, height, radius, hidden, questNo, load} = this.state
 
         iconset[0] = {
             id: 1,
@@ -204,6 +206,8 @@ export default class Set1 extends React.Component {
                 <div class="container" style={{marginTop: "60px"}}>
                     <div class="row">
                         <div class="col-lg-12">
+
+                            <Loader active={load} inline='centered' />
 
                             <div>
                                 <div class="center">

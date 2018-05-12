@@ -41,11 +41,11 @@ export function fetchClickData(path, data, time, nextPage) {
                     response.json().then(json => {
                         dispatch(setClickData(json));
                         console.log(nextPage, path)
-                        if (path != "set3" || nextPage != "set3") {
-                            console.log("new page")
+                        //if (path != "set3" || nextPage != "set3") {
+                           // console.log("new page")
                             //dispatch(setInitState({form: [], status: true}));
                             window.location.assign("/#/" + nextPage)
-                        }
+                        //}
                     });
                 } else {
                     //console.log(response);
