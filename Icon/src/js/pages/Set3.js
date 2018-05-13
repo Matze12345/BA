@@ -12,8 +12,8 @@ import {Form, Message, Icon, Modal, Button, Grid, Loader} from 'semantic-ui-reac
 var iconset;
 iconset = [];
 
-var array = new Array(0, 1, 2, 3, 4, 5, 6)
-var question = new Array("Ändern Sie die Farbe des Kreises", "Blenden Sie den Kreis aus", "Blenden Sie den Kreis ein")
+var array = new Array(0, 1, 2, 3)
+var question = new Array("Ändern Sie die Farbe des Kreises", "Verkleinern Sie den Kreis", "Vergrößern Sie den Kreis", "Löschen Sie den Kreis")
 
 Array.prototype.shuffle = function () {
     var tmp, rand;
@@ -61,8 +61,8 @@ export default class Set3 extends React.Component {
         if (input.length != 0 && input[input.length - 1].type == "move") {
             input[input.length - 1].end = performance.now()
         }
-        console.log(questNo + 1)
-        console.log(e.target.id)
+        //console.log(questNo + 1)
+        //console.log(e.target.id)
         if (questNo + 1 == e.target.id) {
             questNo = questNo + 1
             answered = true
@@ -85,13 +85,13 @@ export default class Set3 extends React.Component {
             wrong = 0
         }
         this.setState({input: input, x: [], y: [], questNo: questNo, wrong: wrong, answered: false}, () => {
-            if (questNo == 3) {
+            if (questNo == 4) {
                 this.setState({load: true})
                 this.props.dispatch(fetchClickData('set3', input, performance.now(), "end"))
             }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     changeColor = (e) => {
@@ -151,53 +151,54 @@ export default class Set3 extends React.Component {
     render() {
         const {color, width, height, radius, hidden, questNo, load} = this.state
 
-        iconset[0] = {
+         iconset[0] = {
             id: 1,
             index: "",
             html: <Button icon onClick={this.changeColor} id="1">
-                <span class="glyphicon glyphicon-tint"></span>
+                <Icon name='lab' />
             </Button>
         }
         iconset[1] = {
             id: 2,
             index: "",
-            html: <Button icon onClick={(e) => this.changeVisibility(e, "none")} id="2">
-                <span class="glyphicon glyphicon-eye-close"></span>
+            html: <Button icon onClick={(e) => this.changeSize(e, -50)} id="2">
+                <Icon name='minus circle' />
             </Button>
         }
         iconset[2] = {
             id: 3,
             index: "",
-            html: <Button icon onClick={(e) => this.changeVisibility(e, "flex")} id="3">
-                <span class="glyphicon glyphicon-eye-open"></span>
+            html: <Button icon onClick={(e) => this.changeSize(e, +50)} id="3">
+                <Icon name='add circle' />
             </Button>
         }
         iconset[3] = {
             id: 4,
             index: "",
-            html: <Button icon onClick={(e) => this.changeSize(e, -50)} id="4">
-                <span class="glyphicon glyphicon-zoom-out"></span>
+            html: <Button icon onClick={(e) => this.changeVisibility(e, "none")} id="4">
+                Del
             </Button>
         }
+
         iconset[4] = {
             id: 5,
             index: "",
-            html: <Button icon onClick={(e) => this.changeSize(e, +50)} id="5">
-                <span class="glyphicon glyphicon-zoom-in"></span>
+            html: <Button icon onClick={(e) => this.changeVisibility(e, "none")} id="5">
+                <span class="glyphicon glyphicon-eye-close"></span>
             </Button>
         }
         iconset[5] = {
             id: 6,
             index: "",
-            html: <Button icon onClick={(e) => this.changeVisibility(e, "none")} id="6">
-                <span class="glyphicon glyphicon-trash"></span>
+            html: <Button icon onClick={(e) => this.changeVisibility(e, "flex")} id="6">
+                <span class="glyphicon glyphicon-eye-open"></span>
             </Button>
         }
         iconset[6] = {
             id: 7,
             index: "",
             html: <Button icon onClick={(e) => this.changeVisibility(e, "none")} id="7">
-                <span class="glyphicon glyphicon-remove"></span>
+                <span class="glyphicon glyphicon-trash"></span>
             </Button>
         }
 
@@ -212,9 +213,9 @@ export default class Set3 extends React.Component {
 
                             <div>
                                 <div class="center">
-                                    {
+                                    <h3>{
                                         question[questNo]
-                                    }
+                                    }</h3>
                                 </div>
                                 <br/>
                             </div>
