@@ -91,7 +91,7 @@ export default class Set1 extends React.Component {
             }
         })
 
-        //console.log(input)
+        console.log(input)
     }
 
     changeColor = (e) => {

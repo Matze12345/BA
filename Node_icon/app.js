@@ -53,10 +53,8 @@ app.use(function(err, req, res, next) {
 
 app.listen(80)
 
-/*auswerten.auswerten(function () {
+auswerten.auswerten(function () {
     console.log("ausgewertet")
-}) */
-
-
+})
 
 module.exports = app;
