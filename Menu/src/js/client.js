@@ -8,6 +8,7 @@ import Set3 from "./pages/Set3";
 import Set1 from "./pages/Set1";
 import Set4 from "./pages/Set4";
 import Set5 from "./pages/Set5";
+import Set6 from "./pages/Set6";
 import End from "./pages/End";
 import Layout from "./pages/Layout";
 import Login from "./pages/Login";
@@ -26,6 +27,7 @@ ReactDOM.render(
                 <Route path="set1" name="set1" component={Set1}></Route>
                 <Route path="set4" name="set4" component={Set4}></Route>
                 <Route path="set5" name="set5" component={Set5}></Route>
+                <Route path="set6" name="set6" component={Set6}></Route>
                 <Route path="end" name="end" component={End}></Route>
             </Route>
         </Router>
