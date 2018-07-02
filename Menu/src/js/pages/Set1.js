@@ -88,7 +88,10 @@ export default class Set1 extends React.Component {
         console.log(input)
     }
 
-
+    handleSend = () => {
+        var { input } = this.state
+        this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
+    }
 
     move = (e) => {
         var {input, x, y} = this.state
@@ -156,6 +159,8 @@ export default class Set1 extends React.Component {
                                 </div>
                                 <br/>
                             </div>
+
+                            <button onClick={this.handleSend}>senden</button>
 
                             <br/>
                         </div>

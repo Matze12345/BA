@@ -51,13 +51,18 @@ export default class Set4 extends React.Component {
         })
 
         this.setState({input: input, x: [], y: []}, () => {
-           // if (questNo == 4) {
-           //     this.setState({load: true})
-           //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
-           // }
+            // if (questNo == 4) {
+            //     this.setState({load: true})
+            //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
+            // }
         })
 
         console.log(input)
+    }
+
+    handleSend = () => {
+        var {input} = this.state
+        this.props.dispatch(fetchClickData('set4', input, performance.now(), "set5"))
     }
 
     move = (e) => {
@@ -132,6 +137,7 @@ export default class Set4 extends React.Component {
                                 <br/>
                             </div>
 
+ <button onClick={this.handleSend}>senden</button>
 
                             <br/>
                         </div>

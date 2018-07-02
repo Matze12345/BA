@@ -66,6 +66,11 @@ export default class Set3 extends React.Component {
         this.setState({sel: value})
     }
 
+    handleSend = () => {
+        var {input} = this.state
+        this.props.dispatch(fetchClickData('set5', input, performance.now(), "end"))
+    }
+
 
     move = (e) => {
         var {input, x, y} = this.state
@@ -128,15 +133,15 @@ export default class Set3 extends React.Component {
                                             <label>Art</label>
                                             <Form.Group inline>
                                                 <Form.Radio slider itemId="1" name='art' label='Herren' value='herren'
-                                                     checked={sel === 'herren'}
+                                                            checked={sel === 'herren'}
                                                     //  onKeyUp={this.handleKeyUp}
-                                                      onClick={this.handleClick} onChange={this.handleChange}
+                                                            onClick={this.handleClick} onChange={this.handleChange}
                                                     //  error={errors.art ? "error" : ""}
                                                 />
                                                 <Form.Radio slider itemId="1" name='art' label='Damen' value='damen'
-                                                       checked={sel === 'damen'}
+                                                            checked={sel === 'damen'}
                                                     //   onKeyUp={this.handleKeyUp}
-                                                       onClick={this.handleClick} onChange={this.handleChange}
+                                                            onClick={this.handleClick} onChange={this.handleChange}
                                                     //   error={errors.art ? "error" : ""}
                                                 />
                                             </Form.Group>
@@ -146,6 +151,7 @@ export default class Set3 extends React.Component {
                                 <br/>
                             </div>
 
+ <button onClick={this.handleSend}>senden</button>
 
                             <br/>
                         </div>
