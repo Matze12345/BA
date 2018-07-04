@@ -53,7 +53,7 @@ export default class Button extends React.Component {
 		const completeButton = {
 			display: 'inline-block',
 			position: 'relative',
-			marginLeft: 70,
+			//marginLeft: 70,
 			marginTop: 10
 		};
 

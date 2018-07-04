@@ -153,7 +153,12 @@ export default class Set2 extends React.Component {
 
                             <br/>
 
-                             <button onClick={this.handleSend}>senden</button>
+                             <div>
+                                <div class="center">
+                                    <Button primary onClick={this.handleSend}>senden</Button>
+                                </div>
+                                <br/>
+                            </div>
 
                         </div>
                     </div>

@@ -51,10 +51,10 @@ export default class Set1 extends React.Component {
         })
 
         this.setState({input: input, x: [], y: []}, () => {
-           // if (questNo == 4) {
-           //     this.setState({load: true})
-           //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
-           // }
+            // if (questNo == 4) {
+            //     this.setState({load: true})
+            //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
+            // }
         })
 
         console.log(input)
@@ -79,17 +79,17 @@ export default class Set1 extends React.Component {
         })
 
         this.setState({input: input, x: [], y: []}, () => {
-           // if (questNo == 4) {
-           //     this.setState({load: true})
-           //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
-           // }
+            // if (questNo == 4) {
+            //     this.setState({load: true})
+            //     this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
+            // }
         })
 
         console.log(input)
     }
 
     handleSend = () => {
-        var { input } = this.state
+        var {input} = this.state
         this.props.dispatch(fetchClickData('set1', input, performance.now(), "set2"))
     }
 
@@ -155,12 +155,18 @@ export default class Set1 extends React.Component {
 
                             <div>
                                 <div class="center">
-                                    <Dropdown itemId="1" placeholder='Select' selection options={options} onClick={this.handleClick} onChange={this.handleChange}/>
+                                    <Dropdown itemId="1" placeholder='Select' selection options={options}
+                                              onClick={this.handleClick} onChange={this.handleChange}/>
                                 </div>
                                 <br/>
                             </div>
 
-                            <button onClick={this.handleSend}>senden</button>
+                            <div>
+                                <div class="center">
+                                    <Button primary onClick={this.handleSend}>senden</Button>
+                                </div>
+                                <br/>
+                            </div>
 
                             <br/>
                         </div>

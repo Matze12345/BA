@@ -137,7 +137,12 @@ export default class Set4 extends React.Component {
                                 <br/>
                             </div>
 
- <button onClick={this.handleSend}>senden</button>
+                            <div>
+                                <div class="center">
+                                    <Button primary onClick={this.handleSend}>senden</Button>
+                                </div>
+                                <br/>
+                            </div>
 
                             <br/>
                         </div>
