@@ -7,7 +7,7 @@ import {fetchClickData} from "../actions/clickData"
 
 import {Router, Route, Link, RouteHandler} from 'react-router';
 
-import {Form, Message, Icon, Modal, Button, Grid, Loader, Dropdown} from 'semantic-ui-react'
+import {Form, Message, Icon, Modal, Button, Grid, Loader, Dropdown, Radio} from 'semantic-ui-react'
 
 @connect((store) => {
     return {
@@ -128,25 +128,21 @@ export default class Set2 extends React.Component {
 
                             <div>
                                 <div class="center">
-                                    <Form>
-                                        <Form.Group grouped>
-                                            <label>Art</label>
-                                            <Form.Group inline>
-                                                <Form.Radio itemId="1" name='art' label='Radio1' value='radio1'
+
+                                                <Radio itemId="1" name='art' label='Radio1 ' value='radio1'
                                                             checked={sel === 'radio1'}
                                                     //  onKeyUp={this.handleKeyUp}
                                                             onClick={this.handleClick} onChange={this.handleChange}
                                                     //  error={errors.art ? "error" : ""}
                                                 />
-                                                <Form.Radio itemId="1" name='art' label='Radio2' value='radio2'
+                                     	&nbsp; &nbsp; &nbsp; &nbsp;
+                                                <Radio itemId="1" name='art' label='Radio2 ' value='radio2'
                                                             checked={sel === 'radio2'}
                                                     //   onKeyUp={this.handleKeyUp}
                                                             onClick={this.handleClick} onChange={this.handleChange}
                                                     //   error={errors.art ? "error" : ""}
                                                 />
-                                            </Form.Group>
-                                        </Form.Group>
-                                    </Form>
+
                                 </div>
                                 <br/>
                             </div>

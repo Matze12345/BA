@@ -7,7 +7,7 @@ import {fetchClickData} from "../actions/clickData"
 
 import {Router, Route, Link, RouteHandler} from 'react-router';
 
-import {Form, Message, Icon, Modal, Button, Grid, Loader, Dropdown} from 'semantic-ui-react'
+import {Form, Message, Icon, Modal, Button, Grid, Loader, Dropdown, Radio} from 'semantic-ui-react'
 
 @connect((store) => {
     return {
@@ -128,25 +128,20 @@ export default class Set3 extends React.Component {
 
                             <div>
                                 <div class="center">
-                                    <Form>
-                                        <Form.Group grouped>
-                                            <label>Art</label>
-                                            <Form.Group inline>
-                                                <Form.Radio toggle itemId="1" name='art' label='Toggle1' value='toggle1'
+                                                <Radio toggle itemId="1" name='art' label='Toggle1' value='toggle1'
                                                             checked={sel === 'toggle1'}
                                                     //  onKeyUp={this.handleKeyUp}
                                                             onClick={this.handleClick} onChange={this.handleChange}
                                                     //  error={errors.art ? "error" : ""}
                                                 />
-                                                <Form.Radio toggle itemId="1" name='art' label='Toggle2' value='toggle2'
+                                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                                <Radio toggle itemId="1" name='art' label='Toggle2' value='toggle2'
                                                             checked={sel === 'toggle2'}
                                                     //   onKeyUp={this.handleKeyUp}
                                                             onClick={this.handleClick} onChange={this.handleChange}
                                                     //   error={errors.art ? "error" : ""}
                                                 />
-                                            </Form.Group>
-                                        </Form.Group>
-                                    </Form>
+
                                 </div>
                                 <br/>
                             </div>
