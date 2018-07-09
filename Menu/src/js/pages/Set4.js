@@ -57,7 +57,7 @@ export default class Set4 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleSend = () => {
@@ -89,7 +89,7 @@ export default class Set4 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+            //console.log(input)
         }
     }
 
@@ -116,7 +116,7 @@ export default class Set4 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Ändern Sie die Farbe des Kreises
+                                        Alter
                                     </h3>
                                 </div>
                                 <br/>
@@ -129,14 +129,14 @@ export default class Set4 extends React.Component {
                             <div>
                                 <div class="center">
                                     <Button.Group>
-                                        <Button itemId="1" onClick={this.handleClick}>One</Button>
-                                        <Button itemId="2" onClick={this.handleClick}>Two</Button>
-                                        <Button itemId="3" onClick={this.handleClick}>Three</Button>
+                                        <Button itemId="1" onClick={this.handleClick}>unter 18</Button>
+                                        <Button itemId="2" onClick={this.handleClick}>über 18</Button>
+                                        <Button itemId="3" onClick={this.handleClick}>über 25</Button>
                                     </Button.Group>
                                 </div>
                                 <br/>
                             </div>
-
+                            <br/><br/>
                             <div>
                                 <div class="center">
                                     <Button primary onClick={this.handleSend}>senden</Button>

@@ -5,6 +5,7 @@ var dbSet2Raw = new sqlite3.Database('./database/set2raw.db');
 var dbSet3Raw = new sqlite3.Database('./database/set3raw.db');
 var dbSet4Raw = new sqlite3.Database('./database/set4raw.db');
 var dbSet5Raw = new sqlite3.Database('./database/set5raw.db');
+var dbSet6Raw = new sqlite3.Database('./database/set6raw.db');
 
 var insertSet1Raw = function (raw, time, callback) {
     dbSet1Raw.serialize(() => {
@@ -35,7 +36,7 @@ var insertSet2Raw = function (raw, time, callback) {
 }
 
 var insertSet4Raw = function (raw, time, callback) {
-    dbSet2Raw.serialize(() => {
+    dbSet4Raw.serialize(() => {
         var stmt = dbSet4Raw.prepare("INSERT INTO set4raw ( raw, time  ) VALUES ( ?, ? )");
     stmt.run(raw, time);
     stmt.finalize();
@@ -44,8 +45,17 @@ var insertSet4Raw = function (raw, time, callback) {
 }
 
 var insertSet5Raw = function (raw, time, callback) {
-    dbSet2Raw.serialize(() => {
+    dbSet5Raw.serialize(() => {
         var stmt = dbSet5Raw.prepare("INSERT INTO set5raw ( raw, time  ) VALUES ( ?, ? )");
+    stmt.run(raw, time);
+    stmt.finalize();
+})
+    callback();
+}
+
+var insertSet6Raw = function (raw, time, callback) {
+    dbSet6Raw.serialize(() => {
+        var stmt = dbSet6Raw.prepare("INSERT INTO set6raw ( raw, time  ) VALUES ( ?, ? )");
     stmt.run(raw, time);
     stmt.finalize();
 })
@@ -139,6 +149,26 @@ var selectSet5Raw = function (callback) {
     dbSet5Raw.serialize(() => {
         var sql = 'SELECT * FROM set5raw';
     dbSet5Raw.all(sql, [], (err, rows) => {
+        if (err) {
+            throw err;
+        }
+        rows.forEach((row) => {
+        data.push(row.raw)
+    time.push(row.time)
+})
+    ;
+    callback(data, time)
+})
+    ;
+})
+}
+
+var selectSet6Raw = function (callback) {
+    var data = []
+    var time = []
+    dbSet6Raw.serialize(() => {
+        var sql = 'SELECT * FROM set6raw';
+    dbSet6Raw.all(sql, [], (err, rows) => {
         if (err) {
             throw err;
         }
@@ -250,6 +280,20 @@ module.exports = {
     },
     createSet5: function (callback) {
         dbSet5Raw.run("CREATE TABLE IF NOT EXISTS set5raw( raw TEXT, time FLOAT )")
+        callback();
+    },
+    selectSet6Raw: function (callback) {
+        selectSet6Raw(function (raw, time) {
+            callback(raw, time)
+        })
+    },
+    insertSet6Raw: function (raw, time, callback) {
+        insertSet6Raw(raw.toString(), time, function () {
+            callback()
+        })
+    },
+    createSet6: function (callback) {
+        dbSet6Raw.run("CREATE TABLE IF NOT EXISTS set6raw( raw TEXT, time FLOAT )")
         callback();
     },
 

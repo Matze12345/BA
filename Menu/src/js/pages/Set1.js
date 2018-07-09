@@ -57,7 +57,7 @@ export default class Set1 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleChange = (e, {itemId}) => {
@@ -85,7 +85,7 @@ export default class Set1 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleSend = () => {
@@ -126,11 +126,12 @@ export default class Set1 extends React.Component {
         const {load} = this.state
 
         var options = [
-            {text: 'Test1', value: 'Test1'},
-            {text: 'Test2', value: 'Test2'},
-            {text: 'Test3', value: 'Test3'},
-            {text: 'Test4', value: 'Test4'},
-            {text: 'Test5', value: 'Test5'},
+            {text: 'Ultimate', value: '1'},
+            {text: 'Diesel', value: '2'},
+            {text: 'E10', value: '3'},
+            {text: 'Erdgas', value: '4'},
+            {text: 'Autogas', value: '5'},
+            {text: 'Benzin', value: '6'},
         ]
 
         return (
@@ -144,7 +145,7 @@ export default class Set1 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Ändern Sie die Farbe des Kreises
+                                        Wählen Sie die Kraftstoffart Ihres Autos aus
                                     </h3>
                                 </div>
                                 <br/>
@@ -161,6 +162,8 @@ export default class Set1 extends React.Component {
                                 <br/>
                             </div>
 
+                            <br/>
+                            <br/>
                             <div>
                                 <div class="center">
                                     <Button primary onClick={this.handleSend}>senden</Button>

@@ -11,6 +11,7 @@ var set2 = require('./routes/set2')
 var set3 = require('./routes/set3')
 var set4 = require('./routes/set4')
 var set5 = require('./routes/set5')
+var set6 = require('./routes/set6')
 
 var neuronal = require('./logic/neuronal')
 var db = require('./database/dbNeuronal')
@@ -38,6 +39,7 @@ app.use('/set2', set2);
 app.use('/set3', set3);
 app.use('/set4', set4);
 app.use('/set5', set5);
+app.use('/set6', set6);
 
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

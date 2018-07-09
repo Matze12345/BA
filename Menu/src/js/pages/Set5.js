@@ -59,7 +59,7 @@ export default class Set3 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleChange = (e, {value}) => {
@@ -68,7 +68,7 @@ export default class Set3 extends React.Component {
 
     handleSend = () => {
         var {input} = this.state
-        this.props.dispatch(fetchClickData('set5', input, performance.now(), "end"))
+        this.props.dispatch(fetchClickData('set5', input, performance.now(), "set6"))
     }
 
 
@@ -96,7 +96,7 @@ export default class Set3 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+            //console.log(input)
         }
     }
 
@@ -116,7 +116,7 @@ export default class Set3 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Frage
+                                        Geschlecht
                                     </h3>
                                 </div>
                                 <br/>
@@ -129,25 +129,25 @@ export default class Set3 extends React.Component {
                             <div>
                                 <div class="center">
 
-                                                <Radio slider itemId="1" name='art' label='Herren' value='herren'
-                                                            checked={sel === 'herren'}
-                                                    //  onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //  error={errors.art ? "error" : ""}
-                                                />
-                                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                                <Radio slider itemId="1" name='art' label='Damen' value='damen'
-                                                            checked={sel === 'damen'}
-                                                    //   onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //   error={errors.art ? "error" : ""}
-                                                />
+                                    <Radio slider itemId="1" name='art' label='Männlich' value='herren'
+                                           checked={sel === 'herren'}
+                                        //  onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //  error={errors.art ? "error" : ""}
+                                    />
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <Radio slider itemId="1" name='art' label='Weiblich' value='damen'
+                                           checked={sel === 'damen'}
+                                        //   onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //   error={errors.art ? "error" : ""}
+                                    />
 
                                 </div>
                                 <br/>
                             </div>
 
-
+                            <br/><br/>
                             <div>
                                 <div class="center">
                                     <Button primary onClick={this.handleSend}>senden</Button>

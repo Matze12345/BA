@@ -38,7 +38,7 @@ export default class Set6 extends React.Component {
 
     handleClick = (e) => {
         var mainButton = document.getElementById('btnRev').innerHTML;
-        console.log(mainButton)
+        //console.log(mainButton)
 
         var {input} = this.state
         if (input.length != 0 && input[input.length - 1].type == "move") {
@@ -64,7 +64,7 @@ export default class Set6 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleChange = (e, {value}) => {
@@ -73,7 +73,7 @@ export default class Set6 extends React.Component {
 
     handleSend = () => {
         var {input} = this.state
-        this.props.dispatch(fetchClickData('set5', input, performance.now(), "end"))
+        this.props.dispatch(fetchClickData('set6', input, performance.now(), "end"))
     }
 
 
@@ -101,7 +101,7 @@ export default class Set6 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+           // console.log(input)
         }
     }
 
@@ -121,7 +121,7 @@ export default class Set6 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Frage
+                                         Wählen Sie die Kraftstoffart Ihres Autos aus
                                     </h3>
                                 </div>
                                 <br/>
@@ -135,7 +135,7 @@ export default class Set6 extends React.Component {
                                 <div class="center">
                                     <div onClick={this.handleClick}>
                                         <RevolverButton className="2" htmlElement="" btnName="Touch" maxItems="6"
-                                                        values={['Alle', 'Diesel', 'E10', 'Erdgas', 'Autogas', 'Benzin']}
+                                                        values={['Ultimate', 'Diesel', 'E10', 'Erdgas', 'Autogas', 'Benzin']}
                                                         onClick={this.handleClick}/>
                                     </div>
                                 </div>

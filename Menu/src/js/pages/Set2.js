@@ -59,7 +59,7 @@ export default class Set2 extends React.Component {
             // }
         })
 
-        console.log(input)
+       // console.log(input)
     }
 
     handleChange = (e, {value}) => {
@@ -96,7 +96,7 @@ export default class Set2 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+            //console.log(input)
         }
     }
 
@@ -116,7 +116,7 @@ export default class Set2 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Frage
+                                        Alter
                                     </h3>
                                 </div>
                                 <br/>
@@ -129,27 +129,36 @@ export default class Set2 extends React.Component {
                             <div>
                                 <div class="center">
 
-                                                <Radio itemId="1" name='art' label='Radio1 ' value='radio1'
-                                                            checked={sel === 'radio1'}
-                                                    //  onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //  error={errors.art ? "error" : ""}
-                                                />
-                                     	&nbsp; &nbsp; &nbsp; &nbsp;
-                                                <Radio itemId="1" name='art' label='Radio2 ' value='radio2'
-                                                            checked={sel === 'radio2'}
-                                                    //   onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //   error={errors.art ? "error" : ""}
-                                                />
+                                    <Radio itemId="1" name='art' label='unter 18 ' value='radio1'
+                                           checked={sel === 'radio1'}
+                                        //  onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //  error={errors.art ? "error" : ""}
+                                    />
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <Radio itemId="1" name='art' label='über 18 ' value='radio2'
+                                           checked={sel === 'radio2'}
+                                        //   onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //   error={errors.art ? "error" : ""}
+                                    />
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <Radio itemId="1" name='art' label='über 25 ' value='radio3'
+                                           checked={sel === 'radio3'}
+                                        //   onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //   error={errors.art ? "error" : ""}
+                                    />
 
                                 </div>
                                 <br/>
                             </div>
 
                             <br/>
+                            <br/>
+                            <br/>
 
-                             <div>
+                            <div>
                                 <div class="center">
                                     <Button primary onClick={this.handleSend}>senden</Button>
                                 </div>

@@ -59,7 +59,7 @@ export default class Set3 extends React.Component {
             // }
         })
 
-        console.log(input)
+        //console.log(input)
     }
 
     handleChange = (e, {value}) => {
@@ -96,7 +96,7 @@ export default class Set3 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+            //console.log(input)
         }
     }
 
@@ -116,7 +116,7 @@ export default class Set3 extends React.Component {
                             <div>
                                 <div class="center">
                                     <h3>
-                                        Frage
+                                        Geschlecht
                                     </h3>
                                 </div>
                                 <br/>
@@ -128,24 +128,24 @@ export default class Set3 extends React.Component {
 
                             <div>
                                 <div class="center">
-                                                <Radio toggle itemId="1" name='art' label='Toggle1' value='toggle1'
-                                                            checked={sel === 'toggle1'}
-                                                    //  onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //  error={errors.art ? "error" : ""}
-                                                />
-                                                &nbsp; &nbsp; &nbsp; &nbsp;
-                                                <Radio toggle itemId="1" name='art' label='Toggle2' value='toggle2'
-                                                            checked={sel === 'toggle2'}
-                                                    //   onKeyUp={this.handleKeyUp}
-                                                            onClick={this.handleClick} onChange={this.handleChange}
-                                                    //   error={errors.art ? "error" : ""}
-                                                />
+                                    <Radio toggle itemId="1" name='art' label='Männlich' value='toggle1'
+                                           checked={sel === 'toggle1'}
+                                        //  onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //  error={errors.art ? "error" : ""}
+                                    />
+                                    &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <Radio toggle itemId="1" name='art' label='Weiblich' value='toggle2'
+                                           checked={sel === 'toggle2'}
+                                        //   onKeyUp={this.handleKeyUp}
+                                           onClick={this.handleClick} onChange={this.handleChange}
+                                        //   error={errors.art ? "error" : ""}
+                                    />
 
                                 </div>
                                 <br/>
                             </div>
-
+                            <br/><br/>
 
                             <div>
                                 <div class="center">

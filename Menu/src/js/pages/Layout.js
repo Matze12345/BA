@@ -20,7 +20,7 @@ export default class Layout extends React.Component {
                 <div>
                     <div class="jumbotron" style={{backgroundColor: "#2185d0" }}>
                         <div class="container">
-                            <h1>Icons</h1>
+                            <h1>Buttons</h1>
                             <p>KI & Web</p>
                         </div>
                     </div>
