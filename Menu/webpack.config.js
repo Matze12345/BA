@@ -1,4 +1,4 @@
-var debug = process.env.NODE_ENV !== "production";
+/*var debug = process.env.NODE_ENV !== "production";
 var webpack = require('webpack');
 var path = require('path');
 
@@ -34,7 +34,7 @@ module.exports = {
     output: {
         path: __dirname + "/src/",
         filename: "client.min.js",
-         publicPath: "/javascripts/",
+        // publicPath: "/javascripts/",
     },
     plugins: debug ? [] : [
         new webpack.optimize.DedupePlugin(),
@@ -48,10 +48,10 @@ module.exports = {
             }
         }),
     ]
-};
+};*/
 
 
-/*var path = require('path');
+var path = require('path');
 const webpack = require('webpack');
 
 module.exports = {
@@ -118,7 +118,7 @@ module.exports = {
         new webpack.optimize.MinChunkSizePlugin({minChunkSize: 10000}),
         new webpack.optimize.LimitChunkCountPlugin({maxChunks: 15}),
     ],
-}; */
+};
 
 
 

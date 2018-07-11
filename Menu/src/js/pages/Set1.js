@@ -117,7 +117,7 @@ export default class Set1 extends React.Component {
                 input[input.length - 1].y = y
             }
             this.setState({x: x, y: y, input: input})
-            console.log(input)
+           // console.log(input)
         }
     }
 

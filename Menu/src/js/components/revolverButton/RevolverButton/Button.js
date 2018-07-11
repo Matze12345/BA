@@ -24,7 +24,7 @@ export default class Button extends React.Component {
 
 		var mainButton = document.getElementById('btnRev').innerHTML = value;
 
-		console.log("click")
+		//console.log("click")
 	}
 
 	//wird nur aufgerufen, wenn großer Button in der Mitte geklickt wird
@@ -35,7 +35,7 @@ export default class Button extends React.Component {
 		//var background = document.getElementsByTagName('body')[0];
 		//background.style.backgroundColor = "grey";
 		//background.style.opacity = 0.8;
-		console.log("click")
+		//console.log("click")
 	}
 
 	render() {

@@ -40,7 +40,7 @@ export function fetchClickData(path, data, time, nextPage) {
                     //console.log(response);
                     response.json().then(json => {
                         dispatch(setClickData(json));
-                        console.log(nextPage, path)
+                        //console.log(nextPage, path)
                         //if (path != "set3" || nextPage != "set3") {
                            // console.log("new page")
                             //dispatch(setInitState({form: [], status: true}));
